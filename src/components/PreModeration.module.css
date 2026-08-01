@@ -1,0 +1,127 @@
+/* PreModeration — from Reports/PREMODERATION.aspx
+   Panel: "PREMODERATION REPORT" (bold) | Download (Visible=false) | Semester (ddl) | Export (btn-success 100px)
+   CrystalReportViewer. No View, no "Click Here To Print" checkbox.
+*/
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #eef5fb;
+  border: 1px solid #b8d9ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.spacer {
+  flex: 1;
+  min-width: 10px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  min-width: 140px;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #17a2b8;
+}
+
+.downloadBtn {
+  padding: 8px 20px;
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+}
+
+.downloadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exportBtn {
+  padding: 8px 20px;
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+}
+
+.exportBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.reportArea {
+  min-height: 320px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+}
+
+.loadingState {
+  color: #17a2b8;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.reportPlaceholder {
+  color: #495057;
+  font-size: 14px;
+  text-align: center;
+  max-width: 480px;
+}
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .spacer { display: none; }
+  .select { min-width: 100%; }
+}

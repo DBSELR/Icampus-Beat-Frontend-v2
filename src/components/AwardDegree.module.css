@@ -1,0 +1,218 @@
+/* AwardDegree.aspx — NBA Award Degree List
+   Panel: yellow .alert — bg #fcf8e3, border #fbeed5, color #c09853
+   Controls: Batch | Exam M/Y (cascade from Batch) | Export Excel (btn-success)
+   Note: btnView is hidden in original ASPX — only Export Excel visible
+*/
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #fcf8e3;
+  border: 1px solid #fbeed5;
+  border-radius: 4px;
+  padding: 8px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  min-height: 36px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #c09853;
+  white-space: nowrap;
+}
+
+.select {
+  min-width: 130px;
+  padding: 5px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #f0ad4e;
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.viewBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #17a2b8;
+  color: #fff;
+}
+.viewBtn:hover:not(:disabled) { background: #138496; }
+.viewBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.downloadBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #ffc107;
+  color: #000;
+}
+.downloadBtn:hover:not(:disabled) { background: #e0a800; }
+.downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.exportBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+  width: 120px;
+}
+
+.exportBtn:hover:not(:disabled) { background: #218838; }
+.exportBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.message {
+  margin: 6px 0 0 0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+.messageError   { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
+
+.reportArea {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 20px;
+  min-height: 320px;
+}
+
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.loadingState {
+  color: #17a2b8;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.tableWrapper { overflow-x: auto; margin-top: 4px; padding: 20px; background: #fff; }
+
+.printableReport {
+  font-family: Arial, sans-serif;
+  color: #000;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.logoBox { flex: 1; text-align: left; }
+.logo { max-width: 140px; }
+.emptyBox { flex: 1; }
+.titleBox {
+  flex: 2;
+  text-align: center;
+}
+.titleBox h2 {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+}
+.subtext {
+  font-size: 14px;
+  margin: 2px 0 0 0;
+}
+
+.subtitleRow {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.subtitleRow h3 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #b30000; /* Dark red/maroon color */
+  margin: 0;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.reportTable th, .reportTable td {
+  border: 1px solid #000;
+  padding: 6px 8px;
+}
+.reportTable th {
+  font-weight: bold;
+  text-align: center;
+}
+.reportTable td.center { text-align: center; }
+.reportTable td.leftAlign { text-align: left; }
+
+.reportTable tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .actionsGroup { margin-left: 0; justify-content: space-between; }
+  .select { min-width: 100%; }
+}

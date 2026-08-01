@@ -1,0 +1,202 @@
+/* Apply Schema module styles */
+
+/* ── Top bar ── */
+.topBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px 24px;
+  margin-bottom: 4px;
+}
+
+.topField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.select {
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  width: 220px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.selectSm {
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  width: 100px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.select:focus,
+.selectSm:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
+}
+
+.topActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 2px;
+}
+
+/* ── Main two-column layout ── */
+.mainLayout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.leftPanel {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.rightPanel {
+  flex: 0 0 320px;
+}
+
+/* ── Section label ── */
+.sectionLabel {
+  background: #e8edf3;
+  border: 1px solid #d1d9e0;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background: #3b82f6;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+/* ── Left info box ── */
+.infoBox {
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 16px 20px;
+  min-height: 320px;
+  background: #f8fafc;
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.infoBox p { margin: 0 0 6px; }
+
+.placeholder {
+  color: #94a3b8;
+  font-style: italic;
+  margin: 0;
+}
+
+/* ── Totals row ── */
+.totalsRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+}
+
+.totalLabel {
+  font-weight: 700;
+  font-size: 14px;
+  color: #1d4ed8;
+}
+
+.totalInput {
+  width: 100px;
+  padding: 5px 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #dc2626;
+  text-align: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #fff;
+}
+
+/* ── Papers listbox ── */
+.listBox {
+  width: 100%;
+  height: 360px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  font-size: 13px;
+  padding: 4px;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.listBox option {
+  padding: 5px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.listBox option:checked {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.listHint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+/* ── Messages ── */
+.msgError {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.msgSuccess {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 4px;
+  color: #15803d;
+  font-size: 13px;
+}

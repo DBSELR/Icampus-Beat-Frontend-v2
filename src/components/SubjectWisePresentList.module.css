@@ -1,0 +1,176 @@
+/* Subject Wise PresentList — from Post-Exams/Studentwise_presentlist.aspx
+   Filters: Semester, Regsup (Select RegSup, REG, Sup) | Export Data (badge-important, ForeColor #ffff00)
+   No View/Download, no print checkbox, no CrystalReportViewer
+*/
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #eef5fb;
+  border: 1px solid #b8d9ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.select {
+  min-width: 140px;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #17a2b8;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* .NET: CssClass="badge-important" ForeColor="#ffff00" */
+.exportBtn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #b94a48;
+  color: #ffff00;
+}
+
+.exportBtn:hover {
+  background: #a94442;
+}
+
+.exportBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.downloadBtn {
+  padding: 8px 16px;
+  min-width: 80px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+}
+
+.downloadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  padding: 10px 16px;
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.loadingState {
+  color: #17a2b8;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.reportContent {
+  width: 100%;
+  overflow: auto;
+}
+
+.reportTableWrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.reportTable th,
+.reportTable td {
+  border: 1px solid #dee2e6;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.reportTable th {
+  background: #eef5fb;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.resultArea {
+  min-height: 200px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.resultArea > .placeholder,
+.resultArea > .loadingState {
+  margin: auto;
+  text-align: center;
+}
+
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+}
+
+.exportPlaceholder {
+  color: #495057;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .select { min-width: 100%; }
+  .actionsGroup { justify-content: flex-start; }
+}

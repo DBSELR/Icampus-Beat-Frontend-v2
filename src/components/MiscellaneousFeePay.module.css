@@ -1,0 +1,600 @@
+/* ================================================
+   Miscellaneous Fee Pay — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.receiptInfo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.receiptLabel {
+  color: #64748b;
+}
+
+.receiptNumber {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.collapseBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseBtn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.collapseBtn.rotated {
+  transform: rotate(180deg);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.formContainer {
+  transition: all 0.3s ease;
+}
+
+.formContainer.collapsed {
+  display: none;
+}
+
+.formSection {
+  margin-bottom: 20px;
+}
+
+.formRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.formGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 5px;
+  text-align: left;
+  font-family: 'Outfit', sans-serif;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.input:read-only {
+  background: #f1f5f9;
+  cursor: not-allowed;
+  color: #64748b;
+}
+
+.input:disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  padding: 16px 0;
+  background: #f8fafc;
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.saveBtn,
+.cancelBtn,
+.exportBtn,
+.deleteBtn,
+.printBtn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.saveBtn:disabled,
+.cancelBtn:disabled,
+.exportBtn:disabled,
+.deleteBtn:disabled,
+.printBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.saveBtn {
+  background: #10b981;
+  color: #fff;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.cancelBtn {
+  background: #64748b;
+  color: #fff;
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+.exportBtn {
+  background: var(--theme-color, #0ea5e9);
+  color: #fff;
+}
+
+.exportBtn:hover:not(:disabled) {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.printBtn {
+  background: #8b5cf6;
+  color: #fff;
+}
+
+.printBtn:hover:not(:disabled) {
+  background: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.feeSection {
+  margin-top: 20px;
+}
+
+.totalFeeContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.totalFeeInput {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  background: #f8fafc;
+  color: #ef4444;
+  text-align: center;
+  font-weight: 700;
+  width: 200px;
+  cursor: not-allowed;
+  font-family: 'Inter', sans-serif;
+}
+
+.totalFeeInput:disabled {
+  opacity: 1;
+}
+
+.tableContainer {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: auto;
+  height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Match ASP.NET table-bordered table-condensed styling */
+.dataTable th,
+.dataTable td {
+  border: 1px solid #e2e8f0;
+}
+
+.dataTable thead {
+  background: #f8fafc;
+  color: #334155;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  font-weight: 600;
+}
+
+.dataTable thead th {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.dataTable th {
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.dataTable th:last-child {
+  border-right: none;
+}
+
+.dataTable tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.dataTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+.dataTable td {
+  padding: 6px 8px;
+  vertical-align: middle;
+  color: #1e293b;
+}
+
+/* Column widths matching ASP.NET */
+.feeTypeCol {
+  width: 100px;
+}
+
+.feeNameCol {
+  width: auto;
+}
+
+.countCol {
+  width: 80px;
+}
+
+.amountCol {
+  width: 100px;
+}
+
+.selectCol {
+  width: 13%;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.countInput {
+  width: 60px;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  color: #000;
+  background: #fff;
+  text-align: center;
+  font-size: 12px;
+}
+
+.countInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.noDataMessage {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .actionButtons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .saveBtn,
+  .cancelBtn,
+  .exportBtn,
+  .deleteBtn,
+  .printBtn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+/* Scrollbar Styling */
+.tableContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Loading States */
+.loadingOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.loader {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #333;
+}
+
+.loadingState {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Error Message */
+.errorMessage {
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  color: #721c24;
+  font-size: 14px;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modalContent {
+  background-color: #fff;
+  border: 3px solid #000;
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.modalHeader {
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.modalBody {
+  margin-bottom: 15px;
+}
+
+.modalBody label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modalInput:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.modalYesBtn,
+.modalNoBtn {
+  padding: 8px 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modalYesBtn {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.modalYesBtn:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+}
+
+.modalNoBtn {
+  background: #fff;
+  color: #333;
+}
+
+.modalNoBtn:hover {
+  background: #f8f9fa;
+}

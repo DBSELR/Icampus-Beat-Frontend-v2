@@ -1,0 +1,358 @@
+/* ================================================
+   Condonation Fee — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.collapseBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseBtn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.collapseBtn.rotated {
+  transform: rotate(180deg);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Form */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form Panel */
+.formPanel {
+  padding: 24px;
+  width: 100%;
+  max-width: 800px;
+  background: #ffffff;
+  margin: 0 auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+/* Form Table */
+.formTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+}
+
+.formTable td {
+  padding: 0 15px;
+  vertical-align: top;
+  width: 50%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  margin-bottom: 0;
+  display: block;
+  font-family: 'Outfit', sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.input:read-only, .input:disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+  color: #64748b;
+  border-color: #e2e8f0;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-top: 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.saveBtn,
+.cancelBtn,
+.excelFormatBtn,
+.condonationListBtn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.saveBtn {
+  background: #10b981;
+  color: #fff;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.cancelBtn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.excelFormatBtn {
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.excelFormatBtn:hover:not(:disabled) {
+  background: #f1f5f9;
+}
+
+.condonationListBtn {
+  background: var(--theme-color, #0ea5e9);
+  color: #fff;
+}
+
+.condonationListBtn:hover:not(:disabled) {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled,
+.cancelBtn:disabled,
+.excelFormatBtn:disabled,
+.condonationListBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Bottom Panel */
+.bottomPanel {
+  margin-top: 30px;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  background: #fff;
+}
+
+.emptyTable {
+  text-align: center;
+  color: #64748b;
+  padding: 40px;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Data Table */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  min-width: 800px;
+}
+
+.dataTable thead {
+  background: #f8fafc;
+}
+
+.dataTable th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.dataTable td {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 14px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  font-family: 'Inter', sans-serif;
+}
+
+.dataTable tbody tr {
+  transition: background-color 0.2s;
+}
+
+.dataTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formTable td {
+    display: block;
+    width: 100%;
+    padding: 0;
+  }
+  
+  .buttonGroup {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+

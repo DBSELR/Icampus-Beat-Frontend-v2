@@ -1,0 +1,379 @@
+.container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Top Header Section */
+.boxHeader {
+  background: #f8f9fa;
+  color: #333;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.boxHeader h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.headerIcon {
+  font-size: 18px;
+  color: #000;
+}
+
+.boxIcon {
+  display: flex;
+  align-items: center;
+}
+
+.minimizeBtn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.minimizeBtn:hover {
+  background: #e9ecef;
+}
+
+.minimizeBtn.rotated {
+  transform: rotate(180deg);
+}
+
+/* Box Content */
+.boxContent {
+  transition: all 0.3s ease;
+}
+
+.boxContent.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Form Container */
+.formContainer {
+  padding: 20px;
+}
+
+.form {
+  width: 100%;
+}
+
+.formContent {
+  width: 100%;
+}
+
+/* Filter Table */
+.filterTable {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+/* .filterTable td {
+  padding: 5px 10px;
+  vertical-align: middle;
+} */
+
+/* .checkboxCell {
+  padding-left: 10px;
+} */
+
+.labelCell {
+  color: #000;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+.controlCell {
+  padding-left: 5px;
+}
+
+.buttonCell {
+  padding-left: 5px;
+}
+
+/* Checkbox Styling */
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: medium;
+  margin-left: 0px;
+}
+
+.checkbox input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  margin-right: 7px;
+  margin-left: 5px;
+  opacity: 1;
+}
+
+.checkboxText {
+  font-size: medium;
+  color: #333;
+}
+
+/* Dropdown Styling */
+.dropdown {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: #4682b4;
+  box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+}
+
+/* Success Button Styling */
+.successBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.successBtn:hover {
+  background: #218838;
+}
+
+/* Data Table Container */
+.dataTableContainer {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.spacerCell {
+  width: 5%;
+}
+
+.mainContentCell {
+  width: 90%;
+}
+
+.buttonRow {
+  height: 40px;
+}
+
+/* Data Box */
+.dataBox {
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.dataBoxHeader {
+  background: #f8f9fa;
+  color: #333;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.dataBoxHeader h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.dataHeaderIcon {
+  font-size: 18px;
+  color: #000;
+}
+
+.dataBoxIcon {
+  display: flex;
+  align-items: center;
+}
+
+.dataBoxContent {
+  transition: all 0.3s ease;
+}
+
+.dataBoxContent.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Data Section — sibling to formContainer, outside any layout table */
+.dataSection {
+  padding: 0 20px 20px;
+}
+
+/* Table Panel — bounded width enables overflow-x scroll */
+.tablePanel {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 450px;
+  border: 1px solid #dee2e6;
+}
+
+/* SGPA and CGPA Table */
+.sgpaCgpaTable {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 12px;
+}
+
+.sgpaCgpaTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f8f9fa;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 8px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.sgpaCgpaTable td {
+  padding: 8px 6px;
+  border: 1px solid #eee;
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.statusBadge {
+  background: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.noDataMessage {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Export Button */
+.exportBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.exportBtn:hover {
+  background: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .filterTable {
+    width: 100%;
+    font-size: 12px;
+  }
+  
+  .filterTable td {
+    padding: 3px 5px;
+  }
+  
+  .dropdown {
+    min-width: 120px;
+    font-size: 12px;
+  }
+  
+  .successBtn {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  
+  .boxHeader,
+  .dataBoxHeader {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .sgpaCgpaTable {
+    font-size: 11px;
+  }
+  
+  .sgpaCgpaTable th,
+  .sgpaCgpaTable td {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+  
+  .formContainer {
+    padding: 15px;
+  }
+}

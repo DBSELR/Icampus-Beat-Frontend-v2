@@ -1,0 +1,34 @@
+.layoutContainer {
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+}
+
+.layoutBody {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: calc(100vh - 120px);
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.layoutMain {
+  flex: 1;
+  height: calc(100vh - 120px);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 10px;
+} 

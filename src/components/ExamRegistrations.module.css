@@ -1,0 +1,891 @@
+/* ================================================
+   Exam Registrations — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Main Layout */
+.mainLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .mainLayout {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+/* Left Section */
+.leftSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* H.T.No. Section */
+.htNoSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.htNoLabel {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.spacer {
+  padding-left: 10px;
+}
+
+.htNoInput {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  background: #f8fafc;
+  color: #1e293b;
+  text-transform: uppercase;
+  width: 200px;
+  transition: all 0.2s ease;
+}
+
+.htNoInput:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.studentName {
+  font-size: 16px;
+  color: #000;
+  margin-left: 10px;
+}
+
+.loadingText {
+  font-size: 14px;
+  color: #007bff;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+/* Semester Grid */
+.semesterGrid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .semesterGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Semester Section */
+.semesterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f8fafc;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.semesterFeeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.semesterFee {
+  color: green;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.listBoxLabel {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 5px;
+  padding: 2px 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkbox {
+  cursor: pointer;
+}
+
+.papersListBox {
+  width: 100%;
+  height: 160px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.papersListBox:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.papersListBox option {
+  padding: 3px 5px;
+  cursor: pointer;
+}
+
+/* Regular papers - blue text when unselected */
+.papersListBox option.regularOption {
+  color: #0066cc !important;
+  background: #ffffff !important;
+}
+
+/* Supplementary papers - red text when unselected */
+.papersListBox option.supplyOption {
+  color: #cc0000 !important;
+  background: #ffffff !important;
+}
+
+/* Selected regular papers - keep blue text, no background highlight */
+.papersListBox option.regularOption:checked {
+  background: #ffffff !important;
+  color: #0066cc !important;
+  font-weight: bold;
+}
+
+/* Selected supplementary papers - keep red text, no background highlight */
+.papersListBox option.supplyOption:checked {
+  background: #ffffff !important;
+  color: #cc0000 !important;
+  font-weight: bold;
+}
+
+/* Already registered/opted papers (blue background) */
+.papersListBox option.registeredOption {
+  background-color: #007bff !important;
+  color: #fff !important;
+  font-weight: normal;
+}
+
+.papersListBox option.registeredOption:checked {
+  background-color: #0056b3 !important;
+  color: #fff !important;
+}
+
+/* Default selected state (fallback) - no background highlight */
+.papersListBox option:checked {
+  background: #ffffff !important;
+  color: inherit;
+}
+
+/* Custom Checkbox List Container */
+.checkboxListContainer {
+  flex: 1;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.checkboxItem:hover {
+  background-color: #f8fafc;
+}
+
+.checkboxItem input[type="checkbox"] {
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.subjectText {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: #334155;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.subjectText.registered {
+  color: #059669; /* Green for registered */
+}
+
+.subjectText.supply {
+  color: #dc2626; /* Red for supply */
+}
+
+/* Right Section */
+.rightSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+@media (min-width: 1024px) {
+  .rightSection {
+    flex: 0 0 320px;
+    position: sticky;
+    top: 24px;
+    align-self: flex-start;
+  }
+}
+
+/* Selected Papers Section */
+.selectedPapersSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.selectedPapersLabel {
+  color: var(--theme-color, #0f766e);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  padding: 4px 0;
+}
+
+.selectedPapersPanel {
+  height: 250px;
+  width: 100%;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  overflow-y: auto;
+  background: #ffffff;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.emptyPanel {
+  color: #999;
+  text-align: center;
+  padding-top: 50%;
+  font-style: italic;
+}
+
+.selectedPapersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selectedPapersList li {
+  padding: 5px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+  background: transparent !important;
+}
+
+.selectedPapersList li:last-child {
+  border-bottom: none;
+}
+
+/* Regular and Supplementary paper text colors (no background) */
+.regularPaperText {
+  color: #0066cc;
+  background: transparent !important;
+}
+
+.supplyPaperText {
+  color: #cc0000;
+  background: transparent !important;
+}
+
+/* Fee Details Section */
+.feeDetailsSection {
+  margin-top: 10px;
+}
+
+.feeTable {
+  width: 100%;
+  font-size: 11pt;
+  padding: 2%;
+}
+
+.feeTable tr {
+  height: 40px;
+}
+
+.feeLabel {
+  width: 50%;
+  text-align: right;
+  padding-right: 10px;
+  vertical-align: middle;
+  color: #000;
+}
+
+.feeInput {
+  width: 60%;
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  color: #000;
+  text-align: left;
+}
+
+.feeInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Action Buttons Section */
+.actionButtonsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  align-items: flex-end;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.registerBtn {
+  padding: 8px 20px;
+  background: #10b981; /* Emerald green */
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.registerBtn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.rePrintBtn {
+  padding: 8px 20px;
+  background: var(--theme-color, #3b82f6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.rePrintBtn:hover {
+  background: var(--theme-color-dark, #2563eb);
+  transform: translateY(-1px);
+}
+
+.cancelReceiptBtn {
+  padding: 8px 20px;
+  background: #64748b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.cancelReceiptBtn:hover {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+.registeredListBtn {
+  padding: 8px 20px;
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.registeredListBtn:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.toBeRegisteredListBtn {
+  padding: 8px 20px;
+  background: #f43f5e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.toBeRegisteredListBtn:hover {
+  background: #e11d48;
+  transform: translateY(-1px);
+}
+
+.registerAllBtn {
+  padding: 8px 20px;
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  width: 200px;
+  transition: all 0.2s;
+}
+
+.registerAllBtn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+/* Unregister Button */
+.unregisterBtn {
+  padding: 8px 20px;
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.unregisterBtn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+/* Warning Modal - Top Right Corner */
+.warningModalTopRight {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.warningModalContent {
+  background: #fff;
+  border-radius: 8px;
+  min-width: 350px;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid #dc3545;
+}
+
+.warningModalHeader {
+  background: #dc3545;
+  color: #fff;
+  padding: 12px 15px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.warningModalHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.warningModalCloseBtn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.warningModalCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.warningModalBody {
+  padding: 15px 20px;
+}
+
+.warningModalMessage {
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #fff;
+  border-radius: 10px;
+  min-width: 400px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  background: #337ab7;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.modalCloseBtn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.modalCloseBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modalBody {
+  padding: 20px;
+}
+
+.modalMessage {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modalFormGroup {
+  margin-bottom: 15px;
+}
+
+.modalFormGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: royalblue;
+  font-size: 14px;
+}
+
+.modalInput,
+.modalSelect {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.modalInput:focus,
+.modalSelect:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modalSubmitBtn {
+  padding: 8px 20px;
+  background: #337ab7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.modalSubmitBtn:hover {
+  background: #286090;
+}
+
+/* Scrollbar Styling */
+.selectedPapersPanel::-webkit-scrollbar,
+.papersListBox::-webkit-scrollbar {
+  width: 8px;
+}
+
+.selectedPapersPanel::-webkit-scrollbar-track,
+.papersListBox::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.selectedPapersPanel::-webkit-scrollbar-thumb,
+.papersListBox::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.selectedPapersPanel::-webkit-scrollbar-thumb:hover,
+.papersListBox::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .papersColumn {
+    min-width: 280px;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .mainLayout {
+    flex-direction: column;
+  }
+
+  .rightSection {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-left: 0;
+    padding-top: 20px;
+    position: relative;
+  }
+
+  .semesterGrid {
+    overflow-x: auto;
+  }
+
+  .modalContent {
+    min-width: 90%;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .htNoInput {
+    width: 150px;
+  }
+
+  .papersColumn {
+    min-width: 250px;
+    max-width: 280px;
+  }
+
+  .labelColumn {
+    width: 35px;
+    min-width: 35px;
+  }
+
+  .semesterLabel {
+    font-size: 14px;
+  }
+}
+
+/* List Box Label */
+.listBoxLabel {
+  display: block;
+  font-weight: bold;
+  font-size: 12px;
+  color: #333;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}

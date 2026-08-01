@@ -1,0 +1,322 @@
+.container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  padding: 20px 24px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filtersRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  align-items: end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  background: #ffffff;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.viewBtn,
+.downloadPdfBtn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewBtn {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.viewBtn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+}
+
+.downloadPdfBtn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.downloadPdfBtn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.3);
+}
+
+.viewBtn:disabled,
+.downloadPdfBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Report Area (Grey Background like PDF Viewer) */
+.reportArea {
+  flex: 1;
+  min-height: 400px;
+  background: #808080;
+  border: 1px solid #404040;
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: auto;
+}
+
+.placeholder {
+  color: #ffffff;
+  font-size: 15px;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: auto;
+  font-weight: 500;
+}
+
+.loadingState {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+  margin: auto;
+}
+
+/* Report Wrapper (The "Page") */
+.reportWrapper {
+  width: 100%;
+  max-width: 1100px;
+  background: #ffffff;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+/* UI Header Styles */
+.reportHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.logoContainer {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logo {
+  height: 90px;
+  object-fit: contain;
+}
+
+.titleContainer {
+  text-align: center;
+}
+
+.instituteName {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  color: #000000;
+}
+
+.instituteSub {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  margin: 4px 0 16px 0;
+  color: #000000;
+}
+
+.reportTitle {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #0000ff;
+  font-weight: bold;
+  margin: 0;
+}
+
+.infoBar {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  padding: 0;
+}
+
+.infoBar span:first-child {
+  color: #000000;
+}
+.infoBar span:first-child strong {
+  color: #ff00ff;
+  margin-left: 4px;
+}
+
+.infoBar span:last-child {
+  color: #0000ff;
+}
+.infoBar span:last-child strong {
+  color: #000000;
+  margin-left: 4px;
+}
+
+/* Report Table */
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+}
+
+.reportTable th,
+.reportTable td {
+  padding: 6px 8px;
+  text-align: left;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 13px;
+}
+
+.reportTable th {
+  font-weight: bold;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.alignCenter {
+  text-align: center !important;
+}
+
+.emptyRow {
+  text-align: center !important;
+  color: #000000 !important;
+  font-style: italic;
+  padding: 20px !important;
+}
+
+/* Branch Header */
+.branchHeaderRow {
+  background-color: #e5e7eb !important;
+}
+
+.branchHeaderCell {
+  font-weight: bold;
+  color: #ff00ff;
+  text-align: center !important;
+  font-size: 14px;
+}
+
+/* Pagination Controls - Native unstyled look */
+.paginationBar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageBtn {
+  background: #efefef;
+  border: 1px solid #767676;
+  padding: 2px 6px;
+  font-size: 13px;
+  color: #000000;
+  cursor: pointer;
+}
+
+.pageBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.pageInfo {
+  font-size: 13px;
+  color: #000000;
+}
+
+.pageSizeGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pageSizeLabel {
+  font-size: 13px;
+  color: #000000;
+}
+
+.pageSizeSelect {
+  padding: 1px 2px;
+  border: 1px solid #767676;
+  font-size: 13px;
+  color: #000000;
+}

@@ -1,0 +1,320 @@
+/* ================================================
+   Unblock Registrations — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  width: 100%;
+  max-width: 400px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  font-family: 'Outfit', sans-serif;
+}
+
+.dropdown {
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #1e293b;
+  min-width: 240px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: var(--theme-color, #0ea5e9);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(14, 165, 233, 0.15));
+}
+
+.dropdown:disabled {
+  background-color: #f1f5f9;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.submitBtn {
+  padding: 12px 32px;
+  background: var(--theme-color, #0ea5e9);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.gridContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.gridPanel {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* GridView Table - Premium styling */
+.gridView {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.gridView thead {
+  background: #f8fafc;
+}
+
+.gridView th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.gridView td {
+  padding: 16px 20px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.gridView tbody tr {
+  transition: background-color 0.2s;
+}
+
+.gridView tbody tr:hover {
+  background: #f8fafc;
+}
+
+.gridView tbody tr.selectedRow {
+  background: var(--theme-color-light, #f0f9ff);
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--theme-color, #0ea5e9);
+  border-radius: 4px;
+}
+
+.actionSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.errorMessage {
+  padding: 16px;
+  background: #fef2f2;
+  color: #ef4444;
+  border-radius: 8px;
+  border-left: 4px solid #ef4444;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.loadingMessage {
+  padding: 16px;
+  background: #f0f9ff;
+  color: #0369a1;
+  border-radius: 8px;
+  border-left: 4px solid #38bdf8;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.noDataMessage {
+  padding: 16px;
+  background: #fefce8;
+  color: #854d0e;
+  border-radius: 8px;
+  border-left: 4px solid #facc15;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 30px 20px;
+  }
+
+  .dropdown {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .submitBtn {
+    width: 100%;
+  }
+
+  .gridContainer {
+    overflow-x: auto;
+  }
+
+  .gridView {
+    min-width: 600px;
+  }
+}
+

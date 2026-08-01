@@ -1,0 +1,402 @@
+/* ================================================
+   Receipt Cancel — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Form */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main Table */
+.mainTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mainTable td {
+  padding: 10px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* H.T.No. Label */
+.htNoLabel {
+  font-weight: 600;
+  color: #475569;
+  font-size: 14px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.spacer {
+  padding-left: 10px;
+}
+
+/* H.T.No. Input */
+.htNoInput {
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+  text-transform: uppercase;
+  margin-left: 10px;
+  min-width: 240px;
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.htNoInput:focus {
+  outline: none;
+  border-color: var(--theme-color, #0ea5e9);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(14, 165, 233, 0.15));
+  background: #ffffff;
+}
+
+.htNoInput::placeholder {
+  text-transform: none;
+  color: #94a3b8;
+}
+
+/* Find Button */
+.findButton {
+  padding: 10px 24px;
+  background-color: var(--theme-color, #0ea5e9);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  font-family: 'Inter', sans-serif;
+}
+
+.findButton:hover:not(:disabled) {
+  background-color: #0284c7;
+  transform: translateY(-1px);
+}
+
+.findButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Loading Text */
+.loadingText {
+  color: #666;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+/* Error Message */
+.errorMessage {
+  background-color: #fef2f2;
+  color: #ef4444;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 4px solid #ef4444;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+}
+
+/* Student Name Label */
+.studentNameLabel {
+  color: #10b981;
+  font-size: 15px;
+  margin-left: 16px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Table Container */
+.tableContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 24px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Data Table */
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+.dataTable thead {
+  background: #f8fafc;
+}
+
+.dataTable th {
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.dataTable td {
+  padding: 16px 20px;
+  text-align: left;
+  font-size: 14px;
+  color: #1e293b;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.dataTable tbody tr {
+  transition: background-color 0.2s;
+}
+
+.dataTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* Red Text */
+.redText {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* Papers Cell */
+.papersCell {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Empty Table */
+.emptyTable {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  font-style: italic;
+  background: #fff;
+}
+
+/* Delete Button */
+.deleteBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.deleteBtn:hover {
+  transform: scale(1.2);
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background-color: #ffffff;
+  border-radius: 16px;
+  min-width: 320px;
+  max-width: 400px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.modalHeader {
+  background-color: #f8fafc;
+  color: #1e293b;
+  padding: 20px 24px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  border-bottom: 1px solid #f1f5f9;
+  font-family: 'Outfit', sans-serif;
+}
+
+.modalHeader h3 {
+  margin: 0;
+}
+
+.modalBody {
+  padding: 32px 24px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 15px;
+  color: #475569;
+}
+
+.modalFooter {
+  padding: 16px 24px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  border-top: 1px solid #f1f5f9;
+  background: #f8fafc;
+}
+
+.modalButtonYes {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.modalButtonYes:hover:not(:disabled) {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+.modalButtonYes:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modalButtonNo {
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.modalButtonNo:hover:not(:disabled) {
+  background-color: #f1f5f9;
+}
+
+.modalButtonNo:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .dataTable {
+    width: 100%;
+    min-width: 800px;
+  }
+
+  .htNoInput {
+    min-width: 150px;
+  }
+}
+

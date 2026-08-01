@@ -1,0 +1,349 @@
+.container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Student Data Section */
+.studentDataSection {
+  margin-bottom: 20px;
+}
+
+.box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  height: fit-content;
+}
+
+.boxHeader {
+  background: #f8f9fa;
+  color: #333;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.boxHeader h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.headerIcon {
+  font-size: 18px;
+  color: #000;
+}
+
+.minimizeBtn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.minimizeBtn.rotated {
+  transform: rotate(180deg);
+}
+
+.boxContent {
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.boxContent.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Form Section */
+.formSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLayout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  min-height: 150px;
+}
+
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.centerColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-top: 25px;
+}
+
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.imageColumn {
+  flex: 0 0 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  color: #333;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #4682b4;
+  box-shadow: 0 0 0 2px rgba(70, 130, 180, 0.2);
+}
+
+/* Checkbox and Radio Groups */
+.checkboxGroup,
+.radioGroup {
+  margin-bottom: 15px;
+}
+
+.checkbox,
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: saddlebrown;
+  font-weight: bold;
+}
+
+.checkbox input[type="checkbox"],
+.radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkboxText,
+.radioText {
+  font-size: 14px;
+  color: saddlebrown;
+  font-weight: bold;
+}
+
+/* SGPA/CGPA Table */
+.sgpaTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 12px;
+  border: 1px solid #dee2e6;
+}
+
+.sgpaTable th {
+  background: #f8f9fa;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 6px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.sgpaTable td {
+  padding: 6px 4px;
+  border: 1px solid #eee;
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.noSgpaData {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+  font-style: italic;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Student Image */
+.studentImageContainer {
+  height: 125px;
+  width: 110px;
+  border: 1px solid #ddd;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.noImageAvailable {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+/* Result List Section */
+.resultListSection {
+  margin-bottom: 20px;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.excelExportBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  white-space: nowrap;
+}
+
+.excelExportBtn:hover {
+  background: #218838;
+}
+
+/* Result Table */
+.tableContainer {
+  overflow-x: auto;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.resultTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 12px;
+}
+
+.resultTable th {
+  background: #f8f9fa;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 8px;
+  text-align: center;
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.resultTable td {
+  padding: 8px 6px;
+  border: 1px solid #eee;
+  font-size: 12px;
+  color: #333;
+  text-align: center;
+}
+
+.noDataMessage {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+  font-size: 16px;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .formLayout {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .imageColumn {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .boxHeader {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  
+  .headerActions {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .sgpaTable,
+  .resultTable {
+    font-size: 11px;
+  }
+  
+  .sgpaTable th,
+  .sgpaTable td,
+  .resultTable th,
+  .resultTable td {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+  
+  .fullTable td {
+    padding: 10px 5px;
+  }
+}

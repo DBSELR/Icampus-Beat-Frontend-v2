@@ -1,0 +1,480 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panel {
+  background: #fdf5e6;
+  border: 1px solid #f4e2c6;
+  border-radius: 8px;
+  padding: 16px 18px;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filtersRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  align-items: end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #805b2a;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2cfa9;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #fffaf2;
+  color: #433522;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23433522' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 30px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #d19d5b;
+  box-shadow: 0 0 0 3px rgba(209, 157, 91, 0.25);
+}
+
+.checkboxGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 24px;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #805b2a;
+}
+
+.checkboxLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #805b2a;
+  cursor: pointer;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.viewBtn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #1e9ae2 0%, #3aa0d6 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(30, 154, 226, 0.2);
+}
+
+.viewBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.viewBtn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(30, 154, 226, 0.28);
+}
+
+.exportBtn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(40, 167, 69, 0.2);
+}
+
+.exportBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.exportBtn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(40, 167, 69, 0.28);
+}
+
+.errorMessage {
+  padding: 12px 20px;
+  margin: 0 20px 20px 20px;
+  background: #ffebee;
+  color: #c62828;
+  border-radius: 4px;
+  font-size: 14px;
+  border-left: 4px solid #c62828;
+  text-align: center;
+}
+
+.printReminder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #257d1c;
+}
+
+.printReminder input {
+  width: 16px;
+  height: 16px;
+}
+
+.reportArea {
+  flex: 1;
+  min-height: 380px;
+  background: #ffffff;
+  border: 1px solid #e6eaf0;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(15, 23, 42, 0.06);
+}
+
+.placeholder {
+  color: #6b7280;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+.loadingState {
+  color: #1e9ae2;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.tablePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.tablePlaceholderText {
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  font-style: italic;
+}
+
+.reportAreaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: 1000px;
+  background: #ffffff;
+  padding: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  min-height: 90px;
+}
+
+.logoContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.logo {
+  height: 100px;
+  object-fit: contain;
+}
+
+.headerText {
+  flex: 1;
+  text-align: center;
+}
+
+.instituteName {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+}
+
+.ugcText {
+  font-size: 16px;
+  margin: 5px 0 15px 0;
+  color: #000;
+}
+
+.reportTitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+  letter-spacing: 0.5px;
+}
+
+.infoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  color: #000;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+}
+
+.infoLabel {
+  width: 170px;
+}
+
+.infoLabelRight {
+  width: 50px;
+}
+
+.infoColon {
+  width: 20px;
+  text-align: center;
+}
+
+.infoColonRight {
+  width: 20px;
+  text-align: center;
+}
+
+.infoValue {
+  flex: 1;
+}
+
+.infoValueRight {
+  width: 140px;
+}
+
+.infoValueBold {
+  font-weight: bold;
+}
+
+.infoValueRightBold {
+  font-weight: bold;
+  width: 140px;
+}
+
+.infoValueRightBoldLarge {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: serif;
+  width: 140px;
+}
+
+.infoValueBoldLarge {
+  font-weight: bold;
+  font-size: 20px;
+  font-family: serif;
+}
+
+.attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  border: 1px solid #000;
+}
+
+.attendanceTable th,
+.attendanceTable td {
+  border: 1px solid #000;
+  padding: 8px;
+  color: #000;
+  vertical-align: middle;
+}
+
+.attendanceTable th {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 8px;
+}
+
+.colHtNo {
+  width: 130px;
+  position: relative;
+  vertical-align: top !important;
+  padding: 0 !important;
+}
+
+.snoBox {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  width: 30px;
+  text-align: center;
+  font-size: 12px;
+  background: #e0e0e0;
+  margin-bottom: 15px;
+  padding: 2px 0;
+}
+
+.regNoText {
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+.colNameBarcode {
+  width: 280px;
+  vertical-align: top !important;
+  padding: 10px !important;
+}
+
+.studentName {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.barcodeContainer {
+  display: flex;
+  justify-content: center;
+  padding-right: 20px;
+}
+
+.colBooklet,
+.colSignature {
+  width: 180px;
+  text-align: center;
+}
+
+.emptyBoxLarge {
+  border: 1px solid #000;
+  height: 35px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.colPhoto {
+  width: 110px;
+  text-align: center;
+}
+
+.photoBox {
+  border: 1px solid #000;
+  width: 70px;
+  height: 85px;
+  margin: 0 auto;
+}
+
+.summaryFooter {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.summaryBox {
+  display: flex;
+  border: 1px solid #000;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.summaryItem {
+  flex: 1;
+  padding: 12px 20px;
+  border-right: 1px solid #000;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #000;
+}
+
+.summaryItem:last-child {
+  border-right: none;
+}
+
+.allottedCount {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.signatureText {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 15px;
+  padding-left: 10px;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .filtersRow {
+    grid-template-columns: 1fr;
+  }
+
+  .actionsGroup {
+    flex-direction: column;
+  }
+
+  .viewBtn, .exportBtn {
+    width: 100%;
+  }
+
+  .checkboxGroup {
+    padding-top: 0;
+  }
+}
+

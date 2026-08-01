@@ -1,0 +1,102 @@
+/* Container & Filters */
+.container { padding: 20px; }
+.panel {
+  background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px;
+  padding: 20px; margin-bottom: 20px;
+}
+.filtersRow {
+  display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;
+}
+.filterGroup { display: flex; flex-direction: column; gap: 5px; }
+.label { font-size: 13px; font-weight: 600; color: #495057; }
+.select, .input {
+  min-width: 130px; padding: 5px 10px; border: 1px solid #ced4da;
+  border-radius: 4px; font-size: 13px; background: #fff; color: #333;
+}
+.actionsGroup { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.viewBtn { padding: 6px 18px; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; background: #337ab7; color: #fff; width: 100px; }
+.viewBtn:hover:not(:disabled) { background: #286090; }
+.downloadBtn { padding: 6px 18px; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; background: #28a745; color: #fff; width: 100px; }
+.downloadBtn:hover:not(:disabled) { background: #218838; }
+.message { margin: 6px 0 0 0; padding: 6px 12px; border-radius: 4px; font-size: 13px; font-weight: 600; }
+.messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+.messageError { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
+.checkGroup { display: flex; align-items: center; }
+.checkLabel { display: flex; align-items: center; gap: 5px; font-size: 13px; color: #1c628b; font-weight: 600; cursor: pointer; white-space: nowrap; }
+
+/* Report Area & Loading */
+.reportArea {
+  background: #f0f2f5; border: 1px solid #dee2e6; border-radius: 6px; padding: 20px; min-height: 320px;
+}
+.placeholder, .loadingState {
+  color: #6c757d; font-size: 14px; text-align: center; padding: 60px 0;
+}
+
+/* ------------------------------------------- */
+/* EXACT A4 MEMO PAGE LAYOUT - TIMES NEW ROMAN */
+/* ------------------------------------------- */
+.memoContent {
+  width: 100%; display: flex; flex-direction: column;
+}
+.memoPageContainer {
+  width: 100%; max-width: 900px; background: #fff; margin: 0 auto 30px auto;
+  padding: 40px; box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif; color: #000;
+  position: relative; min-height: 1100px; border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex; flex-direction: column;
+}
+
+.memoHeader {
+  margin-bottom: 20px; display: flex; flex-direction: column; gap: 15px; font-weight: bold;
+}
+.headerRow {
+  display: flex; justify-content: space-between; align-items: center; font-size: 16px; color: #000;
+}
+.headerTextLg { font-size: 20px; }
+
+.memoTableWrapper {
+  margin-bottom: 20px; border: 1px solid #000;
+}
+.memoTable {
+  width: 100%; border-collapse: collapse; text-align: center; font-size: 14px; color: #000; background: transparent;
+  table-layout: fixed;
+  border-bottom: 1px solid #000;
+}
+.memoTable th {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 12px 4px; color: #000; background: transparent; font-weight: bold;
+}
+.memoTable td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  border-top: none;
+  border-bottom: none;
+  padding: 12px 4px; color: #000; background: transparent; font-weight: bold;
+}
+.memoTable td.leftAlign { text-align: left; padding-left: 10px; font-weight: bold;}
+.memoSummaryRow td { border-top: 1px solid #000; border-bottom: 1px solid #000; font-weight: bold; }
+
+.memoFooter { position: relative; height: 120px; margin-top: 20px; }
+.totalWords { position: absolute; top: 0; left: 5%; font-weight: bold; font-size: 15px; color: #000; }
+.qrBlock { position: absolute; top: -10px; left: 55%; }
+.sigBlock { position: absolute; top: 10px; right: 5%; }
+.qrPlaceholder { width: 50px; height: 50px; border: 1px solid #000; }
+.sigPlaceholder { width: 150px; height: 40px; border-bottom: 1px solid #000; }
+
+.dateText { position: absolute; top: 30px; left: 20%; font-size: 15px; font-weight: bold; color: #000; }
+.matrixGrid { position: absolute; top: 50px; left: 45%; display: flex; flex-direction: column; gap: 5px; font-weight: bold; font-size: 14px; color: #000; }
+.matrixRow { display: flex; gap: 40px; }
+.barcodeBlock { position: absolute; bottom: 0; left: 5%; }
+.barcodePlaceholder { width: 250px; height: 30px; }
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .actionsGroup { margin-left: 0; width: 100%; justify-content: space-between; }
+  .viewBtn, .downloadBtn { width: 48%; }
+  .filterGroup { width: 100%; }
+  .select, .input { width: 100%; }
+}

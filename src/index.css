@@ -1,0 +1,351 @@
+html, body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f6f8fb !important;
+  color: #333333;
+}
+
+#root, #main_content, .page, .section-body, .container-fluid {
+  background-color: transparent !important;
+}
+
+/* Custom Scrollbar for a premium look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes floatReverse {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(15px) rotate(-3deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.card.h-100 {
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card .file-name {
+  word-wrap: break-word;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sidebar a {
+  text-decoration: none;
+}
+
+/* Sidebar toggle styles */
+.sidebar {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Main content alignment */
+.page {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.section-body {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* Fix User Profile Dropdown positioning on desktop */
+@media screen and (min-width: 768px) {
+  #header_top .hright .dropdown-menu.show {
+    top: auto !important;
+    bottom: 10px !important;
+    left: 60px !important;
+    right: auto !important;
+  }
+}
+
+/* Premium Profile Dropdown */
+.dropdown-menu.show {
+  animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 8px;
+}
+
+.dropdown-item {
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #334155;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item i {
+  color: #64748b;
+  font-size: 16px;
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: var(--theme-color-light);
+  color: var(--theme-color);
+  transform: translateX(4px);
+}
+
+.dropdown-item:hover i {
+  color: var(--theme-color);
+}
+
+/* ==========================================
+   PREMIUM HEADER & SIDEBAR SYSTEM STYLES
+   ========================================== */
+
+/* #header_top (Left fixed vertical branding/toggle strip) */
+#header_top {
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.03);
+}
+
+#header_top .brand-logo {
+  transition: transform 0.3s ease;
+}
+
+#header_top .brand-logo:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+#header_top .nav-link {
+  transition: all 0.25s ease;
+  border-radius: 8px;
+}
+
+#header_top .nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+/* User Avatar circle */
+#header_top .nav-link.icon i {
+  font-size: 20px;
+}
+
+/* Top Header Bar Custom Dropdowns */
+.header-select-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-select-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.premium-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #334155;
+  background-color: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 160px;
+  height: 38px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.premium-select.custom-dropdown-trigger {
+  background-image: none;
+}
+
+.premium-select:hover:not(.disabled) {
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+
+.premium-select.open {
+  border-color: var(--theme-color);
+  box-shadow: 0 0 0 3px var(--theme-color-light);
+  background-color: #ffffff;
+}
+
+.premium-select.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+}
+
+/* Custom Options Menu Scrollbar */
+.custom-options-menu::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-options-menu::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+/* Sidebar custom scrollbar */
+#app-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+#app-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#app-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+#app-sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+/* ── Header bar select containers ──────────────── */
+.header-select-container {
+  min-width: 140px;
+}
+
+@media (max-width: 768px) {
+  .header-bar-inner {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    /* Room for scrollbar */
+    gap: 12px !important;
+    width: 100%;
+    /* Hide scrollbar for cleaner look on mobile but keep it scrollable */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .header-bar-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header-select-container {
+    flex-shrink: 0;
+  }
+}
+
+/* ── Responsive Layout ──────────────────────────── */
+
+/* Tablet & below: sidebar overlays, page takes full width */
+@media (max-width: 768px) {
+  .page {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  #app-sidebar {
+    z-index: 1100;
+  }
+
+  /* Semi-transparent overlay behind sidebar on mobile */
+  #app-sidebar[data-visible="true"]~.sb-overlay {
+    display: block;
+  }
+
+  /* Header selects: scroll horizontally on very small screens */
+  .header-bar-inner {
+    overflow-x: auto;
+    gap: 10px !important;
+    padding: 0 14px !important;
+  }
+
+  .header-select-container {
+    min-width: 110px;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-select-container {
+    min-width: 90px;
+  }
+}

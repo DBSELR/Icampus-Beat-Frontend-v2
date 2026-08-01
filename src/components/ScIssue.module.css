@@ -1,0 +1,136 @@
+/* SC_Issue.aspx — Study Certificate Issuing
+   Layout: Bootstrap .box.span12 > .box-header.well > h2 + .box-content > .form-horizontal
+   Two-column form (control-group / control-label / controls pattern)
+   Submit: "Study Certificate Issue" (btn-info, 170px)
+*/
+.container {
+  padding: 20px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.boxHeader {
+  background: #f5f5f5;
+  border-bottom: 1px solid #e3e3e3;
+  padding: 10px 15px;
+  border-radius: 4px 4px 0 0;
+}
+
+.boxHeader h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.boxContent {
+  padding: 20px;
+}
+
+.formCols {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.formCol {
+  flex: 1;
+  min-width: 280px;
+}
+
+.controlGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 0;
+}
+
+.controlLabel {
+  width: 160px;
+  min-width: 160px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.controls {
+  flex: 1;
+}
+
+.inputField {
+  width: 100%;
+  max-width: 270px;
+  padding: 5px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #17a2b8;
+  box-shadow: 0 0 0 2px rgba(23,162,184,0.15);
+}
+
+.selectField {
+  width: 100%;
+  max-width: 270px;
+  padding: 5px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+}
+
+.selectField:focus {
+  outline: none;
+  border-color: #17a2b8;
+}
+
+.issueBtn {
+  padding: 5px 14px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #17a2b8;
+  color: #fff;
+  width: 200px;
+}
+
+.issueBtn:hover:not(:disabled) { background: #138496; }
+.issueBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.message {
+  margin: 12px 0 0 0;
+  padding: 8px 14px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+.messageError   { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
+
+@media (max-width: 768px) {
+  .formCols { flex-direction: column; }
+  .controlGroup { flex-direction: column; align-items: flex-start; }
+  .controlLabel { width: auto; text-align: left; padding-right: 0; margin-bottom: 2px; }
+  .inputField, .selectField { max-width: 100%; }
+}

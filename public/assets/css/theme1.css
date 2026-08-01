@@ -1,0 +1,424 @@
+/* Root CSS Variables for Theme Colors - Default to Cerulean */
+:root {
+  --theme-color: #3f9fd9;
+  --theme-color-light: rgba(63, 159, 217, 0.1);
+  --theme-color-medium: rgba(63, 159, 217, 0.2);
+  --theme-text-on-theme: #fff;
+  --theme-accent: #3f9fd9;
+}
+
+/* ===== RESET LINK COLORS TO DEFAULT ===== */
+/* Keep links readable - not themed */
+a, .btn-link {
+  color: #495057 !important;
+}
+
+a:hover {
+  color: #212529 !important;
+}
+
+/* Breadcrumb links - keep readable */
+.breadcrumb a,
+.breadcrumb-item a,
+.page-breadcrumb a {
+  color: #495057 !important;
+}
+
+.breadcrumb a:hover,
+.breadcrumb-item a:hover,
+.page-breadcrumb a:hover {
+  color: #212529 !important;
+  text-decoration: underline !important;
+}
+
+/* ===== ACCENT COLORS ONLY - NOT TEXT ===== */
+
+/* Selection */
+::selection {
+  color: #fff !important;
+  background: var(--theme-color) !important;
+}
+
+/* Badge */
+.badge-primary {
+  background-color: var(--theme-color) !important;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--theme-color) !important;
+  border-color: var(--theme-color) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background: var(--theme-color) !important;
+  border-color: var(--theme-color) !important;
+  filter: brightness(0.9);
+}
+
+/* Nav Tabs Active Border */
+.nav-tabs .nav-link.active {
+  border-color: var(--theme-color) !important;
+}
+
+/* Form Control Focus */
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem var(--theme-color-medium) !important;
+  border-color: var(--theme-color) !important;
+}
+
+/* Background Colors - Primary accent areas */
+.bg-primary, .bg-info, .bg-warning, .btn-success {
+  background-color: var(--theme-color) !important;
+}
+
+/* Background Colors - Accent (replacing pink #e03997) */
+.bg-success, .bg-danger, .badge-success, .progress-bar, .btn-danger, .btn-warning {
+  background-color: var(--theme-color) !important;
+}
+
+/* Outline Primary */
+.btn-outline-primary {
+  border-color: var(--theme-color) !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--theme-color) !important;
+  border-color: var(--theme-color) !important;
+  color: #fff !important;
+}
+
+/* Brand Logo - graduation cap icon */
+.brand-logo,
+#header_top .brand-logo,
+.header-brand .brand-logo,
+i.brand-logo,
+.theme-blush #header_top .brand-logo,
+.theme-blush .brand-logo {
+  background: var(--theme-color) !important;
+}
+
+/* Custom Controls - Checkboxes, Radio buttons */
+.custom-control-input:checked ~ .custom-control-label::before,
+.custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before,
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  border-color: var(--theme-color) !important;
+  background-color: var(--theme-color) !important;
+}
+
+/* Select Group */
+.selectgroup-input:checked + .selectgroup-button {
+  border-color: var(--theme-color) !important;
+  background: var(--theme-color-medium) !important;
+}
+
+/* Wizard Steps */
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .actions a,
+.wizard > .actions a:hover {
+  background: var(--theme-color) !important;
+}
+
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover {
+  background: var(--theme-color-medium) !important;
+}
+
+/* Background Color Classes - Solid backgrounds */
+.bg-blue { background-color: var(--theme-color) !important; }
+.bg-azure { background-color: var(--theme-color) !important; }
+.bg-indigo { background-color: var(--theme-color) !important; }
+.bg-purple { background-color: var(--theme-color) !important; }
+.bg-pink { background-color: var(--theme-color) !important; }
+.bg-red { background-color: var(--theme-color) !important; }
+.bg-orange { background-color: var(--theme-color) !important; }
+.bg-yellow { background-color: var(--theme-color) !important; }
+.bg-lime { background-color: var(--theme-color) !important; }
+.bg-green { background-color: var(--theme-color) !important; }
+.bg-teal { background-color: var(--theme-color) !important; }
+.bg-cyan { background-color: var(--theme-color) !important; }
+
+/* Light Background Color Classes */
+.bg-light-blue { background-color: var(--theme-color-light) !important; }
+.bg-light-azure { background-color: var(--theme-color-light) !important; }
+.bg-light-indigo { background-color: var(--theme-color-light) !important; }
+.bg-light-purple { background-color: var(--theme-color-light) !important; }
+.bg-light-pink { background-color: var(--theme-color-light) !important; }
+.bg-light-red { background-color: var(--theme-color-light) !important; }
+.bg-light-orange { background-color: var(--theme-color-light) !important; }
+.bg-light-yellow { background-color: var(--theme-color-light) !important; }
+.bg-light-lime { background-color: var(--theme-color-light) !important; }
+.bg-light-green { background-color: var(--theme-color-light) !important; }
+.bg-light-teal { background-color: var(--theme-color-light) !important; }
+.bg-light-cyan { background-color: var(--theme-color-light) !important; }
+
+/* Avatar Classes - Background only */
+.avatar.avatar-blue { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-azure { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-indigo { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-purple { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-pink { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-red { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-orange { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-yellow { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-lime { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-green { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-teal { background-color: var(--theme-color-light) !important; }
+.avatar.avatar-cyan { background-color: var(--theme-color-light) !important; }
+
+/* Header Background */
+#header_top .brand-logo { background: var(--theme-color) !important; }
+.header { background: var(--theme-color) !important; }
+
+/* Custom Switch */
+.custom-switch-input:checked ~ .custom-switch-indicator { background: var(--theme-color) !important; }
+
+/* Sidebar Active Border - Remove left border on active menu */
+.sidebar .metismenu > li.active > a {
+  border-left-color: transparent !important;
+}
+
+.sidebar .metismenu > li > a:hover {
+  border-left-color: transparent !important;
+}
+
+/* Theme Blush specific overrides */
+.theme-blush .sidebar .metismenu > li.active > a,
+.theme-blush .sidebar .metismenu > li:hover > a {
+  border-left-color: transparent !important;
+}
+
+/* Metis Menu border colors */
+.metismenu .active > a {
+  border-color: var(--theme-color) !important;
+}
+
+.metismenu.grid > li.active > a,
+.metismenu.grid > li > a:hover {
+  background: var(--theme-color-light) !important;
+}
+
+/* Gradient Styles */
+.gradient .custom-switch-input:checked ~ .custom-switch-indicator { background: var(--theme-color) !important; }
+
+.gradient .metismenu.grid > li.active > a,
+.gradient .metismenu.grid > li > a:hover {
+  background: var(--theme-color) !important;
+}
+
+.gradient .btn-primary { background: var(--theme-color) !important; }
+
+.gradient .bg-success,
+.gradient .bg-danger,
+.gradient .badge-success,
+.gradient .progress-bar,
+.gradient .btn-danger { background: var(--theme-color) !important; }
+
+/* Sidebar Dark */
+.sidebar_dark .metismenu .active > a { border-color: var(--theme-color) !important; }
+
+/* Pagination */
+.page-item.active .page-link {
+  background-color: var(--theme-color) !important;
+  border-color: var(--theme-color) !important;
+}
+
+/* Dropdown active */
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--theme-color) !important;
+}
+
+/* List group */
+.list-group-item.active {
+  background-color: var(--theme-color) !important;
+  border-color: var(--theme-color) !important;
+}
+
+/* ===== SIDEBAR LEFT BORDER - THE PINK ACCENT LINE ===== */
+#left-sidebar .metismenu li.active > a::before,
+.sidebar .metismenu li.active > a::before {
+  background-color: var(--theme-color) !important;
+}
+
+/* Active menu item left border - removed */
+.metismenu li.active > a {
+  border-left: none !important;
+}
+
+/* Icon circle backgrounds in cards */
+.card .card-body .avatar,
+.card-body .icon-circle,
+.icon-circle {
+  background-color: var(--theme-color-light) !important;
+}
+
+/* Stats card icon backgrounds */
+.stats-icon {
+  background-color: var(--theme-color) !important;
+}
+
+/* Table borders */
+.table-bordered th,
+.table-bordered td {
+  border-color: var(--theme-color-light) !important;
+}
+
+/* Progress bar */
+.progress-bar {
+  background-color: var(--theme-color) !important;
+}
+
+/* Tabs underline/border */
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  border-bottom-color: var(--theme-color) !important;
+}
+
+/* Alert colors */
+.alert-primary {
+  background-color: var(--theme-color-light) !important;
+  border-color: var(--theme-color) !important;
+}
+
+/* Loader/Spinner */
+.spinner-border {
+  color: var(--theme-color) !important;
+}
+
+.loader {
+  border-top-color: var(--theme-color) !important;
+}
+
+/* ===== LEFT SIDEBAR PINK STRIP/BAR ===== */
+/* The pink vertical bar on left side of sidebar */
+#left-sidebar,
+.sidebar {
+  border-left-color: var(--theme-color) !important;
+}
+
+#left-sidebar::before,
+.sidebar::before {
+  background-color: var(--theme-color) !important;
+}
+
+/* Theme blush specific - the pink accent bar */
+.theme-blush #left-sidebar,
+.theme-blush .sidebar {
+  border-left: 4px solid var(--theme-color) !important;
+}
+
+.theme-blush #left-sidebar::before,
+.theme-blush .sidebar::before {
+  background: var(--theme-color) !important;
+}
+
+/* Override .bg-pink specifically */
+.bg-pink {
+  background-color: var(--theme-color) !important;
+}
+
+/* Tag pink */
+.tag-pink {
+  background-color: var(--theme-color) !important;
+}
+
+/* Ribbon pink */
+.ribbon .ribbon-box.pink {
+  background: var(--theme-color) !important;
+}
+
+.ribbon .ribbon-box.pink::before {
+  border-color: var(--theme-color) !important;
+}
+
+/* Avatar with pink background */
+.avatar.avatar-pink {
+  background-color: var(--theme-color-light) !important;
+}
+
+/* Light pink backgrounds */
+.bg-light-pink {
+  background-color: var(--theme-color-light) !important;
+}
+
+/* Icon colors specific overrides - keep them readable */
+body.iconcolor .metismenu > li .fa-flag,
+body.iconcolor .metismenu > li .fa-camera-retro {
+  color: var(--theme-color) !important;
+}
+
+/* Gradient overrides */
+body.gradient .bg-indigo {
+  background: var(--theme-color) !important;
+}
+
+body.gradient .bg-pink {
+  background: var(--theme-color) !important;
+}
+
+body.gradient .bg-danger {
+  background: var(--theme-color) !important;
+}
+
+body.gradient .bg-warning {
+  background: var(--theme-color) !important;
+}
+
+/* ===== SIDEBAR BRAND/HEADER AREA ===== */
+.sidebar .brand-name,
+#left-sidebar .brand-name,
+.sidebar h5,
+#left-sidebar h5 {
+  border-bottom-color: var(--theme-color) !important;
+}
+
+/* ===== ACTIVE MENU HIGHLIGHT BAR ===== */
+.sidebar .metismenu > li.active,
+#left-sidebar .metismenu > li.active {
+  border-left-color: transparent !important;
+}
+
+.sidebar .metismenu > li.active::before,
+#left-sidebar .metismenu > li.active::before {
+  background-color: var(--theme-color) !important;
+}
+
+/* ===== ACTIVE MENU ICON BACKGROUND ===== */
+/* The icon circle/background in active menu items */
+/* Uses --theme-accent which is dark (#333) for light themes and theme-color for dark themes */
+.sidebar .metismenu > li.active > a > i,
+#left-sidebar .metismenu > li.active > a > i,
+.metismenu > li.active > a > i,
+.sidebar .metismenu > li.active > a i,
+#left-sidebar .metismenu > li.active > a i,
+.metismenu > li.active > a i,
+.sidebar .metismenu li.active > a > i,
+#left-sidebar .metismenu li.active > a > i,
+.metismenu li.active > a > i,
+.metismenu li.active a i.fa,
+.sidebar .metismenu li.active a i.fa,
+#left-sidebar .metismenu li.active a i.fa {
+  background-color: var(--theme-accent) !important;
+}
+
+/* Hover state for menu icons - no background change on hover */
+.sidebar .metismenu > li:not(.active):hover > a > i,
+#left-sidebar .metismenu > li:not(.active):hover > a > i,
+.metismenu > li:not(.active):hover > a > i,
+.sidebar .metismenu > li:not(.active):hover > a i,
+#left-sidebar .metismenu > li:not(.active):hover > a i,
+.metismenu > li:not(.active):hover > a i,
+.metismenu li:not(.active):hover a i.fa,
+.sidebar .metismenu li:not(.active):hover a i.fa,
+#left-sidebar .metismenu li:not(.active):hover a i.fa {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Specifically for the icon wrapper divs in dashboard */
+.card .card-body > div > .avatar,
+.card .card-body .rounded-circle {
+  background-color: var(--theme-color-light) !important;
+}

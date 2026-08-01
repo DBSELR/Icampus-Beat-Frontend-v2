@@ -1,0 +1,288 @@
+/* Subjectwisefailedlist.aspx — Subject-wise Failed List
+   Panel: .subheading (blue) — bg #8bc5e8, border #7ed0e5, color #1c628b
+   Controls: ddlSemester | btnview (btn-primary, 100px) | btnexport (btn-info, full width)
+*/
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #8bc5e8;
+  border: 1px solid #7ed0e5;
+  border-radius: 4px;
+  padding: 8px 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  min-height: 36px;
+}
+
+.filterGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1c628b;
+  white-space: nowrap;
+}
+
+.select {
+  min-width: 130px;
+  padding: 5px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  background: #fff;
+  color: #333;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #7ed0e5;
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.viewBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #337ab7;
+  color: #fff;
+  width: 100px;
+}
+
+.viewBtn:hover:not(:disabled) { background: #286090; }
+.viewBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.exportBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #17a2b8;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.exportBtn:hover:not(:disabled) { background: #138496; }
+.exportBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.message {
+  margin: 6px 0 0 0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+.messageError   { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
+
+.reportArea {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 20px;
+  min-height: 320px;
+}
+
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.loadingState {
+  color: #17a2b8;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.tableWrapper { overflow-x: auto; margin-top: 4px; }
+
+.table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+.table th {
+  border: 1px solid #ccc;
+  padding: 5px 8px;
+  background: #dde9f5;
+  color: #1c628b;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.table td { border: 1px solid #ddd; padding: 4px 8px; text-align: center; }
+.table tbody tr:nth-child(even) { background: #f0f7ff; }
+.table tbody tr:hover { background: #dde9f5; }
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .actionsGroup { margin-left: 0; }
+  .select { min-width: 100%; }
+  .exportBtn { width: 100%; }
+}
+
+.pdfBtn {
+  padding: 6px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #dc3545;
+  color: #fff;
+  white-space: nowrap;
+}
+.pdfBtn:hover:not(:disabled) { background: #c82333; }
+.pdfBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.printableReport {
+  font-family: Arial, sans-serif;
+  color: #000;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.headerBlock {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.logoBlock {
+  flex: 1;
+}
+.logo {
+  max-height: 100px;
+}
+
+.titleBox {
+  flex: 3;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+}
+.titleBox h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  font-family: inherit;
+}
+.subtext {
+  font-size: 15px;
+  margin: 2px 0 0 0;
+}
+.mainTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0 5px 0;
+}
+.underlinedTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.pageNumberBlock {
+  flex: 1;
+  text-align: right;
+  font-family: "Times New Roman", Times, serif;
+}
+.pageBig {
+  font-size: 38px;
+  font-weight: bold;
+}
+.pageSmall {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.contentBlock {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.subjectGroup {
+  margin-bottom: 15px;
+}
+
+.subjectHeader {
+  font-size: 16px;
+  margin-bottom: 5px;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.subjectTitle {
+  float: left;
+}
+
+.failedCount {
+  float: right;
+}
+
+.dottedLine {
+  border-bottom: 1px dotted #000;
+  margin-bottom: 5px;
+}
+
+.branchGroup {
+  margin-bottom: 8px;
+}
+
+.branchInfoRow {
+  font-size: 15px;
+  margin-bottom: 3px;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.studentsGrid {
+  display: block;
+  line-height: 1.8;
+  margin-top: 5px;
+  padding-left: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+.studentRoll {
+  display: inline-block;
+  min-width: 90px;
+  margin-right: 20px;
+  margin-bottom: 4px;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+.nilText {
+  font-weight: bold;
+  margin-top: 5px;
+}

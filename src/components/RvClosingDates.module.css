@@ -1,0 +1,93 @@
+/* RvClosingDates — from Results/RvClosingDates.aspx
+   GridView: table table-bordered table-condensed
+   Columns: Regulation, Programme, Exam Month & Year, Semester, Reg. Rv Closed Dt., Suppl. Rv Closed Dt., Submit
+   No filter panel; date fields use datepicker (we use input type="date")
+*/
+.container {
+  padding: 20px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.tableWrap {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* .NET: table table-bordered table-condensed */
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.grid th {
+  background: #4682b4;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid #3a6ea5;
+}
+
+.grid td {
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  vertical-align: middle;
+}
+
+.grid tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.grid tbody tr:hover {
+  background: #f0f4f8;
+}
+
+.cell {
+  color: #333;
+}
+
+.dateInput {
+  padding: 6px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 13px;
+  min-width: 140px;
+  background: #fff;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #17a2b8;
+}
+
+.submitBtn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #007bff;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  background: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .tableWrap {
+    overflow-x: auto;
+  }
+  .grid {
+    min-width: 720px;
+  }
+  .dateInput {
+    min-width: 120px;
+  }
+}

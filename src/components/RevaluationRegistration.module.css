@@ -1,0 +1,576 @@
+/* ================================================
+   Revaluation Registration — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.collapseBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseBtn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form Table */
+.formTable {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.tableCell {
+  padding: 5px;
+  vertical-align: bottom;
+}
+
+.studentInfoCell {
+  padding-left: 0;
+  font-size: small;
+  color: green;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.select {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e293b;
+  min-width: 200px;
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s ease;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: #1e293b;
+  text-transform: uppercase;
+  min-width: 200px;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.input::placeholder {
+  text-transform: none;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+.studentInfo {
+  display: flex;
+  align-items: center;
+  font-size: small;
+  color: green;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.studentName,
+.branch {
+  margin-right: 15px;
+}
+
+/* Radio Group */
+.radioGroup {
+  display: flex;
+  gap: 20px;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+}
+
+.radio {
+  margin: 0;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+/* Papers Section */
+.papersTable {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tableSpacer {
+  width: 14%;
+}
+
+.tableSpacer:first-child {
+  width: 14%;
+}
+
+.tableSpacer:nth-child(3) {
+  width: 2%;
+}
+
+.tableSpacer:last-child {
+  width: 14%;
+}
+
+.papersTableCell {
+  width: 35%;
+  vertical-align: top;
+}
+
+.papersInnerTable {
+  width: 100%;
+}
+
+.papersInnerTable td {
+  padding: 0;
+}
+
+.papersLabel {
+  color: #ef4444;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+
+.optedPapersLabel {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+
+.papersListBox,
+.optedPapersListBox {
+  width: 400px;
+  height: 200px;
+  padding: 8px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  background: #f8fafc;
+  overflow-y: auto;
+  transition: all 0.2s ease;
+}
+
+.papersListBox:focus,
+.optedPapersListBox:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.papersListBox option,
+.optedPapersListBox option {
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+
+.papersListBox option:checked {
+  background: var(--theme-color, #007bff);
+  color: #fff;
+}
+
+.optedPapersListBox {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+/* Action Section */
+.actionSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  padding: 20px 0;
+}
+
+.amountGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.amountLabel {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.amountInput {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 150px;
+  background: #f8f9fa;
+  color: #333;
+  text-align: right;
+}
+
+.amountInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.registerBtn {
+  padding: 8px 20px;
+  background: #10b981;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.registerBtn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.unregisterBtn {
+  padding: 8px 20px;
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.unregisterBtn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.cancelReceiptBtn {
+  padding: 8px 20px;
+  background: #64748b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.cancelReceiptBtn:hover {
+  background: #475569;
+  transform: translateY(-1px);
+}
+
+/* Bundle Data Section */
+.bundleDataSection {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bundleDataHeader {
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bundleDataHeader h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.bundleDataContent {
+  padding: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.emptyTable {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  font-style: italic;
+}
+
+.bundleTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.bundleTable thead {
+  background: #f8f9fa;
+}
+
+.bundleTable th,
+.bundleTable td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.bundleTable th {
+  font-weight: bold;
+  color: #333;
+}
+
+.bundleTable tbody tr:hover {
+  background: #f8f9fa;
+}
+
+/* Bundle Actions */
+.bundleActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.bundleDataBtn {
+  padding: 8px 20px;
+  background: #5cb85c;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.bundleDataBtn:hover {
+  background: #4cae4c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .papersSection {
+    flex-direction: column;
+  }
+
+  .actionSection {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buttonGroup {
+    justify-content: center;
+  }
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  width: 50%;
+  min-height: 25%;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.modalBody {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.modalInputGroup {
+  margin-bottom: 15px;
+}
+
+.modalActions {
+  margin-top: 20px;
+}
+
+.submitBtn {
+  background-color: #f0ad4e;
+  /* Warning color or similar */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.submitBtn:hover {
+  background-color: #ec971f;
+}

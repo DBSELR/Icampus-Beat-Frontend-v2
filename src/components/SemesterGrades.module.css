@@ -1,0 +1,429 @@
+/* ================================================
+   Semester Grades — Premium CSS Module
+   (Retains original class names for compatibility)
+   ================================================ */
+
+.container {
+  width: 100%;
+  min-height: 100%;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.box {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+  min-height: 600px;
+}
+
+/* Header */
+.boxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background: #fafafc;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.boxHeader h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+  font-size: 16px;
+}
+
+.minimizeBtn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.minimizeBtn:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.minimizeBtn.rotated {
+  transform: rotate(180deg);
+}
+
+/* Content */
+.boxContent {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.formContainer {
+  flex-shrink: 0;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.formContainer.collapsed {
+  display: none;
+}
+
+.formSection {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Form Groups */
+.formGroup {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin: 0;
+}
+
+/* Input Fields */
+.input, .dropdown {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #1e293b;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.input:focus, .dropdown:focus {
+  border-color: var(--theme-color, #0066cc);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+/* SGPA Inputs */
+.sgpaInputs {
+  display: flex;
+  gap: 12px;
+}
+
+.sgpaInputs .input {
+  flex: 1;
+}
+
+/* Action Bar */
+.actionBar {
+  background: #f8fafc;
+  padding: 16px 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-end;
+  border: 1px solid #f1f5f9;
+}
+
+.saveBtn, .cancelBtn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 100px;
+}
+
+.saveBtn {
+  background: var(--theme-color, #0066cc);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.saveBtn:hover:not(:disabled) {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.saveBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancelBtn {
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.cancelBtn:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.copyBtn {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 16px;
+}
+
+.copyBtn:hover {
+  background: #f8fafc;
+  color: var(--theme-color, #0066cc);
+  border-color: var(--theme-color, #0066cc);
+}
+
+/* Table Container */
+.tableContainer {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.dataTable th {
+  position: sticky;
+  top: 0;
+  background: var(--theme-color, #0066cc);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 14px 12px;
+  text-align: center;
+  z-index: 10;
+}
+
+.dataTable td {
+  padding: 12px;
+  font-size: 13px;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+  text-align: center;
+  transition: background 0.15s;
+}
+
+.dataTable tr:hover td {
+  background: #f8fafc;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.gradeLink {
+  color: var(--theme-color, #0066cc);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.gradeLink:hover {
+  filter: brightness(0.8);
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #dc2626;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  background: #fee2e2;
+}
+
+/* Modals */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: var(--theme-color, #0066cc);
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.closeBtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.modalBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalFormGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modalFormGroup label {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  background: #fafafc;
+  border-top: 1px solid #f1f5f9;
+  justify-content: flex-end;
+}
+
+/* Row selection styles */
+.tableRow {
+  transition: background-color 0.2s ease;
+}
+
+.selectedRow td {
+  background-color: #eff6ff !important;
+}
+
+.selectedRow td:first-child {
+  border-left: 3px solid var(--theme-color, #0066cc);
+}
+
+.selectedRow:hover td {
+  background-color: #e0f2fe !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  .formSection {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .sgpaInputs {
+    flex-direction: column;
+  }
+  .actionBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .saveBtn, .cancelBtn, .copyBtn {
+    width: 100%;
+  }
+}

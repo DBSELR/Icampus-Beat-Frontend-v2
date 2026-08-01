@@ -1,0 +1,228 @@
+/* Container */
+.container {
+  padding: 20px;
+  min-height: calc(100vh - 120px);
+  background: #f8f9fa;
+}
+
+/* Main Content */
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Subheading Header Bar */
+.subheading {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #8bc5e8;
+  border: 1px solid #7ed0e5;
+  border-radius: 4px;
+  color: #1c628b;
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Form Container */
+.formContainer {
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Form Fields */
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 120px;
+}
+
+.label {
+  font-weight: bold;
+  color: #1c628b;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Input Styling */
+.input {
+  padding: 6px 10px;
+  border: 1px solid #7ed0e5;
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+  color: #333;
+  width: 120px;
+  height: 25px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #5bc0de;
+  box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.2);
+}
+
+/* Dropdown Styling */
+.dropdown {
+  padding: 6px 10px;
+  border: 1px solid #7ed0e5;
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: #5bc0de;
+  box-shadow: 0 0 0 2px rgba(91, 192, 222, 0.2);
+}
+
+/* Checkbox Container */
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #5bc0de;
+}
+
+.checkboxLabel {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Button Container */
+.buttonContainer {
+  display: flex;
+  align-items: flex-end;
+  height: 25px;
+}
+
+/* Result Process Button */
+.resultProcessBtn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  height: auto;
+  white-space: nowrap;
+}
+
+.resultProcessBtn:hover {
+  background: #218838;
+}
+
+/* Content Area */
+.contentArea {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  color: #6c757d;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #dee2e6;
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 16px;
+  color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .formRow {
+    gap: 15px;
+  }
+  
+  .formField {
+    min-width: 100px;
+  }
+  
+  .input,
+  .dropdown {
+    width: 100px;
+  }
+  
+  .resultProcessBtn {
+    width: 90px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .subheading {
+    padding: 8px 15px;
+    height: auto;
+    min-height: 30px;
+  }
+  
+  .formRow {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .formField {
+    min-width: 100%;
+    width: 100%;
+  }
+  
+  .input,
+  .dropdown {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .buttonContainer {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .resultProcessBtn {
+    width: 120px;
+  }
+  
+  .contentArea {
+    min-height: 300px;
+  }
+}

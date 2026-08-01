@@ -1,0 +1,456 @@
+/* ================================================
+   Room Allotment — Premium CSS Module
+   ================================================ */
+
+.pageRoot {
+  width: 100%;
+  min-height: 100%;
+  padding: 0;
+  background: #f6f8fb;
+  font-family: 'Inter', 'Outfit', sans-serif;
+  animation: pageFadeIn 0.4s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Page Header ─────────────────────────────── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pageTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+/* ── Main Card ───────────────────────────────── */
+.mainCard {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  overflow: hidden;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.headerIcon {
+  color: var(--theme-color, #0066cc);
+}
+
+.collapseBtn {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapseBtn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.collapseBtn.rotated {
+  transform: rotate(180deg);
+}
+
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Form */
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form Section (Flex Layout) */
+.formSection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 16px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.formGroup.small {
+  min-width: 100px;
+  flex: 0.5;
+}
+
+.label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
+
+/* Max Stu Input */
+.maxStuInput {
+  width: 80px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #ef4444;
+  text-align: center;
+  padding: 6px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  transition: all 0.2s;
+}
+
+.maxStuInput:focus {
+  outline: none;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  background: #fff;
+}
+
+/* Dropdown Row */
+.dropdownRow {
+  padding-top: 20px;
+}
+
+.dropdown {
+  padding: 8px 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+/* ExamType dropdown - 90px width */
+.dropdownRow select[name="examType"] {
+  width: 90px;
+}
+
+/* Other dropdowns - 100px width */
+.dropdownRow select:not([name="examType"]) {
+  width: 100px;
+}
+
+.dropdown:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+/* HR */
+.hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* Grid Section */
+.gridSection {
+  margin: 20px 0;
+  min-height: 200px;
+}
+
+.emptyGrid {
+  text-align: center;
+  color: #666;
+  padding: 40px;
+  font-style: italic;
+}
+
+.gridContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.listBoxContainer {
+  display: inline-block;
+  width: 90px;
+  vertical-align: top;
+}
+
+.listBox {
+  width: 100%;
+  padding: 5px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #fff;
+  overflow-y: auto;
+  min-height: 80px;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.listBox:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+}
+
+.redDivider {
+  background-color: #ef4444;
+  height: 2px;
+  width: 100%;
+  margin: 8px 0;
+  border-radius: 2px;
+}
+
+.textBoxGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gridTextBox {
+  width: 90px;
+  padding: 6px 8px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  box-sizing: border-box;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.gridTextBox:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+.gridDropdown {
+  width: 90px;
+  padding: 6px 8px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  box-sizing: border-box;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+
+.gridDropdown:focus {
+  outline: none;
+  border-color: var(--theme-color, #007bff);
+  box-shadow: 0 0 0 3px var(--theme-color-light, rgba(0, 123, 255, 0.15));
+  background: #ffffff;
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  gap: 12px;
+  margin-left: 0;
+  margin-top: 24px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  background: #f8fafc;
+  padding: 16px 24px;
+  border-radius: 12px;
+}
+
+.submitBtn,
+.resetBtn,
+.exportBtn,
+.applyAllBtn {
+  padding: 8px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  min-width: 90px;
+}
+
+.submitBtn {
+  background: #10b981;
+  color: #fff;
+}
+
+.submitBtn:hover {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.resetBtn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.resetBtn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.exportBtn {
+  background: var(--theme-color, #0ea5e9);
+  color: #fff;
+}
+
+.exportBtn:hover {
+  background: #0284c7;
+  transform: translateY(-1px);
+}
+
+.applyAllBtn {
+  background: #8b5cf6;
+  color: #fff;
+}
+
+.applyAllBtn:hover {
+  background: #7c3aed;
+  transform: translateY(-1px);
+}
+
+/* Branch Filter Section */
+.branchFilterSection {
+  margin: 20px 0;
+  position: relative;
+}
+
+.branchFilterContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.branchFilterButton {
+  padding: 8px 15px;
+  background: #007bff;
+  color: #fff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 150px;
+  text-align: left;
+  position: relative;
+}
+
+.branchFilterButton:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+}
+
+.branchFilterButton::after {
+  content: ' ▼';
+  float: right;
+}
+
+.branchDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 5px 0;
+}
+
+.branchCheckboxItem {
+  display: block;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  user-select: none;
+}
+
+.branchCheckboxItem:hover {
+  background: #f0f0f0;
+}
+
+.branchCheckboxItem input[type="checkbox"] {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .buttonGroup {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .dropdownRow td {
+    padding: 5px 2px;
+  }
+
+  .dropdown {
+    width: 90px;
+  }
+}
+

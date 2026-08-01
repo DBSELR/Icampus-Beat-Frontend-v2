@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/react.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>iCampus DBS</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/style.min.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/assets/css/theme1.css" />
+    <!-- FontAwesome CDN as fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Hide page loader after page loads
+      window.addEventListener('load', function() {
+        const loader = document.querySelector('.page-loader-wrapper');
+        if (loader) {
+          loader.style.display = 'none';
+        }
+      });
+      
+      // Also hide loader immediately if it exists (for React apps)
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          const loader = document.querySelector('.page-loader-wrapper');
+          if (loader) {
+            loader.style.display = 'none';
+          }
+        }, 100);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+/* Scripts Assign module styles */
+
+/* ── Three-column layout ── */
+.layout {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.formPanel {
+  flex: 0 0 280px;
+  min-width: 0;
+}
+
+.bundlePanel {
+  flex: 0 0 240px;
+  min-width: 0;
+}
+
+.scriptsPanel {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* ── Form fields ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.required {
+  color: #dc2626;
+}
+
+.input,
+.select {
+  padding: 7px 10px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+.fileInput {
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+/* ── Section label ── */
+.sectionLabel {
+  background: #e8edf3;
+  border: 1px solid #d1d9e0;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background: #3b82f6;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.pendingBadge {
+  background: #dc2626;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+/* ── Listboxes ── */
+.listBox {
+  width: 100%;
+  height: 420px;
+  border: 1px solid #e2e8f0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  font-size: 13px;
+  padding: 4px;
+  background: #fff;
+  overflow-y: auto;
+}
+
+.listBox option {
+  padding: 5px 8px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.listBox option:checked {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.listHint {
+  font-size: 11px;
+  color: #94a3b8;
+  margin: 4px 0 0;
+  text-align: center;
+}
+
+/* ── Select all row ── */
+.selectAllRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ── Messages ── */
+.msgError {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+.msgSuccess {
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 4px;
+  color: #15803d;
+  font-size: 13px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .layout {
+    flex-wrap: wrap;
+  }
+
+  .formPanel {
+    flex: 0 0 260px;
+  }
+
+  .bundlePanel {
+    flex: 0 0 220px;
+  }
+
+  .scriptsPanel {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .formPanel,
+  .bundlePanel,
+  .scriptsPanel {
+    flex: none;
+    width: 100%;
+  }
+
+  .listBox {
+    height: 240px;
+  }
+}

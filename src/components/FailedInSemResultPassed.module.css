@@ -1,0 +1,206 @@
+/* Failed_inResult_Passed_inSub.aspx — PASSED RESULT, Download (Visible=false), no filters */
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.panel {
+  background: #eef5fb;
+  border: 1px solid #b8d9ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+}
+
+.spacer {
+  flex: 1;
+  min-width: 20px;
+}
+
+.downloadBtn {
+  padding: 8px 20px;
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+}
+
+.downloadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .filtersRow { flex-direction: column; align-items: stretch; }
+  .spacer { display: none; }
+}
+
+.reportArea {
+  min-height: 320px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.reportContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.abstractReportPage {
+  width: 100%;
+  max-width: 1000px;
+  background: #fff;
+  margin: 0 auto 30px auto;
+  padding: 40px;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  min-height: 800px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.reportHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 25px;
+  min-height: 100px;
+}
+
+.logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 120px;
+  height: auto;
+}
+
+.headerText {
+  text-align: center;
+}
+
+.instituteName {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+}
+
+.ugcText {
+  font-size: 16px;
+  margin: 5px 0 0 0;
+  color: #000;
+}
+
+.pageFraction {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  font-weight: bold;
+  font-size: 26px;
+  color: #000;
+}
+
+.subTitleBlock {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.subTitleBlue {
+  font-size: 18px;
+  font-weight: bold;
+  color: blue;
+  text-decoration: underline;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+}
+
+.subTitleRed {
+  font-size: 16px;
+  font-weight: bold;
+  color: #8b0000;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.branchBlock {
+  margin-bottom: 30px;
+}
+
+.branchTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff00ff;
+  text-transform: uppercase;
+  margin: 0 0 20px 0;
+  padding: 10px 0;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.subjectBlock {
+  margin-bottom: 25px;
+}
+
+.subjectTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 15px 0;
+}
+
+.htnoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 15px 10px;
+  font-family: monospace;
+  font-size: 16px;
+  color: #333;
+}
+
+.htnoItem {
+  white-space: nowrap;
+}
+
+.footerSignatures {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+  padding-bottom: 20px;
+}
+
+.sigBlock {
+  font-weight: bold;
+  font-size: 14px;
+  color: #000;
+}

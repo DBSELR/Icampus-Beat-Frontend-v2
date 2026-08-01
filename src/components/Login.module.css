@@ -1,0 +1,325 @@
+.loginContainer {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 50%, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Moving Mesh Background Blobs for Visual Depth */
+.bgBlob1 {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: var(--theme-color, #3f9fd9);
+  filter: blur(100px);
+  opacity: 0.12;
+  top: -10%;
+  left: -10%;
+  border-radius: 50%;
+  animation: float 18s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+.bgBlob2 {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  background: #6366f1; /* Indigo Accent */
+  filter: blur(120px);
+  opacity: 0.10;
+  bottom: -12%;
+  right: -10%;
+  border-radius: 50%;
+  animation: floatReverse 22s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+.bgBlob3 {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  background: #ec4899; /* Pink Accent */
+  filter: blur(110px);
+  opacity: 0.06;
+  top: 40%;
+  left: 45%;
+  border-radius: 50%;
+  animation: float 14s infinite alternate ease-in-out;
+  pointer-events: none;
+}
+
+/* Glassmorphism Card styling */
+.loginCard {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 20px 40px -8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border-radius: 24px;
+  padding: 44px 36px;
+  width: 100%;
+  max-width: 440px;
+  z-index: 10;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-sizing: border-box;
+}
+
+.brandWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.logoIconContainer {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--theme-color, #3f9fd9) 0%, rgba(99, 102, 241, 0.8) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 20px var(--theme-color-light, rgba(63, 159, 217, 0.2));
+  color: #ffffff;
+  font-size: 28px;
+  transition: transform 0.3s ease;
+}
+
+.logoIconContainer:hover {
+  transform: scale(1.08) rotate(5deg);
+}
+
+.loginTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 4px;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.loginSubtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* Beautiful Custom Input Wrap */
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 52px;
+  box-sizing: border-box;
+}
+
+.inputContainer:hover {
+  border-color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.inputContainerFocus {
+  border-color: var(--theme-color, #3f9fd9);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px var(--theme-color-light, rgba(63, 159, 217, 0.15));
+}
+
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  color: #94a3b8;
+  font-size: 18px;
+  transition: color 0.25s ease;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainerFocus .inputIcon {
+  color: var(--theme-color, #3f9fd9);
+}
+
+.inputField {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  width: 100%;
+  height: 100%;
+  padding: 0 46px 0 48px !important;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: #1e293b;
+  border-radius: 12px;
+}
+
+.inputField::placeholder {
+  color: #94a3b8;
+  opacity: 0.8;
+}
+
+/* Password Toggle Icon Button */
+.passwordToggleBtn {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passwordToggleBtn:hover {
+  color: #475569;
+}
+
+.inputContainerFocus .passwordToggleBtn {
+  color: #64748b;
+}
+
+.inputContainerFocus .passwordToggleBtn:hover {
+  color: var(--theme-color, #3f9fd9);
+}
+
+/* Labels */
+.formLabel {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Custom Error Alert */
+.customAlert {
+  background: rgba(254, 242, 242, 0.9);
+  border: 1px solid rgba(252, 165, 165, 0.5);
+  border-left: 4px solid #ef4444;
+  color: #991b1b;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Forgot Password Section */
+.forgotPasswordWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 28px;
+}
+
+.forgotPasswordLink {
+  color: #64748b;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.forgotPasswordLink:hover {
+  color: var(--theme-color, #3f9fd9);
+}
+
+/* Premium Primary Button */
+.submitBtn {
+  width: 100%;
+  height: 50px;
+  background: var(--theme-color, #3f9fd9);
+  color: var(--theme-text-on-theme, #ffffff);
+  border: none;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px var(--theme-color-light, rgba(63, 159, 217, 0.2));
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--theme-color-medium, rgba(63, 159, 217, 0.3));
+  filter: brightness(1.05);
+}
+
+.submitBtn:active:not(:disabled) {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
+
+.submitBtn:disabled {
+  background: #cbd5e1;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Loading Spinners */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--theme-text-on-theme, #ffffff);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 36px 24px;
+    border-radius: 20px;
+  }
+  
+  .loginTitle {
+    font-size: 22px;
+  }
+  
+  .logoIconContainer {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    border-radius: 16px;
+  }
+}

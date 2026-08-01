@@ -1,0 +1,226 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Filter panel: .NET uses <div class="alert"> – Bootstrap cerulean .alert: #8bc5e8 / #7ed0e5 */
+.panel {
+  background: #eef5fb;
+  border: 1px solid #b8d9ee;
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.filtersRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* .NET: <td style="font-weight: bold">Batch</td> etc. */
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #333;
+}
+
+.select {
+  min-width: 140px;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+  background: #fff;
+}
+
+.select:focus {
+  outline: none;
+  border-color: #17a2b8;
+}
+
+.actionsGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* .NET: btn btn-info, Style="width: 100px;" */
+.viewBtn {
+  padding: 8px 20px;
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #17a2b8;
+  color: #fff;
+}
+
+.viewBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* .NET: btn btn-success, Style="width: 100px;" */
+.downloadBtn {
+  padding: 8px 20px;
+  min-width: 100px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #28a745;
+  color: #fff;
+}
+
+.downloadBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* .NET: padding-left: 160px; */
+.printRow {
+  padding-left: 20px;
+}
+
+/* .NET: style="font-weight: bold; color: red" | chkIsPrint ForeColor="Blue" */
+.printLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #dc3545;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.printLabel input {
+  cursor: pointer;
+  accent-color: #0066cc;
+}
+
+.reportArea {
+  min-height: 320px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.reportArea > .placeholder,
+.reportArea > .loadingState {
+  margin: auto;
+  text-align: center;
+}
+
+.placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  text-align: center;
+}
+
+.loadingState {
+  color: #17a2b8;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.reportPlaceholder {
+  color: #495057;
+  font-size: 14px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.reportContent {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.errorMessage {
+  padding: 12px;
+  color: #dc3545;
+  font-size: 14px;
+  background: #f8d7da;
+  border-radius: 4px;
+}
+
+.reportTableWrap {
+  width: 100%;
+  max-width: 100%;
+  max-height: 70vh;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.reportTable {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.reportTable th,
+.reportTable td {
+  padding: 10px 12px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.reportTable th {
+  background: #17a2b8;
+  color: #fff;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.reportTable td {
+  background: #fff;
+}
+
+.reportTable tbody tr:hover {
+  background: #f0f8ff;
+}
+
+.reportTable tbody tr:nth-child(even) td {
+  background: #fafafa;
+}
+
+.reportTable tbody tr:nth-child(even):hover td {
+  background: #f0f8ff;
+}
+
+@media (max-width: 768px) {
+  .filtersRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .select { min-width: 100%; }
+  .actionsGroup { justify-content: flex-start; }
+}
