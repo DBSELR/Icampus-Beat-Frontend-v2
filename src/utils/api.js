@@ -1,7 +1,8 @@
 // API utility for backend communication
-// Prefer REACT_APP_BASE_URL if set, otherwise default to backend on localhost:5127
-// This avoids relying on CRA dev-server proxy configuration.
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://localhost:44396';
+const BASE_URL = process.env.REACT_APP_BASE_URL || '';
+
+
+
 
 
 // Helper function to get MAC address (simplified version)
