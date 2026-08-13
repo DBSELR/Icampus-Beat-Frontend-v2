@@ -200,3 +200,9 @@
   .actionsGroup { margin-left: 0; }
   .select, .input { min-width: 100%; }
 }
+
+@media print {
+  :global(.no-print) {
+    display: none !important;
+  }
+}
