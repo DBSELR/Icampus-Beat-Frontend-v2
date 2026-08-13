@@ -23,7 +23,7 @@ const GradeCard = () => {
     setTimeout(() => setMessage({ text: '', type: '' }), 4000);
   };
 
-  // Load sems on mount
+  // Load sems on mount 
   useEffect(() => {
     if (!course || !examMY) return;
     getResultGradeSheetSems(course, examMY)

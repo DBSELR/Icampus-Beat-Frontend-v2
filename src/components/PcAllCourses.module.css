@@ -1,8 +1,9 @@
-/* PC_All_Courses.aspx — PC All Courses
-   Panel: Bootstrap .alert (yellow) — bg #fcf8e3, border #fbeed5, color #c09853
-   Controls: chkgracing | ddlBatch (cascade) | ddlBranch | txtRegno
-             | btnView (btn-info, 100px) | btnDownLoad (btn-success, 100px) | btnPrint (btn-primary, 100px)
+/* PC_All_Courses — Provisional Certificate Format
+   Panel: yellow alert (bg #fcf8e3, border #fbeed5, color #c09853)
+   Certificate page: A4 preview card with border, matching the physical PC layout
 */
+
+/* ── Layout ── */
 .container {
   padding: 20px;
   display: flex;
@@ -12,6 +13,7 @@
   min-height: 100vh;
 }
 
+/* ── Filter Panel ── */
 .panel {
   background: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -50,11 +52,7 @@
   background: #fff;
   color: #333;
 }
-
-.select:focus {
-  outline: none;
-  border-color: #f0ad4e;
-}
+.select:focus { outline: none; border-color: #f0ad4e; }
 
 .input {
   min-width: 130px;
@@ -65,16 +63,9 @@
   background: #fff;
   color: #333;
 }
+.input:focus { outline: none; border-color: #f0ad4e; }
 
-.input:focus {
-  outline: none;
-  border-color: #f0ad4e;
-}
-
-.checkGroup {
-  display: flex;
-  align-items: center;
-}
+.checkGroup { display: flex; align-items: center; }
 
 .checkLabel {
   display: flex;
@@ -86,12 +77,9 @@
   cursor: pointer;
   white-space: nowrap;
 }
+.checkLabel input[type='checkbox'] { cursor: pointer; accent-color: #c09853; }
 
-.checkLabel input[type='checkbox'] {
-  cursor: pointer;
-  accent-color: #c09853;
-}
-
+/* ── Buttons ── */
 .actionsGroup {
   display: flex;
   align-items: center;
@@ -101,51 +89,34 @@
 
 .viewBtn {
   padding: 6px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #17a2b8;
-  color: #fff;
-  width: 100px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #17a2b8; color: #fff; min-width: 100px;
 }
-
-.viewBtn:hover:not(:disabled) { background: #138496; }
-.viewBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+.viewBtn:hover:not(:disabled)  { background: #138496; }
+.viewBtn:disabled               { opacity: 0.6; cursor: not-allowed; }
 
 .downloadBtn {
   padding: 6px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #28a745;
-  color: #fff;
-  width: 100px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #28a745; color: #fff; min-width: 110px;
 }
-
 .downloadBtn:hover:not(:disabled) { background: #218838; }
-.downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+.downloadBtn:disabled              { opacity: 0.6; cursor: not-allowed; }
 
 .printBtn {
   padding: 6px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #337ab7;
-  color: #fff;
-  width: 100px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #337ab7; color: #fff; min-width: 100px;
 }
-
 .printBtn:hover:not(:disabled) { background: #286090; }
-.printBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+.printBtn:disabled              { opacity: 0.6; cursor: not-allowed; }
 
+/* ── Message ── */
 .message {
-  margin: 6px 0 0 0;
+  margin: 6px 0 0;
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 13px;
@@ -154,6 +125,7 @@
 .messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
 .messageError   { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
 
+/* ── Report Area ── */
 .reportArea {
   background: #fff;
   border: 1px solid #dee2e6;
@@ -177,26 +149,155 @@
   padding: 60px 0;
 }
 
-.tableWrapper { overflow-x: auto; margin-top: 4px; }
-
-.table { width: 100%; border-collapse: collapse; font-size: 12px; }
-
-.table th {
-  border: 1px solid #ccc;
-  padding: 5px 8px;
-  background: #fef9e7;
-  color: #c09853;
-  font-weight: 700;
-  white-space: nowrap;
-  text-align: center;
+/* ═══════════════════════════════════════════════════════
+   CERTIFICATE CARD — matches the physical PC layout in the image
+═══════════════════════════════════════════════════════ */
+.certGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
 }
 
-.table td { border: 1px solid #ddd; padding: 4px 8px; text-align: center; }
-.table tbody tr:nth-child(even) { background: #fffdf0; }
-.table tbody tr:hover { background: #fef9e7; }
+.certPage {
+  width: 100%;
+  max-width: 680px;
+  padding: 40px 48px 30px;
+  background: #fff;
+  font-family: 'Times New Roman', Times, serif;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  page-break-after: always;
+}
+
+/* ── Top row: Hall Ticket No | PC No ── */
+.certTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+  font-size: 16px;
+}
+.htNo  { color: #000; }
+.htNoVal { color: #f00; font-weight: bold; }
+.pcNo  { color: #000; }
+.pcNoVal { color: #000; }
+
+/* ── Body row: photo + text ── */
+.certBodyRow {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+/* ── Photo Box ── */
+.photoBox {
+  width: 120px;
+  min-width: 120px;
+  height: 145px;
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+.photoImg { width: 100%; height: 100%; object-fit: cover; }
+.noPhoto  { font-size: 13px; color: #000; text-align: center; }
+
+/* ── Certificate body text ── */
+.certText {
+  flex: 1;
+  padding-top: 15px;
+}
+
+.certLine {
+  margin: 0 0 16px;
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: #000;
+}
+
+.nameBlue   { color: #0000ff; font-weight: normal; }
+.degreeRed  { color: #ff0000; font-weight: normal; }
+.dateGreen  { color: #008000; font-weight: normal; }
+
+.degreeTextRight {
+  float: right;
+  margin-right: 4px;
+}
+
+.dotMargin {
+  margin-left: 2px;
+}
+
+/* ── QR + Barcode ── */
+.certCodesRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 15px;
+  padding-left: 6px;
+}
+
+.qrWrap { width: 85px; height: 85px; }
+.qrImg  { width: 85px; height: 85px; }
+.qrPlaceholder {
+  width: 85px; height: 85px;
+  border: 1px solid #000;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: #000;
+}
+
+.barcodeWrap { flex: 1; display: flex; justify-content: flex-end; padding-right: 20px; }
+.barcodeImg  { height: 42px; max-width: 250px; object-fit: contain; }
+.barcodePlaceholder {
+  width: 200px; height: 35px;
+  background: repeating-linear-gradient(90deg, #000 0px, #000 2.5px, #fff 2.5px, #fff 5px);
+}
+
+/* ── Signatures ── */
+.certSigRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 35px 0 10px;
+  padding-left: 6px;
+  min-height: 50px;
+}
+
+.cmmNo { font-size: 15px; color: #000; white-space: nowrap; }
+.cmmVal { color: #000; }
+
+.sigPlaceholder {
+  width: 140px;
+  height: 50px;
+  display: inline-block;
+  background: transparent;
+}
+
+/* ── Date ── */
+.certDate {
+  font-size: 15px;
+  color: #000;
+  margin-top: 15px;
+  padding-left: 6px;
+}
+
+/* ── Print styles ── */
+@media print {
+  .panel, .actionsGroup  { display: none; }
+  .container             { padding: 0; background: #fff; }
+  .reportArea            { border: none; padding: 0; }
+  .certPage              { box-shadow: none; page-break-after: always; padding: 40px 48px; }
+  .certGrid              { gap: 0; }
+}
 
 @media (max-width: 768px) {
-  .filtersRow { flex-direction: column; align-items: stretch; }
+  .filtersRow  { flex-direction: column; align-items: stretch; }
   .actionsGroup { margin-left: 0; }
   .select, .input { min-width: 100%; }
+  .certBodyRow { flex-direction: column; }
+  .photoBox    { width: 100%; height: 145px; }
 }

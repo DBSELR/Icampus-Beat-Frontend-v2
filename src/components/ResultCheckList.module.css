@@ -1,8 +1,9 @@
 /* ResultCheckList — from Reports/ResultCheckList.aspx
    Subheading bar: bg #8bc5e8, border #7ed0e5, color #1c628b
    Controls: Semester ddl | Radio CheckList-I/II | IsReadmit checkbox | View (btn-info) | Download (btn-success)
-   Conditional: Readmit Regulation textbox when IsReadmit checked
 */
+
+/* ── Layout ── */
 .container {
   padding: 20px;
   display: flex;
@@ -12,7 +13,7 @@
   min-height: 100vh;
 }
 
-/* Blue subheading panel — matches old .subheading style */
+/* Blue subheading panel */
 .panel {
   background: #8bc5e8;
   border: 1px solid #7ed0e5;
@@ -51,11 +52,7 @@
   background: #fff;
   color: #333;
 }
-
-.select:focus {
-  outline: none;
-  border-color: #17a2b8;
-}
+.select:focus { outline: none; border-color: #17a2b8; }
 
 /* Radio group */
 .radioGroup {
@@ -74,17 +71,10 @@
   cursor: pointer;
   white-space: nowrap;
 }
-
-.radioLabel input[type='radio'] {
-  cursor: pointer;
-  accent-color: #1c628b;
-}
+.radioLabel input[type='radio'] { cursor: pointer; accent-color: #1c628b; }
 
 /* Checkbox */
-.checkGroup {
-  display: flex;
-  align-items: center;
-}
+.checkGroup { display: flex; align-items: center; }
 
 .checkLabel {
   display: flex;
@@ -96,13 +86,9 @@
   cursor: pointer;
   white-space: nowrap;
 }
+.checkLabel input[type='checkbox'] { cursor: pointer; accent-color: #1c628b; }
 
-.checkLabel input[type='checkbox'] {
-  cursor: pointer;
-  accent-color: #1c628b;
-}
-
-/* Readmit Regulation input */
+/* Readmit input */
 .input {
   padding: 5px 10px;
   border: 1px solid #ced4da;
@@ -111,11 +97,7 @@
   width: 110px;
   background: #fff;
 }
-
-.input:focus {
-  outline: none;
-  border-color: #17a2b8;
-}
+.input:focus { outline: none; border-color: #17a2b8; }
 
 /* Buttons */
 .actionsGroup {
@@ -127,47 +109,32 @@
 
 .viewBtn {
   padding: 6px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #17a2b8;
-  color: #fff;
-  min-width: 70px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #17a2b8; color: #fff; min-width: 70px;
 }
-
-.viewBtn:hover:not(:disabled) {
-  background: #138496;
-}
-
-.viewBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+.viewBtn:hover:not(:disabled) { background: #138496; }
+.viewBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .downloadBtn {
   padding: 6px 18px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  background: #28a745;
-  color: #fff;
-  min-width: 90px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #28a745; color: #fff; min-width: 90px;
 }
+.downloadBtn:hover:not(:disabled) { background: #218838; }
+.downloadBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.downloadBtn:hover:not(:disabled) {
-  background: #218838;
+.printBtn {
+  padding: 6px 18px;
+  border: none; border-radius: 4px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  background: #337ab7; color: #fff; min-width: 90px;
 }
+.printBtn:hover:not(:disabled) { background: #286090; }
+.printBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.downloadBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Message bar */
+/* Message */
 .message {
   margin: 6px 0 0 0;
   padding: 6px 12px;
@@ -175,18 +142,8 @@
   font-size: 13px;
   font-weight: 600;
 }
-
-.messageSuccess {
-  color: #155724;
-  background: #d4edda;
-  border: 1px solid #c3e6cb;
-}
-
-.messageError {
-  color: #721c24;
-  background: #f8d7da;
-  border: 1px solid #f5c6cb;
-}
+.messageSuccess { color: #155724; background: #d4edda; border: 1px solid #c3e6cb; }
+.messageError   { color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; }
 
 /* Report area */
 .reportArea {
@@ -212,44 +169,230 @@
   padding: 60px 0;
 }
 
-/* Table */
-.tableWrapper {
-  overflow-x: auto;
-  margin-top: 4px;
+/* ═══════════════════════════════════════════════════════
+   REPORT SHEET FORMAT - MATCHING IMAGE
+═══════════════════════════════════════════════════════ */
+.reportSheet {
+  font-family: Arial, sans-serif;
+  color: #000;
+  background: #fff;
+  padding: 10px 14px;
 }
 
-.table {
+/* Header Grid */
+.sheetHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid #0000ff;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.logoAndMeta {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 55%;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.metaBlock {
+  font-size: 14px;
+  line-height: 1.8;
+  padding-top: 10px;
+}
+.metaBlock p { margin: 0; }
+.branchName { font-weight: bold; }
+
+.instituteBlock {
+  width: 45%;
+  text-align: right;
+  line-height: 1.35;
+}
+
+.instTitle {
+  font-size: 26px;
+  color: #ff0000;
+  font-weight: bold;
+  margin: 0;
+}
+
+.instSub {
+  font-size: 15px;
+  color: #0000ff;
+  font-weight: bold;
+  margin: 2px 0 6px;
+}
+
+.checklistTitle {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 6px 0 4px;
+}
+
+.examMY {
+  font-size: 14px;
+  margin: 6px 0 0;
+}
+
+/* Subject Info Lists Block */
+.subjectsListsBlock {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.subjectListColumn {
+  flex: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px 14px;
+  background: #fdfdfd;
+}
+
+.subjectListTitle {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin: 0 0 8px 0;
+}
+
+.subjectUl {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subjectLi {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* ── Main Checklist Table ── */
+.tableContainer {
+  overflow-x: auto;
+  border: 1px solid #000;
+}
+
+.mainChecklistTable {
   width: 100%;
   border-collapse: collapse;
+  font-size: 11.5px;
+}
+
+.mainChecklistTable th,
+.mainChecklistTable td {
+  border: 1px solid #000;
+  padding: 4px 6px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Header styling */
+.snoTh { width: 4%; }
+.htnoTh { width: 12%; }
+.subjectTh {
+  min-width: 110px;
+  background: #fff;
+  font-weight: bold;
+}
+.subCodeText {
   font-size: 12px;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
 }
 
-.table th {
-  border: 1px solid #ccc;
-  padding: 5px 8px;
-  background: #dde9f5;
-  color: #1c628b;
-  font-weight: 700;
-  white-space: nowrap;
+.titTh {
+  font-size: 9px;
+  font-family: monospace;
+  font-weight: normal;
+  padding: 2px 4px;
+}
+.titLine {
+  line-height: 1.25;
+  white-space: pre-wrap;
   text-align: center;
 }
 
-.table td {
-  border: 1px solid #ddd;
-  padding: 4px 8px;
+.totalTh { width: 8%; font-weight: bold; }
+.resultTh { width: 8%; font-weight: bold; }
+
+/* Student data row styling */
+.studentTr:nth-child(even) { background: #fafafa; }
+.studentTr:hover { background: #f5f5f5; }
+
+.snoTd { font-size: 12px; }
+.htnoTd { font-size: 12px; font-family: monospace; }
+
+.markTd {
+  padding: 2px !important;
+}
+
+/* Student marks wrapper (CI, SE, TOT, RES stacked) */
+.marksWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  font-family: monospace;
+  font-size: 11.5px;
+}
+
+.marksRow {
+  display: flex;
+  justify-content: space-around;
+  padding: 2px 0 1px;
+}
+
+.markPart {
+  flex: 1;
   text-align: center;
 }
 
-.table tbody tr:nth-child(even) {
-  background: #f0f7ff;
+.paperCodeRow {
+  font-size: 10px;
+  font-family: Arial, sans-serif;
+  color: #555;
+  text-align: center;
+  border-top: 1px dotted #ccc;
+  margin-top: 2px;
+  padding-top: 1px;
 }
 
-.table tbody tr:hover {
-  background: #e3f0fb;
+.singleValueCell {
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.totalTd { font-size: 12px; font-weight: bold; }
+.resultTd { font-size: 12px; font-weight: bold; }
+
+/* ── Print adjustments ── */
+@media print {
+  .panel { display: none; }
+  .container { padding: 0; background: #fff; }
+  .reportArea { border: none; padding: 0; }
+  .mainChecklistTable { page-break-inside: auto; }
+  .studentTr { page-break-inside: avoid; page-break-after: auto; }
 }
 
 @media (max-width: 768px) {
   .filtersRow { flex-direction: column; align-items: stretch; }
   .actionsGroup { margin-left: 0; }
   .select { min-width: 100%; }
+  .sheetHeader { flex-direction: column; gap: 12px; align-items: stretch; }
+  .logoAndMeta { width: 100%; }
+  .instituteBlock { width: 100%; text-align: left; }
+  .subjectsListsBlock { flex-direction: column; gap: 12px; }
 }
