@@ -1,5 +1,5 @@
 // API utility for backend communication
-const BASE_URL = process.env.REACT_APP_BASE_URL || '';
+import { BASE_URL } from '../config';
 
 
 

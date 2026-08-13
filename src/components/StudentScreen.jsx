@@ -3,6 +3,7 @@ import { FaUser, FaChevronUp, FaChevronDown, FaTh } from 'react-icons/fa';
 import { getStudentScreenInfo, getStudentMaxSem, getStudentScreenGrades, getAppData } from '../utils/api';
 import styles from './StudentScreen.module.css';
 import { useTheme } from '../contexts/ThemeContext.jsx';
+import { BASE_URL } from '../config';
 
 const StudentScreen = () => {
   const { getCurrentThemeColor } = useTheme();
@@ -113,15 +114,13 @@ const StudentScreen = () => {
             setStudentImage(studentInfo.PHOTO);
           } else {
             // Otherwise, construct image URL from base URL
-            const baseUrl = process.env.REACT_APP_BASE_URL || 'http://192.168.1.45:5127';
-            const imageUrl = `${baseUrl}/api/StudentScreen/${regNo}/photo`;
+            const imageUrl = `${BASE_URL}/api/StudentScreen/${regNo}/photo`;
             setStudentImage(imageUrl);
           }
         } else {
           // Try to load image from photo endpoint even if PHOTO is null
           // Some backends serve images via separate endpoint
-          const baseUrl = process.env.REACT_APP_BASE_URL || 'http://192.168.1.45:5127';
-          const imageUrl = `${baseUrl}/api/StudentScreen/${regNo}/photo`;
+          const imageUrl = `${BASE_URL}/api/StudentScreen/${regNo}/photo`;
           setStudentImage(imageUrl);
         }
 
