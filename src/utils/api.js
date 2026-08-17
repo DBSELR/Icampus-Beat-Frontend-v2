@@ -43,7 +43,16 @@ export const clearAllAppData = () => {
 
 // Generic API call function
 const apiCall = async (endpoint, options = {}) => {
-  const url = BASE_URL ? `${BASE_URL}${endpoint}` : endpoint;
+  let url;
+  if (endpoint.startsWith('http://') || endpoint.startsWith('https://')) {
+    url = endpoint;
+  } else if (BASE_URL) {
+    const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    url = `${cleanBase}${cleanEndpoint}`;
+  } else {
+    url = endpoint;
+  }
 
   // Get token from localStorage for authenticated requests
   const token = localStorage.getItem('token');

@@ -19,7 +19,7 @@ export const API_ENVIRONMENTS = {
 
 // Current active URLs (reads from .env or defaults to Live)
 export const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || API_ENVIRONMENTS.LIVE.baseUrl;
-export const BASE_URL = process.env.REACT_APP_BASE_URL || '';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || (process.env.NODE_ENV === 'production' ? BACKEND_URL : '');
 
 // Detect current mode
 export const IS_LIVE_ENV = BACKEND_URL.includes('apiicampus.dbasesolutions.in');
@@ -33,8 +33,14 @@ export const CURRENT_SWAGGER_URL = IS_LIVE_ENV
  * @returns {string} Full URL or relative endpoint
  */
 export const getApiEndpoint = (path = '') => {
+  if (!path) return BASE_URL || '';
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
-  return BASE_URL ? `${BASE_URL}${cleanPath}` : cleanPath;
+  if (!BASE_URL) return cleanPath;
+  const cleanBase = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  return `${cleanBase}${cleanPath}`;
 };
 
 // Application Constants
