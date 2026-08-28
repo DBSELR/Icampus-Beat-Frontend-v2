@@ -7,9 +7,8 @@ import { BASE_URL } from '../config';
 
 // Helper function to get MAC address (simplified version)
 const getMacAddress = () => {
-  // For now, return a placeholder. In a real app, you might use a library
-  // or implement a more sophisticated method to get the actual MAC address
-  return "placeholder-mac-address";
+  // Return standard formatted MAC address (<= 17 chars to prevent SQL string truncation errors)
+  return "00:00:00:00:00:00";
 };
 
 // Token expiration utilities
@@ -105,15 +104,20 @@ const apiCall = async (endpoint, options = {}) => {
       try {
         data = JSON.parse(text);
       } catch (parseError) {
-        // If JSON parsing fails, use empty object
         console.warn('Failed to parse JSON response:', parseError);
         data = {};
+      }
+    } else if (text) {
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = { message: text };
       }
     }
     
     if (!response.ok) {
       // Try to get error message from response
-      const errorMessage = data?.message || data?.Message || `HTTP error! status: ${response.status}`;
+      const errorMessage = data?.message || data?.Message || (typeof text === 'string' && text.length > 0 && text.length < 200 ? text : `HTTP error! status: ${response.status}`);
       console.error('API call failed:', {
         status: response.status,
         statusText: response.statusText,
@@ -131,11 +135,11 @@ const apiCall = async (endpoint, options = {}) => {
 
 // Login API call
 export const loginUser = async (userId, password) => {
-  // Use PascalCase to match backend model exactly
+  // Match backend Swagger schema (camelCase) and valid MAC length
   const requestBody = {
-    UserId: userId,
-    Password: password,
-    MacAddress: getMacAddress() || "Y",
+    userId: userId,
+    password: password,
+    macAddress: getMacAddress() || "string",
   };
 
   console.log('Login request body:', requestBody);
