@@ -859,19 +859,19 @@ const StudentEntry = () => {
         </h1>
         <div className={styles.headerButtons}>
           <button className={`${styles.btn} ${styles.btnWarning}`} onClick={() => console.log('Detained List')}>
-            <FaListUl style={{ marginRight: '6px' }}/> Detained List
+            <FaListUl style={{ marginRight: '6px' }} /> Detained List
           </button>
           <button className={`${styles.btn} ${styles.btnPrimary}`} onClick={() => console.log('ReadmissionList')}>
             Readmission List
           </button>
           <button className={`${styles.btn} ${styles.btnSuccess}`} onClick={() => console.log('BranchWise Student Count')}>
-            <FaChartBar style={{ marginRight: '6px' }}/> BranchWise Count
+            <FaChartBar style={{ marginRight: '6px' }} /> BranchWise Count
           </button>
           <button className={`${styles.btn} ${styles.btnInfo}`} onClick={() => console.log('Distinction Passed List')}>
             Distinction List
           </button>
           <button className={`${styles.btn} ${styles.btnInfo}`} onClick={() => console.log('Std Data Batchwise Export')}>
-            <FaFileExport style={{ marginRight: '6px' }}/> Export Data
+            <FaFileExport style={{ marginRight: '6px' }} /> Export Data
           </button>
           <button className={styles.minimizeBtn}>
             <FaChevronUp />
@@ -902,7 +902,7 @@ const StudentEntry = () => {
                   <select name="batch" value={formData.batch} onChange={handleBatchChange} className={styles.select} disabled={batchesLoading}>
                     {batchesLoading ? <option value="">Loading...</option>
                       : batches.length === 0 ? <option value="">No batches available</option>
-                      : <><option value="">Select Batch</option>{batches.map((b, i) => <option key={i} value={b.batch}>{b.batch}</option>)}</>}
+                        : <><option value="">Select Batch</option>{batches.map((b, i) => <option key={i} value={b.batch}>{b.batch}</option>)}</>}
                   </select>
                 </div>
                 <div className={styles.formGroup}>
@@ -910,8 +910,8 @@ const StudentEntry = () => {
                   <select name="branch" value={formData.branch} onChange={handleBranchChange} className={styles.select} disabled={branchesLoading || !formData.batch}>
                     {branchesLoading ? <option value="">Loading...</option>
                       : !formData.batch ? <option value="">Select batch first</option>
-                      : branches.length === 0 ? <option value="">No branches available</option>
-                      : <><option value="">Select Branch</option>{branches.map((b, i) => <option key={i} value={b.branch || b.value}>{b.branch || b.label}</option>)}</>}
+                        : branches.length === 0 ? <option value="">No branches available</option>
+                          : <><option value="">Select Branch</option>{branches.map((b, i) => <option key={i} value={b.branch || b.value}>{b.branch || b.label}</option>)}</>}
                   </select>
                 </div>
                 <div className={styles.formGroup}>

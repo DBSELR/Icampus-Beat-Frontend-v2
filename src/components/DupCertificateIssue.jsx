@@ -88,11 +88,10 @@ const DupCertificateIssue = () => {
           branch: '',
           sem: '',
         }));
-        alert(response.message || 'No data found for this receipt number');
+        console.warn(response.message || 'No data found for this receipt number');
       }
     } catch (error) {
       console.error('Error fetching receipt data:', error);
-      alert(error.message || 'Failed to fetch receipt data. Please check the receipt number.');
     } finally {
       setLoadingReceipt(false);
     }
@@ -150,10 +149,20 @@ const DupCertificateIssue = () => {
       ...prev,
       [name]: value
     }));
+  };
 
-    // If receipt number changes, fetch data (AutoPostBack behavior)
-    if (name === 'receiptNo' && value) {
-      fetchStudentDataByReceipt(value);
+  // Fetch when user clicks outside the field
+  const handleBlur = (e) => {
+    if (e.target.name === 'receiptNo' && e.target.value) {
+      fetchStudentDataByReceipt(e.target.value);
+    }
+  };
+
+  // Fetch when user presses Enter
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && e.target.name === 'receiptNo') {
+      e.preventDefault(); // Prevent form submission
+      fetchStudentDataByReceipt(e.target.value);
     }
   };
 
@@ -320,8 +329,9 @@ const DupCertificateIssue = () => {
                       className={styles.input}
                       value={formData.receiptNo}
                       onChange={handleInputChange}
-                      disabled={loadingReceipt}
-                      placeholder={loadingReceipt ? 'Loading...' : ''}
+                      onBlur={handleBlur}
+                      onKeyDown={handleKeyDown}
+                      placeholder={loadingReceipt ? 'Verifying...' : 'Press Enter or click away to verify'}
                     />
                   </td>
                   <td className={styles.labelCell}>

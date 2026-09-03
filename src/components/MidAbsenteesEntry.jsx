@@ -18,6 +18,7 @@ const MidAbsenteesEntry = () => {
   const [loadingStudents, setLoadingStudents] = useState(false);
   const [loadError, setLoadError] = useState('');
   const [savingId, setSavingId] = useState(null);
+  const [quickEntry, setQuickEntry] = useState({ regNo: '', code: '' });
 
   const semOptions = ['1', '2', '3', '4', '5', '6', '7', '8'];
   const examTypeOptions = [
@@ -156,6 +157,50 @@ const MidAbsenteesEntry = () => {
                   </select>
                 </div>
               </div>
+              {showTable && !loadingStudents && (
+                <div className={styles.formRow} style={{ marginTop: '16px', borderTop: '1px solid #e2e8f0', paddingTop: '16px' }}>
+                  <div className={styles.formGroup}>
+                    <label className={styles.label}>Quick Reg No</label>
+                    <input
+                      type="text"
+                      name="quickRegNo"
+                      value={quickEntry.regNo}
+                      onChange={(e) => setQuickEntry(prev => ({ ...prev, regNo: e.target.value.toUpperCase() }))}
+                      className={styles.input}
+                      placeholder="Enter Reg No"
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label className={styles.label}>Quick AB/MP</label>
+                    <input
+                      type="text"
+                      name="quickCode"
+                      value={quickEntry.code}
+                      onChange={(e) => {
+                        const code = e.target.value.toUpperCase();
+                        setQuickEntry(prev => ({ ...prev, code }));
+                        
+                        if (code === 'AB' || code === 'MP') {
+                          const regNo = quickEntry.regNo.trim().toUpperCase();
+                          const row = tableData.find(r => (r.regNo || '').toUpperCase() === regNo);
+                          
+                          if (row) {
+                            handleCodeChange(row.ashid, code);
+                            handleCodeBlur({ ...row, midcode: code });
+                            setTimeout(() => setQuickEntry({ regNo: '', code: '' }), 100);
+                          } else {
+                            alert(`Reg No ${regNo} not found in the current list.`);
+                            setTimeout(() => setQuickEntry({ regNo, code: '' }), 100);
+                          }
+                        }
+                      }}
+                      className={styles.input}
+                      placeholder="AB / MP"
+                      maxLength={2}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

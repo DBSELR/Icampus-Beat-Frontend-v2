@@ -150,49 +150,51 @@ const ExamMyUpdate = () => {
           {loadError && !loading && <div className={styles.errorMessage}>{loadError}</div>}
 
           {showTable && !loading ? (
-            <div className={styles.tableContainer}>
-              <table className={styles.dataTable}>
-                <thead>
-                  <tr>
-                    <th>REGU</th>
-                    <th>COURSE</th>
-                    <th>GRP</th>
-                    <th>SEM</th>
-                    <th>STREAM</th>
-                    <th>REGNO</th>
-                    <th>EXAMMY</th>
-                    <th>ACT EXAMMY</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData.map((item) => (
-                    <tr key={item.ashid}>
-                      <td className={styles.centerText}>{item.regu}</td>
-                      <td className={styles.centerText}>{item.course}</td>
-                      <td className={styles.centerText}>{item.grp}</td>
-                      <td className={styles.centerText}>{item.sem}</td>
-                      <td className={styles.centerText}>{item.stream}</td>
-                      <td className={styles.centerText}>{item.regno}</td>
-                      <td className={styles.centerText}>{item.exammy}</td>
-                      <td className={styles.centerText}>
-                        <input type="text" value={item.actExammy} onChange={(e) => handleTableInputChange(item.ashid, e.target.value)} className={styles.tableInput} placeholder="e.g. Jun-2021" />
-                      </td>
-                      <td className={styles.centerText}>
-                        <button type="button" onClick={() => handleDelete(item.ashid)} className={styles.deleteBtn} title="Delete">
-                          <FaTrash />
-                        </button>
-                      </td>
+            <>
+              <div className={styles.tableContainer}>
+                <table className={styles.dataTable}>
+                  <thead>
+                    <tr>
+                      <th>REGU</th>
+                      <th>COURSE</th>
+                      <th>GRP</th>
+                      <th>SEM</th>
+                      <th>STREAM</th>
+                      <th>REGNO</th>
+                      <th>EXAMMY</th>
+                      <th>ACT EXAMMY</th>
+                      <th>Delete</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {tableData.map((item) => (
+                      <tr key={item.ashid}>
+                        <td className={styles.centerText}>{item.regu}</td>
+                        <td className={styles.centerText}>{item.course}</td>
+                        <td className={styles.centerText}>{item.grp}</td>
+                        <td className={styles.centerText}>{item.sem}</td>
+                        <td className={styles.centerText}>{item.stream}</td>
+                        <td className={styles.centerText}>{item.regno}</td>
+                        <td className={styles.centerText}>{item.exammy}</td>
+                        <td className={styles.centerText}>
+                          <input type="text" value={item.actExammy} onChange={(e) => handleTableInputChange(item.ashid, e.target.value)} className={styles.tableInput} placeholder="e.g. Jun-2021" />
+                        </td>
+                        <td className={styles.centerText}>
+                          <button type="button" onClick={() => handleDelete(item.ashid)} className={styles.deleteBtn} title="Delete">
+                            <FaTrash />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
               <div className={styles.updateButtonContainer}>
                 <button type="button" onClick={handleUpdateExammy} className={styles.updateBtn}>
                   <FaSave /> UPDATE EXAMMY
                 </button>
               </div>
-            </div>
+            </>
           ) : !loading && !loadError ? (
             <div className={styles.noDataMessage}>
               Select Batch, Branch and Semester to load data. Ensure Regulation and Course are set.

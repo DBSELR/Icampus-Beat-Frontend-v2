@@ -55,7 +55,6 @@ const apiCall = async (endpoint, options = {}) => {
 
   // Get token from localStorage for authenticated requests
   const token = localStorage.getItem('token');
-  const tokenTimestamp = localStorage.getItem('tokenTimestamp');
 
   // Check if token is expired before making API call
   if (token && isTokenExpired()) {
@@ -93,12 +92,12 @@ const apiCall = async (endpoint, options = {}) => {
 
   try {
     const response = await fetch(url, config);
-    
+
     // Check if response has content before parsing JSON
     const contentType = response.headers.get('content-type');
     const hasJsonContent = contentType && contentType.includes('application/json');
     const text = await response.text();
-    
+
     let data = {};
     if (hasJsonContent && text) {
       try {
@@ -114,7 +113,7 @@ const apiCall = async (endpoint, options = {}) => {
         data = { message: text };
       }
     }
-    
+
     if (!response.ok) {
       // Try to get error message from response
       const errorMessage = data?.message || data?.Message || (typeof text === 'string' && text.length > 0 && text.length < 200 ? text : `HTTP error! status: ${response.status}`);
@@ -125,7 +124,7 @@ const apiCall = async (endpoint, options = {}) => {
       });
       throw new Error(errorMessage);
     }
-    
+
     return data;
   } catch (error) {
     console.error('API call failed:', error);
@@ -210,7 +209,7 @@ export const saveSelection = async (regulation, course, examMY) => {
 
     if (response.success) {
       console.log('Save Selection API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save selection');
     }
@@ -232,7 +231,7 @@ export const getBatches = async (course) => {
 
     if (response.success) {
       console.log('Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch batches');
     }
@@ -253,11 +252,11 @@ export const getBranchPriorityBranches = async (course, regulation) => {
 
     if (response.success) {
       console.log('Branch Priority Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'branches not found') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to fetch branch priority branches');
@@ -278,11 +277,11 @@ export const getBranchPriorityData = async (session, id = 0) => {
 
     if (response.success) {
       console.log('Branch Priority Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'no data found') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to fetch branch priority data');
@@ -305,7 +304,7 @@ export const deleteBranchPriority = async (payload) => {
 
     if (response.success) {
       console.log('Delete Branch Priority API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to delete branch priority');
@@ -328,7 +327,7 @@ export const saveExam = async (examPayload) => {
 
     if (response.success) {
       console.log('Save Exam API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to save exam notification');
@@ -351,7 +350,7 @@ export const saveExamWithNotification = async (examPayload) => {
 
     if (response.success) {
       console.log('Save Exam With Notification API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to save exam notification with release dates');
@@ -372,7 +371,7 @@ export const deleteExam = async (aExamId) => {
 
     if (response.success) {
       console.log('Delete Exam API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to delete exam');
@@ -395,11 +394,11 @@ export const getCourseReport = async (params) => {
 
     if (response.success) {
       console.log('Course Report API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'subject list loaded') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course report');
@@ -420,7 +419,7 @@ export const getCourseReportBatches = async (course, regulation) => {
 
     if (response.success) {
       console.log('Course Report Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course report batches');
@@ -441,7 +440,7 @@ export const getCourseReportBranches = async (course, regulation, batch) => {
 
     if (response.success) {
       console.log('Course Report Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course report branches');
@@ -462,7 +461,7 @@ export const getCourseReportSems = async (course, regulation, batch) => {
 
     if (response.success) {
       console.log('Course Report Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course report sems');
@@ -485,11 +484,11 @@ export const getCourseGradeReport = async (params) => {
 
     if (response.success) {
       console.log('Course Grade Report API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'subject list loaded') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course grade report');
@@ -510,7 +509,7 @@ export const getCourseGradeReportBatches = async (course, regulation) => {
 
     if (response.success) {
       console.log('Course Grade Report Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load course grade report batches');
@@ -533,11 +532,11 @@ export const getSemesterGradeReport = async (params) => {
 
     if (response.success) {
       console.log('Semester Grade Report API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'subject list loaded') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semester grade report');
@@ -558,7 +557,7 @@ export const getSemesterGradeReportBatches = async (course, regulation) => {
 
     if (response.success) {
       console.log('Semester Grade Report Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semester grade report batches');
@@ -581,11 +580,11 @@ export const getRoomMasterReport = async (params) => {
 
     if (response.success) {
       console.log('Room Master Report API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'subject list loaded') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load room master report');
@@ -608,7 +607,7 @@ export const saveBranchPriority = async (payload) => {
 
     if (response.success) {
       console.log('Save Branch Priority API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to save branch priority');
@@ -630,7 +629,7 @@ export const getBranches = async (course, regu) => {
 
     if (response.success) {
       console.log('Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch branches');
     }
@@ -652,7 +651,7 @@ export const getSemesters = async (course, batch, branch) => {
 
     if (response.success) {
       console.log('Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semesters');
     }
@@ -674,7 +673,7 @@ export const getStreams = async (course, batch, branch, sem) => {
 
     if (response.success) {
       console.log('Streams API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch streams');
     }
@@ -687,18 +686,26 @@ export const getStreams = async (course, batch, branch, sem) => {
 // Get paper list for course, regulation, branch, semester, and stream
 export const getPaperList = async (course, regu, branch, sem, stream) => {
   try {
-    const response = await apiCall(`/api/Paper/list?course=${course}&regu=${regu}&branch=${branch}&sem=${sem}&stream=${stream}`, {
+    const queryParams = new URLSearchParams({
+      course: course || '',
+      regu: regu || '',
+      branch: branch || '',
+      sem: sem !== undefined && sem !== null ? sem.toString() : '',
+      stream: stream !== undefined && stream !== null ? stream.toString() : '1'
+    }).toString();
+
+    const response = await apiCall(`/api/Paper/list?${queryParams}`, {
       method: 'GET',
       headers: {
         'Accept': '*/*',
       },
     });
 
-    if (response.success) {
+    if (response.success || response.Success || Array.isArray(response.data) || Array.isArray(response)) {
       console.log('Paper List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
-      throw new Error(response.message || 'Failed to fetch paper list');
+      throw new Error(response.message || response.Message || 'Failed to fetch paper list');
     }
   } catch (error) {
     console.error('Error fetching paper list:', error);
@@ -709,18 +716,26 @@ export const getPaperList = async (course, regu, branch, sem, stream) => {
 // Get paper details for a specific paper
 export const getPaperDetails = async (course, regu, sem, pcode, branch) => {
   try {
-    const response = await apiCall(`/api/Paper/details?course=${course}&regu=${regu}&sem=${sem}&pcode=${pcode}&branch=${branch}`, {
+    const queryParams = new URLSearchParams({
+      course: course || '',
+      regu: regu || '',
+      sem: sem !== undefined && sem !== null ? sem.toString() : '',
+      pcode: pcode || '',
+      branch: branch || ''
+    }).toString();
+
+    const response = await apiCall(`/api/Paper/details?${queryParams}`, {
       method: 'GET',
       headers: {
         'Accept': '*/*',
       },
     });
 
-    if (response.success) {
+    if (response.success || response.Success || Array.isArray(response.data) || Array.isArray(response) || response.data || response.pname || response.PNAME) {
       console.log('Paper Details API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
-      throw new Error(response.message || 'Failed to fetch paper details');
+      throw new Error(response.message || response.Message || 'Failed to fetch paper details');
     }
   } catch (error) {
     console.error('Error fetching paper details:', error);
@@ -748,7 +763,7 @@ export const copyPaper = async (course, toBatch, fromBatch, sem, userId) => {
 
     if (response.success) {
       console.log('Copy Paper API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to copy paper');
     }
@@ -770,7 +785,7 @@ export const deletePaper = async (regu, sem, branch, pcode) => {
 
     if (response.success) {
       console.log('Delete Paper API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete paper');
     }
@@ -794,7 +809,7 @@ export const savePaper = async (paperData) => {
 
     if (response.success) {
       console.log('Save Paper API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save paper');
     }
@@ -825,7 +840,7 @@ export const reorderPapers = async (regu, sem, branch, course, stream, orderedPa
 
     if (response.success) {
       console.log('Reorder Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to reorder papers');
     }
@@ -847,7 +862,7 @@ export const getEmployeeGrid = async () => {
 
     if (response.success) {
       console.log('Employee Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch employee data');
     }
@@ -923,7 +938,7 @@ export const registerEmployee = async (employeeData, imageFile = null, signature
 
     if (response.success) {
       console.log('Employee Register API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to register employee');
     }
@@ -945,7 +960,7 @@ export const getEmployeeDetails = async (employeeId) => {
 
     if (response.success) {
       console.log('Employee Details API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch employee details');
     }
@@ -967,7 +982,7 @@ export const deleteEmployee = async (empId, userName) => {
 
     if (response.success) {
       console.log('Delete Employee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete employee');
     }
@@ -989,7 +1004,7 @@ export const getUserGroups = async () => {
 
     if (response.success) {
       console.log('User Groups API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch user groups');
     }
@@ -1023,7 +1038,7 @@ export const saveUserForms = async (userGroup, forms) => {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ userGroup, forms }),
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (e) {
     throw e;
   }
@@ -1037,7 +1052,7 @@ export const deleteUserGroup = async (userGroup) => {
       method: 'DELETE',
       headers: { 'Accept': 'application/json' },
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (e) {
     throw e;
   }
@@ -1052,7 +1067,7 @@ export const backupDatabase = async () => {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({}),
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (e) {
     throw e;
   }
@@ -1067,7 +1082,7 @@ export const submitBiometricTemplate = async (template) => {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ template }),
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (e) {
     throw e;
   }
@@ -1093,7 +1108,7 @@ export const getExportToPortalSems = async (batch) => {
   try {
     const res = await apiCall(`/api/ExportToPortal/sems?batch=${encodeURIComponent(batch)}`, { method: 'GET', headers: { 'Accept': 'application/json' } });
     if (res.success && Array.isArray(res.data)) return res;
-  } catch (_) {}
+  } catch (_) { }
   const sems = Array.from({ length: 8 }, (_, i) => ({ sem: i + 1, value: String(i + 1), text: String(i + 1) }));
   return { success: true, data: sems };
 };
@@ -1105,7 +1120,7 @@ export const exportToPortal = async (batch, sem, regSup, exportType) => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ batch, sem, regSup, exportType }),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // Export to Student Portal RegnoWise
@@ -1115,7 +1130,7 @@ export const exportToPortalRegnoWise = async (regNo) => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ regNo }),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // --- Internal Marks (Post-Exams > Internal Marks Entry) ---
@@ -1131,7 +1146,7 @@ export const getInternalMarksPapers = async (regulation, examMY, sem, course, gr
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/InternalMarks/students?regulation=&examMY=&sem=&course=&grp=&pCode=
@@ -1147,7 +1162,7 @@ export const getInternalMarksStudents = async (regulation, examMY, sem, course, 
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/InternalMarks/save  body: { ashid: number, marks: string }
@@ -1157,7 +1172,7 @@ export const saveInternalMarks = async (ashid, marks) => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ ashid: Number(ashid), marks: String(marks) }),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // --- Practical Marks (Post-Exams > Practical Marks Entry) ---
@@ -1173,7 +1188,7 @@ export const getPracticalMarksPapers = async (regulation, examMY, sem, course, g
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/PracticalMarks/students?regulation=&examMY=&sem=&course=&grp=&pCode=
@@ -1189,7 +1204,7 @@ export const getPracticalMarksStudents = async (regulation, examMY, sem, course,
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/PracticalMarks/save  body: { ashid: number, marks: string }
@@ -1199,7 +1214,7 @@ export const savePracticalMarks = async (ashid, marks) => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ ashid: Number(ashid), marks: String(marks) }),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -1221,7 +1236,7 @@ export const loadOmrMarks = async (omrNumber, course, regulation, examMY, regSup
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/OmrMarksEntry/save — no URL params; body: regulation, examMY, course, omrNumber (number), marks (string), type ("RV"|"V3"), sem (string)
@@ -1257,7 +1272,7 @@ export const saveOmrMarks = async ({
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -1280,7 +1295,7 @@ export const loadExamMyUpdate = async (regulation, course, batch, branch, sem) =
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/ExamMyUpdate/update — body: { Rows: [{ ACT_EXAMMY, Regulation, Batch, Course, Branch, Sem, REGNO, EXAMMY }] }
@@ -1305,7 +1320,7 @@ export const updateExamMyUpdate = async (rows) => {
     headers: { Accept: '*/*', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // DELETE /api/ExamMyUpdate/delete/{ashid}
@@ -1318,7 +1333,7 @@ export const deleteExamMyUpdate = async (ashid) => {
     method: 'DELETE',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -1340,7 +1355,7 @@ export const loadRegnoExammywiseSubjects = async (regNo, course, regulation, exa
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/RegnoExammywiseSubjects/load-get (with regSup = Reg or Sup)
@@ -1356,7 +1371,7 @@ export const loadRegnoExammywiseSubjectsGet = async (regNo, course, regulation, 
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/RegnoExammywiseSubjects/save
@@ -1378,7 +1393,7 @@ export const saveRegnoExammywiseSubjects = async (regNo, papers) => {
     headers: { Accept: '*/*', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -1398,7 +1413,7 @@ export const getRegNoMarksStudent = async (regNo, examMY, batch, sem, course) =>
     method: 'GET',
     headers: { 'Accept': 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/RegNoMarksEntry/save
@@ -1423,7 +1438,7 @@ export const saveRegNoMarks = async (regNo, papers) => {
     headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // Check if user exists
@@ -1437,7 +1452,7 @@ export const checkUser = async (userId) => {
     });
 
     console.log('Check User API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error checking user:', error);
     throw error;
@@ -1456,7 +1471,7 @@ export const getFeeStructures = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Fee Structures API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch fee structures');
     }
@@ -1478,7 +1493,7 @@ export const getFineFeeList = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Fine Fee List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch fine fee list');
     }
@@ -1502,7 +1517,7 @@ export const saveFineFee = async (fineData) => {
 
     if (response.success) {
       console.log('Save Fine Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save fine fee');
     }
@@ -1531,9 +1546,9 @@ export const getExamFeeConcessionSems = async (course, regulation) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('ExamFeeConcession Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to load Exam Fee Concession semesters');
     }
@@ -1556,9 +1571,9 @@ export const getExamFeeConcessionStudent = async (regNo) => {
       }
     );
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('ExamFeeConcession Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to load Exam Fee Concession student data');
     }
@@ -1585,9 +1600,9 @@ export const getExamFeeConcessionGrid = async (course, examMy, regNo, sem = 0) =
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('ExamFeeConcession Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to load Exam Fee Concession grid');
     }
@@ -1614,9 +1629,9 @@ export const checkExamFeeConcessionRegSup = async (regu, sem, course, examMy) =>
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Check Exam Fee Concession RegSup API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check RegSup');
     }
@@ -1646,9 +1661,9 @@ export const getExamFeeConcessionFee = async (course, examMy, regulation, regu, 
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Exam Fee Concession Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to load fee data');
     }
@@ -1670,9 +1685,9 @@ export const saveExamFeeConcession = async (payload) => {
       body: JSON.stringify(payload),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Save ExamFeeConcession API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save Exam Fee Concession');
     }
@@ -1694,9 +1709,9 @@ export const deleteExamFeeConcession = async (id) => {
       body: JSON.stringify({ id }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Delete ExamFeeConcession API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete Exam Fee Concession record');
     }
@@ -1718,7 +1733,7 @@ export const getCourseBranchGrid = async (type, course, regulation) => {
 
     if (response.success) {
       console.log('Course Branch Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch course branch grid');
     }
@@ -1742,7 +1757,7 @@ export const saveCourseBranch = async (courseBranchData) => {
 
     if (response.success) {
       console.log('Save Course Branch API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save course branch');
     }
@@ -1766,7 +1781,7 @@ export const deleteCourseBranch = async (courseBranchData) => {
 
     if (response.success) {
       console.log('Delete Course Branch API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete course branch');
     }
@@ -1788,7 +1803,7 @@ export const getSemesterGradeBatches = async (course) => {
 
     if (response.success) {
       console.log('Semester Grade Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semester grade batches');
     }
@@ -1810,7 +1825,7 @@ export const getSemesterGradeReguMapping = async (course, type = 'TBL_SEMGRADE')
 
     if (response.success) {
       console.log('Semester Grade REGU Mapping API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semester grade REGU mapping');
     }
@@ -1832,7 +1847,7 @@ export const getSemesterGradeGrid = async (course, regu) => {
 
     if (response.success) {
       console.log('Semester Grade Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semester grade grid');
     }
@@ -1856,7 +1871,7 @@ export const saveSemesterGrade = async (gradeData) => {
 
     if (response.success) {
       console.log('Save Semester Grade API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save semester grade');
     }
@@ -1880,7 +1895,7 @@ export const deleteSemesterGrade = async (id) => {
 
     if (response.success) {
       console.log('Delete Semester Grade API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete semester grade');
     }
@@ -1909,7 +1924,7 @@ export const copySemesterGrades = async (fromBatch, toBatch, course, type = 'TBL
 
     if (response.success) {
       console.log('Copy Semester Grades API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to copy semester grades');
     }
@@ -1931,7 +1946,7 @@ export const getClassGradeBatches = async (course) => {
 
     if (response.success) {
       console.log('Class Grade Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch class grade batches');
     }
@@ -1953,11 +1968,11 @@ export const getClassGradeGrid = async (course, regu) => {
 
     if (response.success) {
       console.log('Class Grade Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     if (response.message && response.message.toLowerCase() === 'no class grades found') {
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to fetch class grade grid data');
@@ -1981,7 +1996,7 @@ export const saveClassGrade = async (classGradeData) => {
 
     if (response.success) {
       console.log('Save Class Grade API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save class grade');
     }
@@ -2005,7 +2020,7 @@ export const deleteClassGrade = async (id) => {
 
     if (response.success) {
       console.log('Delete Class Grade API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete class grade');
     }
@@ -2034,7 +2049,7 @@ export const copyClassGrades = async (fromRegu, toRegu, course, recreate = false
 
     if (response.success) {
       console.log('Copy Class Grades API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to copy class grades');
     }
@@ -2058,7 +2073,7 @@ export const saveFeeHeads = async (feeHeadsData) => {
 
     if (response.success) {
       console.log('Save Fee Heads API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save fee heads');
     }
@@ -2080,7 +2095,7 @@ export const getFeeHeadsData = async (course) => {
 
     if (response.success) {
       console.log('Get Fee Heads API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch fee heads data');
     }
@@ -2104,7 +2119,7 @@ export const deleteFeeHeads = async (id) => {
 
     if (response.success) {
       console.log('Delete Fee Heads API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete fee heads');
     }
@@ -2126,7 +2141,7 @@ export const getRoomList = async (session) => {
 
     if (response.success) {
       console.log('Get Room List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch room list');
     }
@@ -2150,7 +2165,7 @@ export const saveRoom = async (roomData) => {
 
     if (response.success) {
       console.log('Save Room API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save room');
     }
@@ -2174,7 +2189,7 @@ export const deleteRoom = async (roomNo) => {
 
     if (response.success) {
       console.log('Delete Room API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete room');
     }
@@ -2308,7 +2323,7 @@ export const getStudentMasterBranches = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Get Student Master Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student master branches');
     }
@@ -2329,7 +2344,7 @@ export const getStudentMasterSems = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Get Student Master Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student master sems');
     }
@@ -2351,7 +2366,7 @@ export const getTimeTableSeatingSems = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch timetable seating semesters');
     }
@@ -2373,7 +2388,7 @@ export const getTimeTableSeatingTimetable = async (course, examMy, sem, regulati
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Timetable API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch timetable data');
     }
@@ -2395,7 +2410,7 @@ export const getTimeTableSeatingPapers = async (course, examMy, sem, eDate, regu
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch papers');
     }
@@ -2417,7 +2432,7 @@ export const getTimeTableSeatingDates = async (course, examMy, sem, regulation) 
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam dates');
     }
@@ -2439,7 +2454,7 @@ export const getTimeTableSeatingPaperData = async (course, examMy, sem, pcode, r
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Paper Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch paper data');
     }
@@ -2461,7 +2476,7 @@ export const getTimeTableSeatingRAPapers = async (course, examMy, sem, eDate, re
 
     if (response.success) {
       console.log('Get TimeTableAndSeating RA Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch RA papers');
     }
@@ -2483,7 +2498,7 @@ export const getTimeTableSeatingRAPaperData = async (course, examMy, sem, pcode,
 
     if (response.success) {
       console.log('Get TimeTableAndSeating RA Paper Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch RA paper data');
     }
@@ -2505,7 +2520,7 @@ export const getTimeTableSeatingBranches = async (course, examMy, sem, regulatio
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch branches');
     }
@@ -2527,7 +2542,7 @@ export const searchRooms = async (prefixText) => {
 
     if (response.success) {
       console.log('Search Rooms API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to search rooms');
     }
@@ -2549,7 +2564,7 @@ export const getTimeTableSeatingExportFormat = async (regulation, course, examMy
 
     if (response.success) {
       console.log('Get TimeTableAndSeating Export Format API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch export format');
     }
@@ -2573,7 +2588,7 @@ export const saveRoomAllotment = async (roomData) => {
 
     if (response.success) {
       console.log('Save Room Allotment API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save room allotment');
     }
@@ -2597,7 +2612,7 @@ export const saveExamDate = async (examDateData) => {
 
     if (response.success) {
       console.log('Save Exam Date API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save exam date');
     }
@@ -2621,7 +2636,7 @@ export const saveExamSession = async (sessionData) => {
 
     if (response.success) {
       console.log('Save Exam Session API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save exam session');
     }
@@ -2638,7 +2653,7 @@ export const getExamRegistrationSems = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Get Exam Registration Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam registration semesters');
     }
@@ -2655,7 +2670,7 @@ export const getExamRegistrationBatchSemester = async (course, examMy) => {
 
     if (response.success) {
       console.log('Get Exam Registration Batch-Semester API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch batch-semester options');
     }
@@ -2681,9 +2696,9 @@ export const registerAllExamRegistrations = async (course, regu, sem) => {
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Register All Exam Registrations API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to register all students');
     }
@@ -2709,9 +2724,9 @@ export const unregisterAllExamRegistrations = async (course, regu, sem) => {
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Unregister All Exam Registrations API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to unregister all students');
     }
@@ -2728,7 +2743,7 @@ export const getExamRegistrationFeeRegular = async (regu, sem, course, grp, exam
 
     if (response.success) {
       console.log('Get Exam Registration Fee Regular API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch regular fee structure');
     }
@@ -2745,7 +2760,7 @@ export const getExamRegistrationFeeSupply = async (fCount, course, examMy, regul
 
     if (response.success) {
       console.log('Get Exam Registration Fee Supply API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch supply fee structure');
     }
@@ -2762,7 +2777,7 @@ export const getExamRegistrationStudent = async (regNo) => {
 
     if (response.success) {
       console.log('Get Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student information');
     }
@@ -2786,7 +2801,7 @@ export const getExamRegistrationFailedPapers = async (regNo, examMy, course = ''
 
     if (response.success) {
       console.log('Get Failed Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch failed papers');
     }
@@ -2814,9 +2829,9 @@ export const registerExam = async (registrationData) => {
 
     // Handle both success: true and success: false cases
     // The API may return success: false with message "No Data" if already registered
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Register Exam API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to register for exam');
     }
@@ -2839,7 +2854,7 @@ export const getFeeFineList = async (course, examMy, regulation) => {
       method: 'GET',
       headers: { Accept: 'application/json' },
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching fine fee list:', error);
     throw error;
@@ -2864,7 +2879,7 @@ export const getFeeFineCheck = async (course, examMy, sem, fineAmt, fromDate, to
       method: 'GET',
       headers: { Accept: 'application/json' },
     });
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching fine check:', error);
     throw error;
@@ -2885,7 +2900,7 @@ export const unregisterExam = async (unregistrationData) => {
 
     if (response.success) {
       console.log('Unregister Exam API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to unregister from exam');
     }
@@ -2902,7 +2917,7 @@ export const getRegisteredList = async (examMy, course, regulation, status = 'RE
 
     if (response.success) {
       console.log('Get Registered List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch registered list');
     }
@@ -2929,7 +2944,7 @@ export const getReceiptDuplicate = async (receiptNo) => {
 
     if (response.success) {
       console.log('Get Receipt Duplicate API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch receipt data');
     }
@@ -2953,7 +2968,7 @@ export const cancelReceipt = async (receiptNo, regNo) => {
 
     if (response.success) {
       console.log('Cancel Receipt API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to cancel receipt');
     }
@@ -2970,7 +2985,7 @@ export const getReceiptPrint = async (receiptNo) => {
 
     if (response.success) {
       console.log('Get Receipt Print API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'No receipt found');
     }
@@ -2998,9 +3013,9 @@ export const checkExamNotification = async (examMy, course, regulation, sem) => 
 
     const response = await apiCall(`/api/ExamRegistration/check-notification?${queryParams}`);
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Check Exam Notification API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check exam notification');
     }
@@ -3021,9 +3036,9 @@ export const checkRegistered = async (regNo, sem, examMy) => {
 
     const response = await apiCall(`/api/ExamRegistration/check-registered?${queryParams}`);
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Check Registered API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check registration status');
     }
@@ -3047,7 +3062,7 @@ export const createStudentMaster = async (masterData) => {
 
     if (response.success) {
       console.log('Create Student Master API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to create student master');
     }
@@ -3069,7 +3084,7 @@ export const getStudentSubjects = async (course, examMy, regulation, sem, regno)
 
     if (response.success) {
       console.log('Get Student Subjects API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student subjects');
     }
@@ -3093,7 +3108,7 @@ export const copyCourseBranch = async (copyData) => {
 
     if (response.success) {
       console.log('Copy Course Branch API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to copy course branch data');
     }
@@ -3115,7 +3130,7 @@ export const getExamRegulations = async () => {
 
     if (response.success) {
       console.log('Get Exam Regulations API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam regulations');
     }
@@ -3136,7 +3151,7 @@ export const getExamCourses = async (regulation) => {
 
     if (response.success) {
       console.log('Get Exam Courses API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam courses');
     }
@@ -3158,7 +3173,7 @@ export const getExistingExams = async (regulation, examMy, course) => {
 
     if (response.success) {
       console.log('Get Exam Master List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam master list');
     }
@@ -3180,7 +3195,7 @@ export const getExamExisting = async (regulation, examMy, course) => {
 
     if (response.success) {
       console.log('Get Exam Existing API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch existing exam');
     }
@@ -3202,7 +3217,7 @@ export const getExamBatch = async (regu, course) => {
 
     if (response.success) {
       console.log('Get Exam Batch API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam batch');
     }
@@ -3226,7 +3241,7 @@ export const saveExamRegSup = async (regSupPayload) => {
 
     if (response.success) {
       console.log('Save Exam RegSup API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save exam regsup');
     }
@@ -3248,7 +3263,7 @@ export const getExamNotifications = async (examMy, course, regulation) => {
 
     if (response.success) {
       console.log('Get Exam Notifications API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam notifications');
     }
@@ -3270,7 +3285,7 @@ export const getMasterRegularData = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Master Creation Regular Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch master regular data');
     }
@@ -3293,7 +3308,7 @@ export const updateMasterPaper = async (payload) => {
 
     if (response.success) {
       console.log('Update Master Paper API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to update paper data');
     }
@@ -3314,7 +3329,7 @@ export const getMasterSummary = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Master Summary API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch master summary');
     }
@@ -3334,7 +3349,7 @@ export const checkMasterExists = async (course, examMy, batch, sem) => {
     });
 
     console.log('Master Exists API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error checking master existence:', error);
     throw error;
@@ -3355,7 +3370,7 @@ export const createMaster = async (payload) => {
     // For master creation, we should NOT surface backend "Create failed" messages
     // to the user. Always return the response and let the caller decide what to show.
     console.log('Create Master API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error creating master:', error);
     throw error;
@@ -3403,7 +3418,7 @@ export const getStudentList = async (regu, course, branch) => {
 
     if (response.success) {
       console.log('Student List API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student list');
     }
@@ -3425,7 +3440,7 @@ export const getStudentDetails = async (regNo) => {
 
     if (response.success) {
       console.log('Student Details API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student details');
     }
@@ -3449,7 +3464,7 @@ export const registerStudent = async (studentData) => {
 
     if (response.success) {
       console.log('Register Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to register student');
     }
@@ -3541,7 +3556,7 @@ export const inactivateStudent = async (regNo, semester, remarks) => {
 
     if (response.success) {
       console.log('Inactivate Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to inactivate student');
     }
@@ -3569,7 +3584,7 @@ export const reactivateStudent = async (oldRegNo, newRegNo, batch) => {
 
     if (response.success) {
       console.log('Reactivate Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to reactivate student');
     }
@@ -3598,7 +3613,7 @@ export const readmitStudent = async (regNo, newRegNo, batch, semester) => {
 
     if (response.success) {
       console.log('Readmit Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to readmit student');
     }
@@ -3627,7 +3642,7 @@ export const getRevaluationSemesters = async (course, examMy, regulation) => {
 
     if (response.success) {
       console.log('Revaluation Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation semesters');
     }
@@ -3656,7 +3671,7 @@ export const getRevaluationPapers = async (examMy, regNo, sem) => {
 
     if (response.success) {
       console.log('Revaluation Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation papers');
     }
@@ -3685,7 +3700,7 @@ export const getRevaluationOptedPapers = async (examMy, regNo, sem) => {
 
     if (response.success) {
       console.log('Revaluation Opted Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation opted papers');
     }
@@ -3716,7 +3731,7 @@ export const checkRevaluationStatus = async (regulation, course, examMy, sem, re
 
     if (response.success) {
       console.log('Revaluation Status API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check revaluation status');
     }
@@ -3747,7 +3762,7 @@ export const getRevaluationFee = async (regulation, course, examMy, sem, rvType)
 
     if (response.success) {
       console.log('Revaluation Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation fee');
     }
@@ -3776,7 +3791,7 @@ export const registerRevaluationPaper = async (regNo, examMy, sem, pCode, regist
 
     if (response.success) {
       console.log('Register Revaluation Paper API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to register revaluation paper');
     }
@@ -3803,7 +3818,7 @@ export const resetRevaluationPapers = async (regNo, examMy, sem) => {
 
     if (response.success) {
       console.log('Reset Revaluation Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to reset revaluation papers');
     }
@@ -3830,7 +3845,7 @@ export const payRevaluationFee = async (exFeePay, appFee, concession) => {
 
     if (response.success) {
       console.log('Pay Revaluation Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to pay revaluation fee');
     }
@@ -3860,7 +3875,7 @@ export const getRevaluationBundleData = async (regulation, examMy, course, userI
 
     if (response.success) {
       console.log('Revaluation Bundle Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation bundle data');
     }
@@ -3882,7 +3897,7 @@ export const getRevaluationReceipt = async (receiptNo) => {
 
     if (response.success) {
       console.log('Revaluation Receipt API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch revaluation receipt');
     }
@@ -3904,7 +3919,7 @@ export const getStudentScreenInfo = async (regNo) => {
 
     if (response.success) {
       console.log('Get Student Screen Info API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student information');
     }
@@ -3926,7 +3941,7 @@ export const getStudentMaxSem = async (regNo) => {
 
     if (response.success) {
       console.log('Get Student Max Sem API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch maximum semester');
     }
@@ -3948,7 +3963,7 @@ export const getStudentScreenGrades = async (regNo, examMy) => {
 
     if (response.success) {
       console.log('Get Student Screen Grades API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student grades');
     }
@@ -3970,7 +3985,7 @@ export const getMiscFeeItems = async (regNo) => {
 
     if (response.success) {
       console.log('Get Misc Fee Items API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch miscellaneous fee items');
     }
@@ -3994,7 +4009,7 @@ export const saveMiscFeePayment = async (paymentData) => {
 
     if (response.success) {
       console.log('Save Misc Fee Payment API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save fee payment');
     }
@@ -4018,7 +4033,7 @@ export const deleteMiscFeeReceipt = async (receiptNo) => {
 
     if (response.success) {
       console.log('Delete Misc Fee Receipt API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete receipt');
     }
@@ -4072,7 +4087,7 @@ export const saveRegularFee = async (feeData) => {
 
     if (response.success) {
       console.log('Save Regular Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save regular fee');
     }
@@ -4094,7 +4109,7 @@ export const getSupplementaryFeeGrid = async (course, examMy, regulation, type =
 
     if (response.success) {
       console.log('Supplementary Fee Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch supplementary fee grid');
     }
@@ -4118,7 +4133,7 @@ export const saveSupplementaryFee = async (feeData) => {
 
     if (response.success) {
       console.log('Save Supplementary Fee API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save supplementary fee');
     }
@@ -4142,7 +4157,7 @@ export const saveDupCertificate = async (certificateData) => {
 
     if (response.success) {
       console.log('Save Duplicate Certificate API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save duplicate certificate');
     }
@@ -4164,7 +4179,7 @@ export const getReceiptData = async (receiptNo) => {
 
     if (response.success) {
       console.log('Get Receipt Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch receipt data');
     }
@@ -4195,7 +4210,7 @@ export const getReceiptList = async (examMy, course, fDate, tDate, userId = '') 
 
     // Return response even if success is false (no data found is a valid response)
     console.log('Get Receipt List API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching receipt list:', error);
     throw error;
@@ -4223,7 +4238,7 @@ export const getReceiptListPost = async (examMy, course, fDate, tDate, userId = 
     });
 
     console.log('Post Receipt List API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching receipt list (POST):', error);
     throw error;
@@ -4243,7 +4258,7 @@ export const searchReceiptByRegNo = async (regNo) => {
 
     // Return response even if success is false (so component can handle the message)
     console.log('Search Receipt by RegNo (GET) API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error searching receipt by registration number:', error);
     throw error;
@@ -4267,7 +4282,7 @@ export const searchReceiptByRegNoPost = async (regNo) => {
     });
 
     console.log('Search Receipt by RegNo (POST) API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error searching receipt by registration number (POST):', error);
     throw error;
@@ -4291,7 +4306,7 @@ export const getReceiptDetail = async (receiptNo, course, examMy) => {
     });
 
     console.log('Get Receipt Detail (GET) API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching receipt detail (GET):', error);
     throw error;
@@ -4317,7 +4332,7 @@ export const getReceiptDetailPost = async (receiptNo, course, examMy) => {
     });
 
     console.log('Get Receipt Detail (POST) API Response:', response);
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching receipt detail (POST):', error);
     throw error;
@@ -4337,8 +4352,8 @@ export const checkRegCount = async (regNo, sem, examMy, certificateName) => {
       }
     );
 
-    if (response.success !== undefined) {
-      return response;
+    if (response.success !== false) {
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check reg count');
     }
@@ -4361,8 +4376,8 @@ export const checkReceiptCount = async (receiptNo, regNo, sem, examMy, certifica
       }
     );
 
-    if (response.success !== undefined) {
-      return response;
+    if (response.success !== false) {
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check receipt count');
     }
@@ -4393,9 +4408,9 @@ export const getMarksMemo = async (regulation, examMy, course, semester, rv, bra
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Marks Memo API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch marks memo');
     }
@@ -4422,9 +4437,9 @@ export const getHallTicket = async (examMy, course, regNo, regulation) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Hall Ticket API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch hall ticket');
     }
@@ -4436,18 +4451,23 @@ export const getHallTicket = async (examMy, course, regNo, regulation) => {
 
 // Room Allotment API functions
 // Get semesters for room allotment
-export const getRoomAllotmentSems = async (course) => {
+export const getRoomAllotmentSems = async (course, examMy, regulation) => {
   try {
-    const response = await apiCall(`/api/RoomAllotment/sems?course=${encodeURIComponent(course)}`, {
+    const queryParams = new URLSearchParams({
+      course: course || '',
+      examMy: examMy || '',
+      regulation: regulation || ''
+    }).toString();
+    const response = await apiCall(`/api/RoomAllotment/sems?${queryParams}`, {
       method: 'GET',
       headers: {
         'Accept': '*/*',
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semesters');
     }
@@ -4473,9 +4493,9 @@ export const getRoomAllotmentSessions = async (course, sem, examType) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Sessions API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch sessions');
     }
@@ -4504,9 +4524,9 @@ export const getRoomAllotmentExamDates = async (course, sem, examMy, section, re
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch exam dates');
     }
@@ -4531,9 +4551,9 @@ export const getRoomAllotmentRooms = async (course, session) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Rooms API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch rooms');
     }
@@ -4562,9 +4582,9 @@ export const getRoomAllotmentPcodes = async (course, regulation, examMy, examDat
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Pcodes API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch pcodes');
     }
@@ -4611,10 +4631,11 @@ export const loadRoomAllotmentRegnos = async (course, regulation, examMy, examDa
 };
 
 // Get allotted data for display
-export const getRoomAllotmentAlloted = async (course, examMy, sem, roomNo, examDate, daySession, regsup, examType) => {
+export const getRoomAllotmentAlloted = async (course, regulation, examMy, sem, roomNo, examDate, daySession, regsup, examType) => {
   try {
     const queryParams = new URLSearchParams({
       course: course || '',
+      regulation: regulation || '',
       examMy: examMy || '',
       sem: sem || '',
       roomNo: roomNo || '',
@@ -4631,9 +4652,9 @@ export const getRoomAllotmentAlloted = async (course, examMy, sem, roomNo, examD
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Allotment Alloted API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch allotted data');
     }
@@ -4655,9 +4676,9 @@ export const saveRoomAllotmentData = async (payload) => {
       body: JSON.stringify(payload),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Save Room Allotment Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save room allotment');
     }
@@ -4679,9 +4700,9 @@ export const resetRoomAllotment = async (payload) => {
       body: JSON.stringify(payload),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Reset Room Allotment API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to reset room allotment');
     }
@@ -4737,7 +4758,7 @@ export const exportRoomAllotment = async (course, examMy, sem, examDate, daySess
       const jsonData = await response.json();
       return jsonData.data || jsonData; // Return data array
     }
-    
+
     // If blob (Excel file), return as blob
     return await response.blob();
   } catch (error) {
@@ -4765,9 +4786,9 @@ export const getRoomAllotmentRoomConfig = async (roomNo, daySession) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Room Config API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch room config');
     }
@@ -4792,9 +4813,9 @@ export const getRoomAllotmentCourseGroups = async (course, regulation) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Course Groups API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch course groups');
     }
@@ -4814,9 +4835,9 @@ export const resetRoomAllotmentStudentStatus = async (regno) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Reset Student Status API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to reset student status');
     }
@@ -4841,9 +4862,9 @@ export const getRoomAllotmentStudentsRowOrder = async (rowCount, groups) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Students Row Order API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch students with row order');
     }
@@ -4868,9 +4889,9 @@ export const getRoomAllotmentStudentsRoomAllotment = async (count, groups) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Students Room Allotment API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch students from room allotment');
     }
@@ -4890,9 +4911,9 @@ export const markRoomAllotmentStudentAllocated = async (regno) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Mark Student Allocated API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to mark student as allocated');
     }
@@ -4914,7 +4935,7 @@ export const getRoomAllotmentUnallocatedCount = async () => {
 
     if (response.success !== undefined || response !== undefined) {
       console.log('Get Unallocated Count API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch unallocated count');
     }
@@ -4941,9 +4962,9 @@ export const applyRoomAllotmentForAllDates = async (course, examMy, sem, examTyp
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Apply Room Allotment For All Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to apply for all dates');
     }
@@ -4972,9 +4993,9 @@ export const getCondonationSems = async (course, regulation, examMy, regsup, reg
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Condonation Sems API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch semesters');
     }
@@ -4994,9 +5015,9 @@ export const getCondonationStudent = async (regno) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Condonation Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch student data');
     }
@@ -5023,9 +5044,9 @@ export const getCondonationGrid = async (regno, examMy, course, sem) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Condonation Grid API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch grid data');
     }
@@ -5053,9 +5074,9 @@ export const checkCondonationDates = async (regno, examMy, course, regulation, s
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Check Condonation Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to check dates');
     }
@@ -5077,9 +5098,9 @@ export const saveCondonation = async (payload) => {
       body: JSON.stringify(payload),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Save Condonation API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to save condonation');
     }
@@ -5104,9 +5125,9 @@ export const deleteCondonation = async (id, regno) => {
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Delete Condonation API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to delete condonation');
     }
@@ -5126,9 +5147,9 @@ export const getCondonationFormat = async () => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Get Condonation Format API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to fetch format');
     }
@@ -5153,9 +5174,9 @@ export const exportCondonation = async (examMy, regulation) => {
       },
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Export Condonation API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     } else {
       throw new Error(response.message || 'Failed to export condonation');
     }
@@ -5183,7 +5204,7 @@ export const getCancelReceiptStudent = async (regno) => {
 
     if (response.success || response.data) {
       console.log('Cancel Receipt Student API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Student not found');
@@ -5201,7 +5222,7 @@ export const getCancelReceiptSubjects = async (regno, examMy) => {
       regno: regno || '',
       examMy: examMy || ''
     }).toString();
-    
+
     const response = await apiCall(`/api/CancelReceipt/subjects?${query}`, {
       method: 'GET',
       headers: {
@@ -5212,7 +5233,7 @@ export const getCancelReceiptSubjects = async (regno, examMy) => {
     // Return response even if success is false (empty array is a valid response)
     // Component will handle empty arrays and show appropriate message
 
-    return response;
+    return (response && response.success === undefined) ? { success: true, data: response } : response;
   } catch (error) {
     console.error('Error fetching cancel receipt subjects:', error);
     throw error;
@@ -5239,7 +5260,7 @@ export const cancelReceiptPost = async (receiptNo, regNo, userId) => {
 
     if (response.success) {
       console.log('Cancel Receipt POST API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to cancel receipt');
@@ -5257,7 +5278,7 @@ export const cancelReceiptDelete = async (receiptNo, regno, userId) => {
       regno: regno || '',
       userId: userId || ''
     }).toString();
-    
+
     const response = await apiCall(`/api/CancelReceipt/${encodeURIComponent(receiptNo)}?${query}`, {
       method: 'DELETE',
       headers: {
@@ -5267,7 +5288,7 @@ export const cancelReceiptDelete = async (receiptNo, regno, userId) => {
 
     if (response.success) {
       console.log('Cancel Receipt DELETE API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to cancel receipt');
@@ -5302,7 +5323,7 @@ export const getConsolidatedFeeReportData = async (regulation, course, examMY, f
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Consolidated Fee Report Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load consolidated fee report data');
@@ -5333,7 +5354,7 @@ export const exportConsolidatedFeeReport = async (regulation, course, examMY, fD
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Consolidated Fee Report Export API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to export consolidated fee report');
@@ -5369,7 +5390,7 @@ export const getSupplyLabSemesters = async (course) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Supply Lab Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -5392,7 +5413,7 @@ export const getSupplyLabBatches = async () => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Supply Lab Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load batches');
@@ -5422,7 +5443,7 @@ export const getSupplyLabData = async (course, examMy, sem, regu) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Supply Lab Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load supply lab data');
@@ -5453,7 +5474,7 @@ export const getCreditsMismatchBatches = async (regulation) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Credits Mismatch Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load batches');
@@ -5481,7 +5502,7 @@ export const getCreditsMismatchExamMy = async (course, regulation) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Credits Mismatch ExamMy API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam month-years');
@@ -5509,7 +5530,7 @@ export const getCreditsMismatchSemesters = async (regulation, examMy) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Credits Mismatch Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -5540,7 +5561,7 @@ export const getCreditsMismatchData = async (regulation, examMy, batch, course, 
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Credits Mismatch Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load credits mismatch data');
@@ -5574,7 +5595,7 @@ export const getExamUnRegistrationData = async (regulation, course, examMY, regn
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Exam Un Registration Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam unregistration data');
@@ -5603,9 +5624,9 @@ export const unregisterExamStudent = async (regulation, course, examMY, regno) =
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Exam Un Registration API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to unregister student');
@@ -5632,7 +5653,7 @@ export const getUnblockExamMy = async () => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Unblock ExamMy API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam month-years');
@@ -5659,7 +5680,7 @@ export const getBlockedStudents = async (exammy) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Blocked Students API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load blocked students');
@@ -5686,9 +5707,9 @@ export const unblockStudents = async (exammy, regnos) => {
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Unblock Students API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to unblock students');
@@ -5720,7 +5741,7 @@ export const getTimeTableSemesters = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Time Table Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -5749,7 +5770,7 @@ export const getTimeTableData = async (course, examMY, sem) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Time Table Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load time table data');
@@ -5781,7 +5802,7 @@ export const getHallTicketBatches = async (course, regulation) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Hall Ticket Batches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load batches');
@@ -5810,7 +5831,7 @@ export const getHallTicketBranches = async (course, regulation, batch) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Hall Ticket Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load branches');
@@ -5839,7 +5860,7 @@ export const getHallTicketSemesters = async (course, regulation, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Hall Ticket Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -5872,9 +5893,9 @@ export const prepareHallTickets = async (examMY, course, regulation, batch, bran
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Prepare Hall Tickets API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to prepare hall tickets');
@@ -5910,7 +5931,7 @@ export const getHallTicketData = async (examMY, course, regulation, batch, branc
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Hall Ticket Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load hall ticket data');
@@ -5943,7 +5964,7 @@ export const getQPStatementSemesters = async (course, regulation, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('QP Statement Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -5973,7 +5994,7 @@ export const getQPStatementData = async (course, examMY, regulation, sem) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('QP Statement Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load question paper statement data');
@@ -6005,7 +6026,7 @@ export const getOMRSheetSemesters = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('OMR Sheet Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -6034,7 +6055,7 @@ export const getOMRSheetExamDates = async (course, examMY, sem) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('OMR Sheet Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam dates');
@@ -6064,7 +6085,7 @@ export const getOMRSheetRooms = async (course, examMY, sem, edate) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('OMR Sheet Rooms API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load rooms');
@@ -6096,7 +6117,7 @@ export const getOMRSheetData = async (regulation, course, examMY, sem, edate, ro
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('OMR Sheet Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load OMR sheet data');
@@ -6127,9 +6148,9 @@ export const generateOMRNumbers = async (regulation, course, examMY, sem, edate,
       }),
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('Generate OMR Numbers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to generate OMR numbers');
@@ -6158,7 +6179,7 @@ export const exportOMRData = async (examMY, course, regulation) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('OMR Sheet Export API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to export OMR data');
@@ -6190,7 +6211,7 @@ export const getNominalRollsSemesters = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Nominal Rolls Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -6219,7 +6240,7 @@ export const getNominalRollsExamDates = async (course, examMY, sem) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Nominal Rolls Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam dates');
@@ -6249,7 +6270,7 @@ export const getNominalRollsRooms = async (course, examMY, sem, edate) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Nominal Rolls Rooms API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load rooms');
@@ -6263,15 +6284,18 @@ export const getNominalRollsRooms = async (course, examMY, sem, edate) => {
 // GET /api/NominalRolls/data?Course=B.Tech&ExamMY=Feb-2022&Regulation=R20&Sem=3&Edate=03-05-2022&IsReadmit=true
 export const getNominalRollsData = async (course, examMY, regulation, sem, edate, room, isReadmit) => {
   try {
-    const queryParams = new URLSearchParams({
+    const params = {
       Course: course || '',
       ExamMY: examMY || '',
       Regulation: regulation || '',
       Sem: sem || '',
-      Edate: edate || '',
-      Room: room || '',
-      IsReadmit: isReadmit === true ? 'true' : (isReadmit === false ? 'false' : '')
-    }).toString();
+      Edate: edate || ''
+    };
+    if (room) params.Room = room;
+    if (isReadmit === true || isReadmit === 'true') {
+      params.IsReadmit = 'true';
+    }
+    const queryParams = new URLSearchParams(params).toString();
 
     const response = await apiCall(`/api/NominalRolls/data?${queryParams}`, {
       method: 'GET',
@@ -6282,7 +6306,7 @@ export const getNominalRollsData = async (course, examMY, regulation, sem, edate
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Nominal Rolls Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load nominal rolls data');
@@ -6313,7 +6337,7 @@ export const getCancelReceiptListCourses = async (regulation) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Cancel Receipt List Courses API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load courses');
@@ -6341,7 +6365,7 @@ export const getCancelReceiptListExamMYs = async (regulation, course) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Cancel Receipt List ExamMYs API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam month-years');
@@ -6369,7 +6393,7 @@ export const getCancelReceiptListData = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Cancel Receipt List Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load cancel receipt list data');
@@ -6397,7 +6421,7 @@ export const exportCancelReceiptList = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Cancel Receipt List Export API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to export cancel receipt list data');
@@ -6432,7 +6456,7 @@ export const getExamFeeCollectionData = async (examMY, course, fDate, tDate, use
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('ExamFee Collection Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam fee collection data');
@@ -6463,7 +6487,7 @@ export const exportExamFeeCollection = async (regulation, course, examMY, fDate,
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('ExamFee Collection Export API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to export exam fee collection data');
@@ -6494,7 +6518,7 @@ export const getSeatingArrangementSemesters = async (course) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Seating Arrangement Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -6523,7 +6547,7 @@ export const getSeatingArrangementSessions = async (course, sem, examType) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Seating Arrangement Sessions API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load sessions');
@@ -6554,7 +6578,7 @@ export const getSeatingArrangementExamDates = async (course, sem, session, examM
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Seating Arrangement Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam dates');
@@ -6582,7 +6606,7 @@ export const getSeatingArrangementRooms = async (course, session) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Seating Arrangement Rooms API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load rooms');
@@ -6619,7 +6643,7 @@ export const getSeatingArrangementData = async (course, examMY, sem, session, ed
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Seating Arrangement Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load seating arrangement data');
@@ -6657,7 +6681,7 @@ export const prepareMidHallTickets = async (request) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Prepare Mid Hall Tickets API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to prepare mid hall tickets');
@@ -6693,7 +6717,7 @@ export const getMidHallTicketData = async (params) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Get Mid Hall Ticket Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load mid hall ticket data');
@@ -6769,7 +6793,7 @@ export const getRoomWiseNominalRollsSemesters = async (course, examMY) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('RoomWise Nominal Rolls Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -6800,7 +6824,7 @@ export const getRoomWiseNominalRollsExamDates = async (course, sem, examMY, regu
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('RoomWise Nominal Rolls Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam dates');
@@ -6832,7 +6856,7 @@ export const getRoomWiseNominalRollsBranches = async (course, sem, examMY, regul
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('RoomWise Nominal Rolls Branches API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load branches');
@@ -6867,7 +6891,7 @@ export const getRoomWiseNominalRollsData = async (params) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('RoomWise Nominal Rolls Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load roomwise nominal rolls data');
@@ -6898,7 +6922,7 @@ export const getRoomAbstractSemesters = async (course) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Room Abstract Semesters API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load semesters');
@@ -6927,7 +6951,7 @@ export const getRoomAbstractSessions = async (course, sem, examType) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Room Abstract Sessions API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load sessions');
@@ -6958,7 +6982,7 @@ export const getRoomAbstractExamDates = async (course, sem, session, examMY, exa
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Room Abstract Exam Dates API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load exam dates');
@@ -6991,7 +7015,7 @@ export const getRoomAbstractData = async (params) => {
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('Room Abstract Data API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load room abstract data');
@@ -7026,7 +7050,7 @@ export const getAbsenteesPapers = async (regulation, examMY, sem, course, grp) =
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('AbsenteesEntry Papers API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load absentees papers');
@@ -7058,7 +7082,7 @@ export const getAbsenteesStudents = async (regulation, examMY, sem, course, grp,
 
     if (response.success !== undefined || response.data !== undefined) {
       console.log('AbsenteesEntry Students API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to load absentees students');
@@ -7086,9 +7110,9 @@ export const saveAbsenteesEntry = async (ashid, code) => {
       body: JSON.stringify(payload)
     });
 
-    if (response.success !== undefined) {
+    if (response.success !== false) {
       console.log('AbsenteesEntry Save API Response:', response);
-      return response;
+      return (response && response.success === undefined) ? { success: true, data: response } : response;
     }
 
     throw new Error(response.message || 'Failed to save absentee entry');
@@ -7118,7 +7142,7 @@ export const getMidAbsenteesPapers = async (regulation, examMY, sem, course, grp
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/MidAbsenteesEntry/students (examType: "1" = MID-I, "2" = MID-II)
@@ -7136,7 +7160,7 @@ export const getMidAbsenteesStudents = async (regulation, examMY, sem, course, g
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // POST /api/MidAbsenteesEntry/save — body: { ashid, code ("AB"|"MP"), examType ("1"|"2") }
@@ -7157,7 +7181,7 @@ export const saveMidAbsenteesEntry = async (ashid, code, examType) => {
     headers: { Accept: '*/*', 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7181,7 +7205,7 @@ export const getInternalChecklistReport = async (course, examMY, regulation, reg
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/InternalChecklist/semesters (regulation = 2-char regu e.g. "20")
@@ -7194,7 +7218,7 @@ export const getInternalChecklistSemesters = async (course, regulation) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/InternalChecklist/branches (regulation = 2-char regu e.g. "20")
@@ -7207,7 +7231,7 @@ export const getInternalChecklistBranches = async (course, regulation) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7232,7 +7256,7 @@ export const getPracticalChecklistReport = async (course, examMY, regulation, re
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/PracticalChecklist/semesters (regulation = 2-char regu e.g. "20")
@@ -7245,7 +7269,7 @@ export const getPracticalChecklistSemesters = async (course, regulation) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/PracticalChecklist/branches (regulation = 2-char regu e.g. "20")
@@ -7258,7 +7282,7 @@ export const getPracticalChecklistBranches = async (course, regulation) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7282,7 +7306,7 @@ export const getDFormReport = async (regulation, course, examMY, sem, eDate, isR
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/DForm/semesters
@@ -7295,7 +7319,7 @@ export const getDFormSemesters = async (course, regulation) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/DForm/edates
@@ -7309,7 +7333,7 @@ export const getDFormEDates = async (course, examMY, sem) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7328,7 +7352,7 @@ export const getAbsenteesListSemesters = async (course) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/AbsenteesList/edates
@@ -7342,7 +7366,7 @@ export const getAbsenteesListEDates = async (course, examMY, sem) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // GET /api/AbsenteesList/report
@@ -7358,7 +7382,7 @@ export const getAbsenteesListReport = async (regulation, course, examMY, sem, eD
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7376,7 +7400,7 @@ export const getStudentWisePresentListSemesters = async (course, regulation, exa
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getStudentWisePresentListReport = async (course, regulation, examMY, sem, regsup) => {
@@ -7390,7 +7414,7 @@ export const getStudentWisePresentListReport = async (course, regulation, examMY
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7409,7 +7433,7 @@ export const getDFormMidSemesters = async (course, regulation, examMY) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getDFormMidEDates = async (course, regulation, examMY, sem, examType) => {
@@ -7423,7 +7447,7 @@ export const getDFormMidEDates = async (course, regulation, examMY, sem, examTyp
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getDFormMidReport = async (regulation, course, examMY, sem, eDate, examType, isReadmit = false) => {
@@ -7439,7 +7463,7 @@ export const getDFormMidReport = async (regulation, course, examMY, sem, eDate, 
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7462,7 +7486,7 @@ export const getSchemaStructureSchemas = async (course, regulation, sem) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const checkSchemaStructureName = async (schemaName) => {
@@ -7473,7 +7497,7 @@ export const checkSchemaStructureName = async (schemaName) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const loadSchemaStructureForEdit = async (schemaName) => {
@@ -7484,7 +7508,7 @@ export const loadSchemaStructureForEdit = async (schemaName) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const loadSchemaStructure = async (schemaName) => {
@@ -7495,7 +7519,7 @@ export const loadSchemaStructure = async (schemaName) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const saveSchemaStructure = async (payload) => {
@@ -7505,7 +7529,7 @@ export const saveSchemaStructure = async (payload) => {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const deleteSchemaStructure = async (schemaName) => {
@@ -7516,7 +7540,7 @@ export const deleteSchemaStructure = async (schemaName) => {
     method: 'DELETE',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7538,7 +7562,7 @@ export const getApplySchemaSemesters = async (course, regulation, examMY) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getApplySchemaPapers = async (course, regulation, sem, examMY) => {
@@ -7552,7 +7576,7 @@ export const getApplySchemaPapers = async (course, regulation, sem, examMY) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getApplySchemaAssigned = async (schemaName, course, regulation, sem) => {
@@ -7566,7 +7590,7 @@ export const getApplySchemaAssigned = async (schemaName, course, regulation, sem
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const saveApplySchema = async (payload) => {
@@ -7576,22 +7600,22 @@ export const saveApplySchema = async (payload) => {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const deleteApplySchema = async (regulation, course, examMY, papCode, sem) => {
   const params = new URLSearchParams();
   if (regulation != null && String(regulation).trim() !== '') params.set('regulation', String(regulation).trim());
-  if (course    != null && String(course).trim()    !== '') params.set('course',     String(course).trim());
-  if (examMY    != null && String(examMY).trim()    !== '') params.set('examMY',     String(examMY).trim());
-  if (papCode   != null && String(papCode).trim()   !== '') params.set('papCode',    String(papCode).trim());
-  if (sem       != null && String(sem).trim()       !== '') params.set('sem',        String(sem).trim());
+  if (course != null && String(course).trim() !== '') params.set('course', String(course).trim());
+  if (examMY != null && String(examMY).trim() !== '') params.set('examMY', String(examMY).trim());
+  if (papCode != null && String(papCode).trim() !== '') params.set('papCode', String(papCode).trim());
+  if (sem != null && String(sem).trim() !== '') params.set('sem', String(sem).trim());
 
   const response = await apiCall(`/api/ApplySchema?${params.toString()}`, {
     method: 'DELETE',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7613,7 +7637,7 @@ export const getEvaluatorRegistrationList = async (userGroup) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getEvaluatorRegistrationDropdown = async () => {
@@ -7621,7 +7645,7 @@ export const getEvaluatorRegistrationDropdown = async () => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getEvaluatorUserDetails = async (userId) => {
@@ -7632,7 +7656,7 @@ export const getEvaluatorUserDetails = async (userId) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getEvaluatorNextUserId = async (userGroup) => {
@@ -7643,7 +7667,7 @@ export const getEvaluatorNextUserId = async (userGroup) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getEvaluatorUserPapers = async (userId) => {
@@ -7654,7 +7678,7 @@ export const getEvaluatorUserPapers = async (userId) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getEvaluatorDepartments = async (regulation, course, examMY) => {
@@ -7667,7 +7691,7 @@ export const getEvaluatorDepartments = async (regulation, course, examMY) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const saveEvaluatorRegistration = async (payload) => {
@@ -7677,7 +7701,7 @@ export const saveEvaluatorRegistration = async (payload) => {
     headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -7695,7 +7719,7 @@ export const getScriptsAssignPendingCount = async () => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getScriptsAssignSubjects = async (userId) => {
@@ -7706,7 +7730,7 @@ export const getScriptsAssignSubjects = async (userId) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getScriptsAssignSemesters = async (regulation, papCode) => {
@@ -7718,7 +7742,7 @@ export const getScriptsAssignSemesters = async (regulation, papCode) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getScriptsAssignBundles = async (papCode, sem) => {
@@ -7730,7 +7754,7 @@ export const getScriptsAssignBundles = async (papCode, sem) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const getScriptsAssignScripts = async (papCode, sem, bundleNo) => {
@@ -7743,7 +7767,7 @@ export const getScriptsAssignScripts = async (papCode, sem, bundleNo) => {
     method: 'GET',
     headers: { Accept: 'application/json' },
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 export const saveScriptsAssign = async ({
@@ -7771,7 +7795,7 @@ export const saveScriptsAssign = async ({
     headers: { Accept: 'application/json' },
     body: formData,
   });
-  return response;
+  return (response && response.success === undefined) ? { success: true, data: response } : response;
 };
 
 // ============================================
@@ -8537,7 +8561,7 @@ export const getGraceData = async (course, regu, exammy = '', sem, isle = false)
 // GET /api/Grofting/exammy?course=B.Tech&regulation=R20
 export const getGroftingExammy = async (course, regulation) => {
   const params = new URLSearchParams();
-  if (course)     params.set('course', course);
+  if (course) params.set('course', course);
   if (regulation) params.set('regulation', regulation);
   return apiCall(`/api/Grofting/exammy?${params.toString()}`, {
     method: 'GET', headers: { Accept: 'application/json' },
@@ -8547,8 +8571,8 @@ export const getGroftingExammy = async (course, regulation) => {
 // GET /api/Grofting/sems?course=B.Tech&examMy=May-2024&regulation=R20
 export const getGroftingSems = async (course, examMy, regulation) => {
   const params = new URLSearchParams();
-  if (course)     params.set('course', course);
-  if (examMy)     params.set('examMy', examMy);
+  if (course) params.set('course', course);
+  if (examMy) params.set('examMy', examMy);
   if (regulation) params.set('regulation', regulation);
   return apiCall(`/api/Grofting/sems?${params.toString()}`, {
     method: 'GET', headers: { Accept: 'application/json' },
@@ -8636,7 +8660,7 @@ export const getExcelGallyBacklogs = async (regulation, course, examMY, sem, bra
 // GET /api/ResultProcess/exammy?course=B.Tech&regulation=R20
 export const getResultProcessExammy = async (course, regulation) => {
   const params = new URLSearchParams();
-  if (course)     params.set('course', course);
+  if (course) params.set('course', course);
   if (regulation) params.set('regulation', regulation);
   return apiCall(`/api/ResultProcess/exammy?${params.toString()}`, {
     method: 'GET',

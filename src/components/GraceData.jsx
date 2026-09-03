@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import globalStyles from './Results.module.css';
-import { FaGift, FaBroom } from 'react-icons/fa';
+import { FaGift, FaBroom, FaFileExcel } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import { getAppData, getGraceDataBatch, getGraceDataSem, getGraceData } from '../utils/api';
 
 const GraceData = () => {
@@ -73,6 +74,17 @@ const GraceData = () => {
     setMessage({ text: '', type: '' });
   };
 
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      showMsg('No data available to export.');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Grace Data');
+    XLSX.writeFile(wb, 'GraceData.xlsx');
+  };
+
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.box}>
@@ -123,7 +135,7 @@ const GraceData = () => {
               </div>
 
               {/* Buttons */}
-              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '10px', alignItems: 'flex-end' }}>
+              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '10px', alignItems: 'flex-end', flexWrap: 'wrap', flex: '1 1 auto' }}>
                 <button type="button" className={`${globalStyles.btn} ${globalStyles.saveBtn}`}
                   onClick={handleGetData} disabled={loading}>
                   {loading ? 'Loading...' : 'Get Data'}
@@ -131,6 +143,11 @@ const GraceData = () => {
                 <button type="button" className={`${globalStyles.btn} ${globalStyles.clearBtn}`}
                   onClick={handleClear}>
                   <FaBroom style={{ marginRight: '6px' }} /> Clear
+                </button>
+                <button type="button" className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  onClick={handleExportExcel} disabled={loading || tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}>
+                  <FaFileExcel style={{ marginRight: '6px' }} /> Export Excel
                 </button>
               </div>
             </div>

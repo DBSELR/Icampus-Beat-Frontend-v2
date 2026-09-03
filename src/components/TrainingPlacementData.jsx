@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import globalStyles from './Results.module.css';
 import { FaGraduationCap } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import { getAppData, getTandPBatch, getTandPData } from '../utils/api';
 
 const TrainingPlacementData = () => {
@@ -28,7 +29,7 @@ const TrainingPlacementData = () => {
       }).catch(() => {});
   }, [course]);
 
-  const handleDownload = async () => {
+  const handleViewData = async () => {
     if (!batchRegu) { showMsg('Please select Batch.'); return; }
     setLoading(true); setTableData([]);
     try {
@@ -41,10 +42,21 @@ const TrainingPlacementData = () => {
         showMsg(res.message || 'No T&P data found.');
       }
     } catch (err) {
-      showMsg(err.message || 'Download failed.');
+      showMsg(err.message || 'Loading failed.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      showMsg('No data available to export.');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'T and P Data');
+    XLSX.writeFile(wb, 'TrainingPlacementData.xlsx');
   };
 
   return (
@@ -78,11 +90,16 @@ const TrainingPlacementData = () => {
                 </select>
               </div>
 
-              {/* Excel Download */}
-              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end' }}>
+              {/* Action Buttons */}
+              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', flexDirection: 'row', gap: '10px', flexWrap: 'wrap', flex: '1 1 auto', alignItems: 'flex-end' }}>
                 <button type="button" className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
-                  onClick={handleDownload} disabled={loading} style={{ width: '100%' }}>
-                  {loading ? 'Loading...' : 'Excel Download'}
+                  onClick={handleViewData} disabled={loading}>
+                  {loading ? 'Loading...' : 'View'}
+                </button>
+                <button type="button" className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  onClick={handleExportExcel} disabled={loading || tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}>
+                  Export Excel
                 </button>
               </div>
             </div>

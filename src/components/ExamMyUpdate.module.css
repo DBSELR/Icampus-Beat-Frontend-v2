@@ -473,7 +473,8 @@
   border: 1px solid #e9edf2;
   border-radius: 12px;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: auto;
+  max-height: 50vh;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   margin-top: 4px;
 }

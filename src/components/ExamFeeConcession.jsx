@@ -98,7 +98,7 @@ const ExamFeeConcession = () => {
 
   // Load fee data when semester is selected
   // This checks if semester is Regular or Supply and loads appropriate fee
-  const loadFeeForSemester = async (semValue, regNo) => {
+  const loadFeeForSemester = async (semValue, regNo, batch, branch) => {
     if (!semValue || !regNo) return;
     if (!course || !examMy || !regulation) {
       console.warn('Missing course, examMy, or regulation');
@@ -109,15 +109,15 @@ const ExamFeeConcession = () => {
       setIsLoading(true);
       setError('');
 
-      // Get current form data for batch and branch
-      const currentBatch = formData.batch || '';
-      const currentBranch = formData.branch || '';
+      // Get current form data for batch and branch, prefer explicitly passed parameters
+      const currentBatch = batch || formData.batch || '';
+      const currentBranch = branch || formData.branch || '';
 
       // First check if semester is Regular or Supply
       const regSupResponse = await checkExamFeeConcessionRegSup(
-        currentBatch, 
-        parseInt(semValue, 10) || 0, 
-        course, 
+        currentBatch,
+        parseInt(semValue, 10) || 0,
+        course,
         examMy
       );
 
@@ -136,8 +136,16 @@ const ExamFeeConcession = () => {
 
       console.log('Fee API Response:', feeResponse);
 
-      if (feeResponse && feeResponse.success && feeResponse.data && feeResponse.data.length > 0) {
-        const feeData = Array.isArray(feeResponse.data) ? feeResponse.data[0] : feeResponse.data;
+      let feeData = null;
+      if (Array.isArray(feeResponse) && feeResponse.length > 0) {
+        feeData = feeResponse[0];
+      } else if (feeResponse && feeResponse.data) {
+        feeData = Array.isArray(feeResponse.data) ? feeResponse.data[0] : feeResponse.data;
+      } else if (feeResponse && typeof feeResponse === 'object' && feeResponse.success !== false) {
+        feeData = feeResponse;
+      }
+
+      if (feeData) {
 
         const getVal = (...keys) => {
           for (const k of keys) {
@@ -149,7 +157,7 @@ const ExamFeeConcession = () => {
         };
 
         // Extract fee amounts
-        const totalAmt = getVal('TotalAmount', 'TOTALAMOUNT', 'TotAmount', 'Totamt', 'TotalAmt', 'totalAmount');
+        const totalAmt = getVal('TotalAmount', 'TOTALAMOUNT', 'TotAmount', 'Totamt', 'TotalAmt', 'totalAmount', 'AMOUNT', 'Amount', 'amount');
         const fineAmt = getVal('FineAmount', 'FINEAMOUNT', 'FineFee', 'FineAmt', 'fineAmount');
         const concessionAmt = getVal('Concession', 'CONCESSION', 'concession') || formData.concession || '0';
 
@@ -171,7 +179,13 @@ const ExamFeeConcession = () => {
         }));
       } else {
         console.warn('No fee data returned from API');
-        // Don't clear existing data, just log warning
+        // Clear existing data so it doesn't show old data for a new person/sem
+        setFormData(prev => ({
+          ...prev,
+          totalAmount: '0',
+          fineAmount: '0',
+          feeToBePaid: '0.00'
+        }));
       }
     } catch (err) {
       console.error('Error loading fee for semester:', err);
@@ -193,9 +207,9 @@ const ExamFeeConcession = () => {
       setIsLoading(true);
       setError('');
       const response = await getExamFeeConcessionStudent(regNo);
-      
+
       console.log('Student API Response:', response); // Debug log
-      
+
       if (response && response.data && response.data.length > 0) {
         const s = Array.isArray(response.data) ? response.data[0] : response.data;
 
@@ -212,18 +226,18 @@ const ExamFeeConcession = () => {
 
         // Get semester value
         const semValue = getVal('Sem', 'SEM', 'sem', 'Semester', 'SEMESTER');
-        
+
         // Get batch/regu value
         const batchValue = getVal('Regu', 'REGU', 'Batch', 'BATCH', 'batch', 'regu');
-        
+
         // Get branch value
         const branchValue = getVal('Branch', 'BRANCH', 'Grp', 'GRP', 'branch', 'grp');
-        
+
         // Get name value
         const nameValue = getVal('SName', 'SNAME', 'Name', 'StudentName', 'name', 'studentName');
 
-        console.log('Extracted values:', { 
-          semValue, batchValue, branchValue, nameValue 
+        console.log('Extracted values:', {
+          semValue, batchValue, branchValue, nameValue
         }); // Debug log
 
         setFormData((prev) => ({
@@ -233,16 +247,21 @@ const ExamFeeConcession = () => {
           batch: batchValue || '',
           branch: branchValue || '',
           name: nameValue || '',
-          // Don't set fee amounts here - they will be loaded when semester is selected
-          totalAmount: prev.totalAmount || '0',
-          fineAmount: prev.fineAmount || '0',
-          feeToBePaid: prev.feeToBePaid || '0.00',
+          // Clear fee amounts here - they will be loaded when semester is selected
+          totalAmount: '0',
+          fineAmount: '0',
+          feeToBePaid: '0.00',
           // Keep existing concession and remarks
         }));
 
         // If semester is already selected, load fee data
         if (formData.sem || semValue) {
-          await loadFeeForSemester(formData.sem || String(semValue || ''), regNo);
+          await loadFeeForSemester(
+            formData.sem || String(semValue || ''), 
+            regNo, 
+            batchValue || '', 
+            branchValue || ''
+          );
         }
 
         // Load grid for this student
@@ -285,11 +304,11 @@ const ExamFeeConcession = () => {
     const total = toNumber(formData.totalAmount || '0');
     const fine = toNumber(formData.fineAmount || '0');
     const concession = toNumber(formData.concession || '0');
-    
+
     // Calculate: (Total Amount + Fine Amount) - Concession
     const calculatedFee = (total + fine) - concession;
     const feeToBePaid = calculatedFee.toFixed(2);
-    
+
     // Always update feeToBePaid - use functional update to avoid dependency issues
     setFormData(prev => {
       // Update if the calculated value is different from current
@@ -306,14 +325,14 @@ const ExamFeeConcession = () => {
   // Handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     // Update form data
     setFormData(prev => {
       const updated = {
         ...prev,
         [name]: value
       };
-      
+
       // If concession, totalAmount, or fineAmount changes, immediately recalculate feeToBePaid
       if (name === 'concession' || name === 'totalAmount' || name === 'fineAmount') {
         const total = toNumber(updated.totalAmount || '0');
@@ -322,7 +341,7 @@ const ExamFeeConcession = () => {
         const calculatedFee = (total + fine) - concession;
         updated.feeToBePaid = calculatedFee.toFixed(2);
       }
-      
+
       return updated;
     });
 
@@ -351,7 +370,7 @@ const ExamFeeConcession = () => {
     // If sem changes, check Regular/Supply and fetch fee data (AutoPostBack behavior)
     if (name === 'sem') {
       if (formData.registrationNo && value) {
-        loadFeeForSemester(value, formData.registrationNo);
+        loadFeeForSemester(value, formData.registrationNo, formData.batch, formData.branch);
         loadGrid(formData.registrationNo, value);
       }
     }
@@ -476,7 +495,7 @@ const ExamFeeConcession = () => {
         feeToBePaidVal = String(tobePaidRaw);
       }
     }
-    
+
     setFormData({
       registrationNo: row.RegistrationNo ?? row.registrationNo ?? row.Regno ?? '',
       sem: row.Sem ?? row.sem ?? '',
@@ -779,7 +798,7 @@ const ExamFeeConcession = () => {
                           toBePaidVal = String(tobePaidRaw);
                         }
                       }
-                      
+
                       // API may or may not return Remarks field
                       const remarksVal = row.Remarks ?? row.remarks ?? row.REMARKS ?? '';
 
@@ -795,18 +814,18 @@ const ExamFeeConcession = () => {
                           <td>{concessionVal}</td>
                           <td>{toBePaidVal}</td>
                           <td>{remarksVal}</td>
-                        <td>
-                          <button
-                            className={styles.deleteBtn}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDelete(id);
-                            }}
-                            title="Delete"
-                          >
-                            🗑️
-                          </button>
-                        </td>
+                          <td>
+                            <button
+                              className={styles.deleteBtn}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(id);
+                              }}
+                              title="Delete"
+                            >
+                              🗑️
+                            </button>
+                          </td>
                         </tr>
                       );
                     })

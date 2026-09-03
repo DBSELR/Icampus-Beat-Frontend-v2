@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaFileAlt, FaChevronUp, FaFileExcel } from 'react-icons/fa';
+import { FaFileAlt, FaChevronUp, FaFileExcel, FaEye } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import globalStyles from './Results.module.css';
 import {
   getAppData,
@@ -111,6 +112,17 @@ const ResultSheetExcelExport = () => {
     }
   };
 
+  const handleDownloadExcel = () => {
+    if (tableData.length === 0) {
+      showMessage('No data available to download.');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Results');
+    XLSX.writeFile(wb, 'ResultSheet.xlsx');
+  };
+
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.box}>
@@ -120,15 +132,6 @@ const ResultSheetExcelExport = () => {
             Result Sheet Excel Export
           </h2>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-            <button
-              onClick={handleBackLogsExcelExport}
-              className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
-              disabled={loading}
-              style={{ minWidth: 'auto', padding: '6px 16px' }}
-            >
-              <FaFileExcel style={{ marginRight: '6px' }} />
-              {loading ? 'Loading...' : 'Back Logs Excel Export'}
-            </button>
             <button
               className={`${globalStyles.minimizeBtn} ${isFormCollapsed ? globalStyles.rotated : ''}`}
               onClick={() => setIsFormCollapsed(!isFormCollapsed)}
@@ -192,16 +195,32 @@ const ResultSheetExcelExport = () => {
                 </select>
               </div>
 
-              {/* Excel Export Button */}
-              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end' }}>
+              {/* Action Buttons */}
+              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', flexDirection: 'row', gap: '12px', flexWrap: 'wrap', flex: '1 1 auto' }}>
                 <button
                   onClick={handleExcelExport}
-                  className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  className={`${globalStyles.btn} ${globalStyles.saveBtn}`}
                   disabled={exporting}
-                  style={{ minWidth: '150px' }}
+                >
+                  <FaEye style={{ marginRight: '6px' }} />
+                  {exporting ? 'Loading...' : 'View Data'}
+                </button>
+                <button
+                  onClick={handleBackLogsExcelExport}
+                  className={`${globalStyles.btn} ${globalStyles.getDataBtn}`}
+                  disabled={loading}
+                >
+                  <FaEye style={{ marginRight: '6px' }} />
+                  {loading ? 'Loading...' : 'View Backlogs'}
+                </button>
+                <button
+                  onClick={handleDownloadExcel}
+                  className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  disabled={tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}
                 >
                   <FaFileExcel style={{ marginRight: '6px' }} />
-                  {exporting ? 'Exporting...' : 'Excel Export'}
+                  Download Excel
                 </button>
               </div>
             </div>

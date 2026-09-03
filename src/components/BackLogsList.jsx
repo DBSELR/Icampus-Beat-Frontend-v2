@@ -30,7 +30,6 @@ const BackLogsList = () => {
 
   // Checkbox states
   const [currentMonthYearOnly, setCurrentMonthYearOnly] = useState(false);
-  const [batchWise, setBatchWise] = useState(false);
 
   // Operator cycles: =, >=, <=
   const [equationOperator, setEquationOperator] = useState('=');
@@ -70,12 +69,14 @@ const BackLogsList = () => {
   const handleCheckboxChange = (name) => {
     if (name === 'currentMonthYear') {
       setCurrentMonthYearOnly((v) => !v);
-      if (batchWise) setBatchWise(false);
-    } else {
-      setBatchWise((v) => !v);
-      if (currentMonthYearOnly) setCurrentMonthYearOnly(false);
     }
   };
+
+  // Filter table data based on checkbox
+  const lastAttemptKey = tableColumns.find(col => col.toUpperCase().replace(/[_ ]/g, '') === 'LASTATTEMPT');
+  const filteredTableData = currentMonthYearOnly && lastAttemptKey
+    ? tableData.filter(row => String(row[lastAttemptKey] || '').trim().toUpperCase() === String(formData.exammy || '').trim().toUpperCase())
+    : tableData;
 
   // "=" button: cycle operator then fetch count
   const handleEquationClick = async () => {
@@ -142,10 +143,10 @@ const BackLogsList = () => {
   };
 
   const handleExport = () => {
-    if (tableData.length === 0) { alert('No data to export. Please generate backlogs list first.'); return; }
+    if (filteredTableData.length === 0) { alert('No data to export. Please generate backlogs list first.'); return; }
 
     const headerRow = tableColumns;
-    const dataRows = tableData.map((row) => tableColumns.map((col) => row[col] ?? ''));
+    const dataRows = filteredTableData.map((row) => tableColumns.map((col) => row[col] ?? ''));
 
     // Summary row at top
     const meta = [
@@ -190,12 +191,6 @@ const BackLogsList = () => {
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 600, color: '#1e293b' }}>
                   <input type="checkbox" checked={currentMonthYearOnly} onChange={() => handleCheckboxChange('currentMonthYear')} />
                   Backlogs in the Current Month & Year Only
-                </label>
-              </div>
-              <div className={globalStyles.formGroup}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 600, color: '#1e293b' }}>
-                  <input type="checkbox" checked={batchWise} onChange={() => handleCheckboxChange('batchWise')} />
-                  Batch Wise
                 </label>
               </div>
               <div className={globalStyles.formGroup} style={{ flex: 1, justifyContent: 'flex-end', color: '#dc2626', fontWeight: 600 }}>
@@ -260,8 +255,8 @@ const BackLogsList = () => {
           {/* Table */}
           {loading ? (
             <div className={globalStyles.noDataMessage}>Loading...</div>
-          ) : tableData.length > 0 ? (
-            <div className={globalStyles.tableWrapper}>
+          ) : filteredTableData.length > 0 ? (
+            <div className={globalStyles.tableContainer}>
               <table className={globalStyles.dataTable}>
                 <thead>
                   <tr>
@@ -271,7 +266,7 @@ const BackLogsList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tableData.map((row, i) => (
+                  {filteredTableData.map((row, i) => (
                     <tr key={i}>
                       {tableColumns.map((col) => (
                         <td key={col}>{row[col] ?? ''}</td>
@@ -280,6 +275,10 @@ const BackLogsList = () => {
                   ))}
                 </tbody>
               </table>
+            </div>
+          ) : tableData.length > 0 ? (
+            <div className={globalStyles.noDataMessage}>
+              No backlogs match the current month & year filter.
             </div>
           ) : (
             <div className={globalStyles.noDataMessage}>

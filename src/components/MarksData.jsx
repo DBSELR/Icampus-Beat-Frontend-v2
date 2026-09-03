@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaChevronUp } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import globalStyles from './Results.module.css';
 import {
   getMarksDataBatch,
@@ -73,7 +74,7 @@ const MarksData = () => {
     }
   };
 
-  const handleExport = async () => {
+  const handleView = async () => {
     if (!selectedFormat) { alert('Please select a data format'); return; }
     if (!examMY) { alert('Please select Exam Month & Year'); return; }
     // Format 4 uses result-data (no sem required); others need sem
@@ -101,6 +102,17 @@ const MarksData = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      alert('No data available to export');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'MarksData');
+    XLSX.writeFile(wb, 'MarksData.xlsx');
   };
 
   return (
@@ -184,14 +196,23 @@ const MarksData = () => {
                 </select>
               </div>
 
-              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row', gap: '10px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
-                  onClick={handleExport}
+                  onClick={handleView}
                   className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
                   disabled={loading}
                 >
-                  {loading ? 'Loading...' : 'Export'}
+                  {loading ? 'Loading...' : 'View'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleExportExcel}
+                  className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  disabled={loading || tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}
+                >
+                  Export Excel
                 </button>
               </div>
             </div>

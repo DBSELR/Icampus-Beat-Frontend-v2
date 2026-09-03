@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaChevronUp } from 'react-icons/fa';
 import globalStyles from './Results.module.css';
+import * as XLSX from 'xlsx';
 import {
   getCreditSecuredExammy,
   getCreditSecuredBatch,
   getCreditSecuredBranch,
   getCreditSecuredData,
   getCreditSecuredTotalData,
-  getMarksDataSems,
   getAppData,
 } from '../utils/api';
 
@@ -23,8 +23,6 @@ const CreditSecured = () => {
   const [exammy, setExammy] = useState('');
   const [batch, setBatch] = useState('');
   const [branch, setBranch] = useState('');
-  const [sem, setSem] = useState('');
-  const [semOptions, setSemOptions] = useState([]);
   const [credits, setCredits] = useState('');
 
   const [tableData, setTableData] = useState([]);
@@ -67,8 +65,6 @@ const CreditSecured = () => {
     setBatch(value);
     setBranch('');
     setBranchOptions([]);
-    setSem('');
-    setSemOptions([]);
     if (value && course) {
       getCreditSecuredBranch(course, value)
         .then((res) => {
@@ -76,32 +72,14 @@ const CreditSecured = () => {
           setBranchOptions(Array.isArray(data) ? data : []);
         })
         .catch(() => {});
-      if (exammy) {
-        getMarksDataSems(value, exammy)
-          .then((res) => {
-            const data = res?.data ?? res;
-            setSemOptions(Array.isArray(data) ? data : []);
-          })
-          .catch(() => {});
-      }
     }
   };
 
   const handleExammyChange = (value) => {
     setExammy(value);
-    setSem('');
-    setSemOptions([]);
-    if (value && batch) {
-      getMarksDataSems(batch, value)
-        .then((res) => {
-          const data = res?.data ?? res;
-          setSemOptions(Array.isArray(data) ? data : []);
-        })
-        .catch(() => {});
-    }
   };
 
-  const handleExport = async () => {
+  const handleView = async () => {
     if (!exammy) { alert('Please Select Exammy'); return; }
     if (!branch) { alert('Please Select Branch'); return; }
     if (!credits.trim()) { alert('Please enter No.Of Credits'); return; }
@@ -114,7 +92,7 @@ const CreditSecured = () => {
     try {
       const [dataRes, totalRes] = await Promise.all([
         getCreditSecuredData(regulation, course, batch, exammy, branch, parseInt(credits) || 0),
-        getCreditSecuredTotalData(regulation, course, batch, exammy, branch, sem),
+        getCreditSecuredTotalData(regulation, course, batch, exammy, branch, ''),
       ]);
 
       const data = dataRes?.data ?? dataRes;
@@ -137,6 +115,23 @@ const CreditSecured = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportExcel = () => {
+    if (tableData.length === 0 && totalData.length === 0) {
+      alert('No data available to export');
+      return;
+    }
+    const wb = XLSX.utils.book_new();
+    if (tableData.length > 0) {
+      const wsData = XLSX.utils.json_to_sheet(tableData);
+      XLSX.utils.book_append_sheet(wb, wsData, 'Main Data');
+    }
+    if (totalData.length > 0) {
+      const wsTotal = XLSX.utils.json_to_sheet(totalData);
+      XLSX.utils.book_append_sheet(wb, wsTotal, 'Total Data');
+    }
+    XLSX.writeFile(wb, 'CreditSecured.xlsx');
   };
 
   return (
@@ -214,29 +209,24 @@ const CreditSecured = () => {
                 />
               </div>
 
-              <div className={globalStyles.formGroup}>
-                <label className={globalStyles.label}>Semester</label>
-                <select
-                  value={sem}
-                  onChange={(e) => setSem(e.target.value)}
-                  className={globalStyles.dropdown}
-                >
-                  <option value="">Select Sem</option>
-                  {semOptions.map((opt, i) => (
-                    <option key={i} value={optVal(opt)}>{optLabel(opt)}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row', gap: '10px', flex: 1, flexWrap: 'wrap' }}>
                 <button
                   type="button"
-                  onClick={handleExport}
+                  onClick={handleView}
                   className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
                   disabled={loading}
                   style={{ minWidth: '120px' }}
                 >
-                  {loading ? 'Loading...' : 'EXPORT'}
+                  {loading ? 'Loading...' : 'VIEW'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleExportExcel}
+                  className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  disabled={loading || (tableData.length === 0 && totalData.length === 0)}
+                  style={{ minWidth: '120px', backgroundColor: '#28a745', borderColor: '#28a745' }}
+                >
+                  EXPORT EXCEL
                 </button>
               </div>
             </div>

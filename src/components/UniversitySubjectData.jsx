@@ -9,33 +9,33 @@ import {
 } from '../utils/api';
 
 const downloadCsv = (data, filename) => {
-  const cols    = Object.keys(data[0]);
+  const cols = Object.keys(data[0]);
   const headers = cols.join(',');
-  const rows    = data.map(row =>
+  const rows = data.map(row =>
     cols.map(c => `"${String(row[c] ?? '').replace(/"/g, '""')}"`).join(',')
   );
-  const csv  = [headers, ...rows].join('\n');
+  const csv = [headers, ...rows].join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
   a.href = url; a.download = filename; a.click();
   URL.revokeObjectURL(url);
 };
 
 const UniversitySubjectData = () => {
-  const appData    = getAppData() || {};
-  const course     = appData.course     || '';
+  const appData = getAppData() || {};
+  const course = appData.course || '';
   const regulation = appData.regulation || '';
 
-  const [batch,        setBatch]        = useState('');
-  const [regSup,       setRegSup]       = useState('');
-  const [sem,          setSem]          = useState('');
+  const [batch, setBatch] = useState('');
+  const [regSup, setRegSup] = useState('');
+  const [sem, setSem] = useState('');
   const [batchOptions, setBatchOptions] = useState([]);
-  const [semOptions,   setSemOptions]   = useState([]);
-  const [tableData,    setTableData]    = useState([]);
-  const [tableCols,    setTableCols]    = useState([]);
-  const [loading,      setLoading]      = useState('');
-  const [message,      setMessage]      = useState({ text: '', type: '' });
+  const [semOptions, setSemOptions] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const [tableCols, setTableCols] = useState([]);
+  const [loading, setLoading] = useState('');
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   const showMsg = (text, type = 'error') => {
     setMessage({ text, type });
@@ -52,7 +52,7 @@ const UniversitySubjectData = () => {
             value: String(r.EXAMMY || r.examMY || r.exammy || ''),
             label: String(r.EXAMMY || r.examMY || r.exammy || r),
           })));
-      }).catch(() => {});
+      }).catch(() => { });
   }, [course, regulation]);
 
   // Load semesters when batch changes
@@ -69,12 +69,12 @@ const UniversitySubjectData = () => {
           value: String(r.SEM || r.sem || r.Sem || ''),
           label: String(r.SEM || r.sem || r.Sem || r),
         })));
-    } catch {}
+    } catch { }
   };
 
   const handleSubjectList = async () => {
-    if (!batch)  { showMsg('Please select Batch.'); return; }
-    if (!sem)    { showMsg('Please select Semester.'); return; }
+    if (!batch) { showMsg('Please select Batch.'); return; }
+    if (!sem) { showMsg('Please select Semester.'); return; }
     setLoading('subjects');
     setTableData([]);
     try {
@@ -95,9 +95,9 @@ const UniversitySubjectData = () => {
   };
 
   const handleStudentsData = async () => {
-    if (!batch)  { showMsg('Please select Batch.'); return; }
+    if (!batch) { showMsg('Please select Batch.'); return; }
     if (!regSup) { showMsg('Please select Regsup.'); return; }
-    if (!sem)    { showMsg('Please select Semester.'); return; }
+    if (!sem) { showMsg('Please select Semester.'); return; }
     setLoading('students');
     setTableData([]);
     try {

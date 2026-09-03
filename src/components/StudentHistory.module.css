@@ -6,14 +6,14 @@
 
 .mainLayout {
   display: flex;
-  gap: 20px;
-  max-width: 1400px;
+  gap: 15px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 /* Left Panel - Student Information */
 .leftPanel {
-  flex: 0 0 400px;
+  flex: 0 0 320px;
 }
 
 .studentInfoBox {
@@ -146,6 +146,18 @@
 /* Right Panel - Subject Details */
 .rightPanel {
   flex: 1;
+  min-width: 0;
+}
+
+.compactTable th {
+  padding: 8px 6px !important;
+  font-size: 11.5px !important;
+  white-space: normal !important;
+}
+
+.compactTable td {
+  padding: 6px 6px !important;
+  font-size: 12px !important;
 }
 
 .subjectDetailsBox {

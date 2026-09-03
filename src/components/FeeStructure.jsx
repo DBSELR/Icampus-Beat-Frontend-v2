@@ -627,82 +627,84 @@ const FeeStructure = () => {
                 )}
 
                 <div className={styles.formSection}>
-                  <div className={styles.formGroup}>
-                    <label className={styles.label}>Select Regu./Supply.</label>
-                    <select
-                      name="reguSupply"
-                      value={regularFormData.reguSupply}
-                      onChange={handleRegularInputChange}
-                      className={styles.dropdown}
-                      disabled={editingFeeId !== null}
-                    >
-                      {reguSupplyOptions.map(option => (
-                        <option key={option} value={option}>{option}</option>
-                      ))}
-                    </select>
+                  <div className={styles.formRow} style={{ flexWrap: 'wrap', alignItems: 'flex-end' }}>
+                    <div className={styles.formGroup} style={{ flex: '1 1 140px' }}>
+                      <label className={styles.label}>Select Regu./Supply.</label>
+                      <select
+                        name="reguSupply"
+                        value={regularFormData.reguSupply}
+                        onChange={handleRegularInputChange}
+                        className={styles.dropdown}
+                        disabled={editingFeeId !== null}
+                      >
+                        {reguSupplyOptions.map(option => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Regular Fee Form - shown when Regular is selected */}
+                    {regularFormData.reguSupply === 'Regular' && (
+                      <>
+                        <div className={styles.formGroup} style={{ flex: '1 1 120px' }}>
+                          <label className={styles.label}>Batch</label>
+                          <select
+                            name="batch"
+                            value={regularFormData.batch}
+                            onChange={handleRegularInputChange}
+                            className={styles.dropdown}
+                          >
+                            {batchOptions.map(option => (
+                              <option key={option} value={option}>{option}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className={styles.formGroup} style={{ flex: '2 1 160px' }}>
+                          <label className={styles.label}>Branch</label>
+                          <select
+                            name="branch"
+                            value={regularFormData.branch}
+                            onChange={handleRegularInputChange}
+                            className={styles.dropdown}
+                          >
+                            {branchOptions.map(option => (
+                              <option key={option} value={option}>{option}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className={styles.formGroup} style={{ flex: '0 1 80px' }}>
+                          <label className={styles.label}>Sem</label>
+                          <input
+                            type="text"
+                            name="sem"
+                            value={regularFormData.sem}
+                            onChange={handleRegularInputChange}
+                            className={styles.input}
+                            placeholder="Sem"
+                          />
+                        </div>
+
+                        <div className={styles.formGroup} style={{ flex: '0 1 100px' }}>
+                          <label className={styles.label}>Fee</label>
+                          <input
+                            type="text"
+                            name="fee"
+                            value={regularFormData.fee}
+                            onChange={handleRegularInputChange}
+                            className={styles.input}
+                            placeholder="Fee"
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
-
-                  {/* Regular Fee Form - shown when Regular is selected */}
-                  {regularFormData.reguSupply === 'Regular' && (
-                    <>
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Batch</label>
-                        <select
-                          name="batch"
-                          value={regularFormData.batch}
-                          onChange={handleRegularInputChange}
-                          className={styles.dropdown}
-                        >
-                          {batchOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Branch</label>
-                        <select
-                          name="branch"
-                          value={regularFormData.branch}
-                          onChange={handleRegularInputChange}
-                          className={styles.dropdown}
-                        >
-                          {branchOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Sem</label>
-                        <input
-                          type="text"
-                          name="sem"
-                          value={regularFormData.sem}
-                          onChange={handleRegularInputChange}
-                          className={styles.input}
-                          placeholder="Sem"
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.label}>Fee</label>
-                        <input
-                          type="text"
-                          name="fee"
-                          value={regularFormData.fee}
-                          onChange={handleRegularInputChange}
-                          className={styles.input}
-                          placeholder="Fee"
-                        />
-                      </div>
-                    </>
-                  )}
                 </div>
 
                 {/* Regular Fee Structure Table - shown when Regular is selected */}
                 {regularFormData.reguSupply === 'Regular' && (
-                  <div className={styles.tableContainer}>
+                  <div className={styles.tableContainer} style={{ maxHeight: '35vh' }}>
                     <table className={styles.dataTable}>
                       <thead>
                         <tr>
@@ -748,7 +750,7 @@ const FeeStructure = () => {
                 {/* Supplementary Fee Grid - shown when Supplementary is selected */}
                 {regularFormData.reguSupply === 'Supplementary' && (
                   <div className={styles.supplementarySection}>
-                    <div className={styles.tableContainer}>
+                    <div className={styles.tableContainer} style={{ maxHeight: '35vh' }}>
                       <table className={styles.dataTable}>
                         <thead>
                           <tr>

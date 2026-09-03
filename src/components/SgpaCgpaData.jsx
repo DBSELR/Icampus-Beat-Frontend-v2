@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaTh, FaChevronUp } from 'react-icons/fa';
+import { FaEdit, FaTh, FaChevronUp, FaFileExport } from 'react-icons/fa';
 import globalStyles from './Results.module.css';
+import { exportToExcel } from '../utils/exportExcel';
 import {
   getRegnoWiseSgpaCgpaBatch,
   getRegnoWiseSgpaCgpaSems,
@@ -89,6 +90,31 @@ const SgpaCgpaData = () => {
     }
   };
 
+  const handleExport = () => {
+    if (tableData.length === 0) {
+      alert('No data to export.');
+      return;
+    }
+
+    const headerRow = tableColumns;
+    const dataRows = tableData.map((row) => tableColumns.map((col) => row[col] ?? ''));
+
+    const meta = [
+      ['Course', course],
+      ['Regulation', regulation],
+      ['Batch', batch],
+      ['Semester', sem],
+      [],
+      headerRow,
+      ...dataRows,
+    ];
+
+    exportToExcel(
+      [{ name: 'SGPA CGPA Data', data: meta }],
+      `SGPA_CGPA_${course}_${batch}_Sem${sem}.xlsx`
+    );
+  };
+
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.box}>
@@ -165,12 +191,17 @@ const SgpaCgpaData = () => {
             <FaTh className={globalStyles.headerIcon} />
             SGPA AND CGPA DATA
           </h2>
-          <button
-            className={`${globalStyles.minimizeBtn} ${isDataTableCollapsed ? globalStyles.rotated : ''}`}
-            onClick={() => setIsDataTableCollapsed(!isDataTableCollapsed)}
-          >
-            <FaChevronUp />
-          </button>
+          <div className={globalStyles.headerActions}>
+            <button onClick={handleExport} className={`${globalStyles.btn} ${globalStyles.exportBtn}`} style={{ padding: '4px 12px', height: '32px' }}>
+              <FaFileExport /> Export
+            </button>
+            <button
+              className={`${globalStyles.minimizeBtn} ${isDataTableCollapsed ? globalStyles.rotated : ''}`}
+              onClick={() => setIsDataTableCollapsed(!isDataTableCollapsed)}
+            >
+              <FaChevronUp />
+            </button>
+          </div>
         </div>
 
         <div className={`${globalStyles.boxContent} ${isDataTableCollapsed ? globalStyles.collapsed : ''}`}>

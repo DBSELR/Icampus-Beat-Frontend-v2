@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheck, FaChevronUp } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import globalStyles from './Results.module.css';
 import {
   getAppData,
@@ -76,7 +77,7 @@ const TotalSecuredCredits = () => {
   };
 
   // Tab 1 export
-  const handleTotalExport = async () => {
+  const handleTotalView = async () => {
     if (!t_exammy)      { showMessage('Please Select Exammy'); return; }
     if (!t_batch)       { showMessage('Please Select Batch'); return; }
     if (!t_sem.trim())  { showMessage('Please enter Sem'); return; }
@@ -91,14 +92,14 @@ const TotalSecuredCredits = () => {
         showMessage(res.message || 'No data found.');
       }
     } catch (err) {
-      showMessage(err.message || 'Export failed.');
+      showMessage(err.message || 'Loading failed.');
     } finally {
       setIsLoading(false);
     }
   };
 
   // Tab 2 export
-  const handleCreditExport = async () => {
+  const handleCreditView = async () => {
     if (!c_exammy)                    { showMessage('Please Select Exammy'); return; }
     if (!c_batch)                     { showMessage('Please Select Batch'); return; }
     if (!c_branch)                    { showMessage('Please Select Branch'); return; }
@@ -115,10 +116,22 @@ const TotalSecuredCredits = () => {
         showMessage(res.message || 'No data found.');
       }
     } catch (err) {
-      showMessage(err.message || 'Export failed.');
+      showMessage(err.message || 'Loading failed.');
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      showMessage('No data available to export.');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    const sheetName = activeTab === 'total' ? 'Total Credit Secured' : 'Credit Secured';
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.writeFile(wb, `${sheetName}.xlsx`);
   };
 
   const tabStyle = (key) => ({
@@ -238,11 +251,18 @@ const TotalSecuredCredits = () => {
                 </div>
               </>)}
 
-              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end' }}>
+              <div className={globalStyles.formGroup} style={{ justifyContent: 'flex-end', flexDirection: 'row', gap: '10px', flexWrap: 'wrap', flex: '1 1 auto' }}>
                 <button type="button"
-                  onClick={activeTab === 'total' ? handleTotalExport : handleCreditExport}
+                  onClick={activeTab === 'total' ? handleTotalView : handleCreditView}
                   className={`${globalStyles.btn} ${globalStyles.exportBtn}`} disabled={isLoading}>
-                  {isLoading ? 'Exporting...' : 'Export'}
+                  {isLoading ? 'Loading...' : 'View'}
+                </button>
+                <button type="button"
+                  onClick={handleExportExcel}
+                  className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  disabled={isLoading || tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}>
+                  Export Excel
                 </button>
               </div>
             </div>

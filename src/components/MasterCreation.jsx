@@ -609,6 +609,79 @@ const MasterCreation = () => {
     return filteredData.slice(start, start + pageSize);
   }, [filteredData, currentPage]);
 
+  const handleSelectAllVerified = async (checked) => {
+    if (!checked) {
+      setMasterData((prev) => {
+        const pidsToUncheck = currentRows.map(r => r.PID);
+        return prev.map(item => pidsToUncheck.includes(item.PID) ? { ...item, IS_VERIFIED: false } : item);
+      });
+      return;
+    }
+
+    const unverifiedRows = currentRows.filter(row => !(row.IS_VERIFIED === true || row.IS_VERIFIED === 'true' || row.IS_VERIFIED === 'True' || row.IS_VERIFIED === 1));
+    if (unverifiedRows.length === 0) return;
+
+    const invalidRows = [];
+    unverifiedRows.forEach(row => {
+      const tMax = numberOrZero(row.TMAX);
+      const pMax = numberOrZero(row.PMAX);
+      const sMax = numberOrZero(row.SMAX);
+      const maxMrk = numberOrZero(row.MAXMRK);
+      if (tMax + pMax + sMax !== maxMrk) invalidRows.push(row.PCODE || row.PID);
+    });
+
+    if (invalidRows.length > 0) {
+      alert(`Validation failed for ${invalidRows.join(', ')}: TMAX + PMAX + SMAX must equal MAX MRK.`);
+      return;
+    }
+
+    if (!window.confirm(`This will verify ${unverifiedRows.length} rows on this page and save them. Continue?`)) return;
+
+    setLoading(true);
+    let successCount = 0;
+    const successfulPids = [];
+    
+    for (const row of unverifiedRows) {
+      const tMax = numberOrZero(row.TMAX);
+      const pMax = numberOrZero(row.PMAX);
+      const sMax = numberOrZero(row.SMAX);
+      const maxMrk = numberOrZero(row.MAXMRK);
+
+      const payload = {
+        pName: row.PNAME || '',
+        maxMrk: maxMrk.toString(),
+        sMax: sMax.toString(),
+        tMax: tMax.toString(),
+        pMax: pMax.toString(),
+        tPass: (row.TPASS ?? '').toString(),
+        pass: (row.PASS ?? '').toString(),
+        credits: row.CREDITS != null ? Number(row.CREDITS).toFixed(2) : '0',
+        sPass: (row.SPASS ?? '').toString(),
+        pPass: (row.PPASS ?? '').toString(),
+        pid: row.PID?.toString() || '',
+      };
+
+      try {
+        await updateMasterPaper(payload);
+        successfulPids.push(row.PID);
+        successCount++;
+      } catch (err) {
+        console.error('Failed to verify paper:', row.PCODE, err);
+      }
+    }
+
+    if (successfulPids.length > 0) {
+      setMasterData(prev => 
+        prev.map(item => successfulPids.includes(item.PID) ? { ...item, IS_VERIFIED: true } : item)
+      );
+    }
+    
+    setLoading(false);
+    if (successCount < unverifiedRows.length) {
+      alert(`Successfully verified ${successCount} out of ${unverifiedRows.length} rows.`);
+    }
+  };
+
   const renderCell = (row, column) => {
     switch (column.key) {
       case 'IS_VERIFIED':
@@ -794,7 +867,21 @@ const MasterCreation = () => {
                 <tr>
                   <th className={styles.indexCol}>S.No</th>
                   {tableColumns.map((column) => (
-                    <th key={column.key}>{column.label}</th>
+                    <th key={column.key}>
+                      {column.key === 'IS_VERIFIED' ? (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                          <input
+                            type="checkbox"
+                            checked={currentRows.length > 0 && currentRows.every(row => row.IS_VERIFIED === true || row.IS_VERIFIED === 'true' || row.IS_VERIFIED === 'True' || row.IS_VERIFIED === 1)}
+                            onChange={(e) => handleSelectAllVerified(e.target.checked)}
+                            style={{ cursor: 'pointer' }}
+                          />
+                          {column.label}
+                        </div>
+                      ) : (
+                        column.label
+                      )}
+                    </th>
                   ))}
                 </tr>
               </thead>

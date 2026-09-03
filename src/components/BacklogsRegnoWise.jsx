@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaCheckSquare, FaChevronUp } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import globalStyles from './Results.module.css';
 import {
   getBackLogsListExammy,
@@ -22,6 +23,7 @@ const BacklogsRegnoWise = () => {
 
   const [tableData, setTableData] = useState([]);
   const [tableColumns, setTableColumns] = useState([]);
+  const [viewType, setViewType] = useState('');
   const [loading, setLoading] = useState(false);
   const [isFormCollapsed, setIsFormCollapsed] = useState(false);
 
@@ -64,6 +66,7 @@ const BacklogsRegnoWise = () => {
       if (Array.isArray(data) && data.length > 0) {
         setTableColumns(Object.keys(data[0]));
         setTableData(data);
+        setViewType('data');
       } else {
         alert('No data found for the given criteria.');
       }
@@ -86,6 +89,7 @@ const BacklogsRegnoWise = () => {
       if (Array.isArray(data) && data.length > 0) {
         setTableColumns(Object.keys(data[0]));
         setTableData(data);
+        setViewType('count');
       } else {
         alert('No data found for the given criteria.');
       }
@@ -96,14 +100,39 @@ const BacklogsRegnoWise = () => {
     }
   };
 
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      alert('No data available to export');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    const fileName = viewType === 'count' ? 'BacklogsCount.xlsx' : 'BacklogsData.xlsx';
+    const sheetName = viewType === 'count' ? 'Count' : 'Data';
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.writeFile(wb, fileName);
+  };
+
   return (
     <div className={globalStyles.container}>
       <div className={globalStyles.box}>
         <div className={globalStyles.boxHeader}>
-          <h2>
-            <FaCheckSquare className={globalStyles.headerIcon} />
-            Backlogs Regno Wise
-          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <h2 style={{ margin: 0 }}>
+              <FaCheckSquare className={globalStyles.headerIcon} />
+              Backlogs Regno Wise
+            </h2>
+            {tableData.length > 0 && (
+              <button
+                onClick={handleExportExcel}
+                className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                disabled={loading}
+                style={{ backgroundColor: '#28a745', borderColor: '#28a745', padding: '4px 12px', fontSize: '13px' }}
+              >
+                Export Excel
+              </button>
+            )}
+          </div>
           <button
             className={`${globalStyles.minimizeBtn} ${isFormCollapsed ? globalStyles.rotated : ''}`}
             onClick={() => setIsFormCollapsed(!isFormCollapsed)}
@@ -143,7 +172,7 @@ const BacklogsRegnoWise = () => {
                 </select>
               </div>
 
-              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '16px', alignItems: 'flex-end', justifyContent: 'flex-start' }}>
+              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '16px', alignItems: 'flex-end', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
                 <button
                   onClick={handleBackLogsData}
                   className={`${globalStyles.btn} ${globalStyles.saveBtn}`}

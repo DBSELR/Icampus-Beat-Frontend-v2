@@ -276,11 +276,10 @@ const RoomMaster = () => {
       for (let j = 1; j <= columns; j++) {
         const seatNumber = i + (j - 1) * rows;
         row.push(
-          <td 
-            key={`${i}-${j}`} 
-            className={`${styles.seat} ${j % 2 === 1 ? styles.seatBlue : styles.seatGreen}`}
-          >
-            {seatNumber}
+          <td key={`${i}-${j}`} style={{ padding: '2px' }}>
+            <div className={`${styles.seat} ${j % 2 === 1 ? styles.seatBlue : styles.seatGreen}`}>
+              {seatNumber}
+            </div>
           </td>
         );
       }

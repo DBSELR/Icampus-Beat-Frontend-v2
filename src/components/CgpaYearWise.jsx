@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import globalStyles from './Results.module.css';
-import { FaGraduationCap, FaFileExcel, FaBroom } from 'react-icons/fa';
+import { FaGraduationCap, FaFileExcel, FaBroom, FaEye } from 'react-icons/fa';
+import * as XLSX from 'xlsx';
 import {
   getAppData,
   getCgpaYearWiseExammy,
@@ -69,7 +70,7 @@ const CgpaYearWise = () => {
     } catch {}
   };
 
-  const handleDownload = async () => {
+  const handleViewData = async () => {
     if (!examMy) { showMsg('Please select Exammy.'); return; }
     if (!batch)  { showMsg('Please select Batch.'); return; }
     setLoading(true);
@@ -84,10 +85,21 @@ const CgpaYearWise = () => {
         showMsg(res.message || 'No data found.');
       }
     } catch (err) {
-      showMsg(err.message || 'Download failed.');
+      showMsg(err.message || 'Loading failed.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleExportExcel = () => {
+    if (tableData.length === 0) {
+      showMsg('No data available to export.');
+      return;
+    }
+    const ws = XLSX.utils.json_to_sheet(tableData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'CGPA Data');
+    XLSX.writeFile(wb, 'CgpaYearWise.xlsx');
   };
 
   const handleClear = () => {
@@ -150,15 +162,20 @@ const CgpaYearWise = () => {
               </div>
 
               {/* Buttons */}
-              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '10px', alignItems: 'flex-end' }}>
+              <div className={globalStyles.formGroup} style={{ flexDirection: 'row', gap: '10px', alignItems: 'flex-end', flexWrap: 'wrap', flex: '1 1 auto' }}>
                 <button type='button' className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
-                  onClick={handleDownload} disabled={loading}>
-                  <FaFileExcel style={{ marginRight: '6px' }} />
-                  {loading ? 'Loading...' : 'Excel Download'}
+                  onClick={handleViewData} disabled={loading}>
+                  <FaEye style={{ marginRight: '6px' }} />
+                  {loading ? 'Loading...' : 'View Data'}
                 </button>
                 <button type='button' className={`${globalStyles.btn} ${globalStyles.clearBtn}`}
                   onClick={handleClear}>
                   <FaBroom style={{ marginRight: '6px' }} /> Clear
+                </button>
+                <button type='button' className={`${globalStyles.btn} ${globalStyles.exportBtn}`}
+                  onClick={handleExportExcel} disabled={loading || tableData.length === 0}
+                  style={{ backgroundColor: '#28a745', borderColor: '#28a745' }}>
+                  <FaFileExcel style={{ marginRight: '6px' }} /> Export Excel
                 </button>
               </div>
             </div>

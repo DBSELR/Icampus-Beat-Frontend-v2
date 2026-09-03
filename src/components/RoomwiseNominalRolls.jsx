@@ -185,17 +185,7 @@ const RoomwiseNominalRolls = () => {
     setError('');
   };
 
-  // Convert date from dd-MM-yyyy (dropdown format) to MM-dd-yyyy (API format)
-  const convertDateForDataAPI = (dateString) => {
-    if (!dateString) return '';
-    // Date is in dd-MM-yyyy format from dropdown
-    const parts = dateString.split('-');
-    if (parts.length === 3) {
-      // dd-MM-yyyy -> MM-dd-yyyy (e.g., 18-05-2024 -> 05-18-2024)
-      return `${parts[1]}-${parts[0]}-${parts[2]}`;
-    }
-    return dateString;
-  };
+  // Function removed as it caused double-formatting. api.js's formatToYMD handles it.
 
   // Handle View button
   const handleView = async () => {
@@ -218,8 +208,8 @@ const RoomwiseNominalRolls = () => {
     try {
       const examTypeForAPI = getExamTypeForAPI(filters.examType);
       
-      // API expects edate in MM-dd-yyyy format (e.g., 05-18-2024)
-      const edateFormatted = filters.examDate ? convertDateForDataAPI(filters.examDate) : null;
+      // Pass the date directly in dd-MM-yyyy format; api.js will use formatToYMD to format it correctly for the backend
+      const edateFormatted = filters.examDate || null;
 
       const params = {
         course: appData.course,
@@ -227,7 +217,8 @@ const RoomwiseNominalRolls = () => {
         regulation: appData.regulation,
         examType: examTypeForAPI,
         sem: filters.semester || null,
-        edate: edateFormatted, // Converted to MM-dd-yyyy format
+        edate: edateFormatted,
+
         branch: filters.branch || null
       };
 

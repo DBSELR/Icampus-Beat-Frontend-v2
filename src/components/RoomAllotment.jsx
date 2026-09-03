@@ -86,13 +86,13 @@ const RoomAllotment = () => {
 
   // Load semesters and branches on component mount
   useEffect(() => {
-    if (course) {
+    if (course && examMy && regulation) {
       loadSems();
     }
     if (course && regulation) {
       loadBranches();
     }
-  }, [course, regulation]);
+  }, [course, regulation, examMy]);
 
   // Close branch dropdown when clicking outside
   useEffect(() => {
@@ -145,10 +145,10 @@ const RoomAllotment = () => {
 
   // Load semesters
   const loadSems = async () => {
-    if (!course) return;
+    if (!course || !examMy || !regulation) return;
     try {
       setIsLoading(true);
-      const response = await getRoomAllotmentSems(course);
+      const response = await getRoomAllotmentSems(course, examMy, regulation);
       if (response.success && response.data && Array.isArray(response.data)) {
         const sems = response.data.map(item => {
           // Try multiple field name variations
@@ -409,6 +409,7 @@ const RoomAllotment = () => {
       // Then, get allotted data to display
       const response = await getRoomAllotmentAlloted(
         course,
+        regulation,
         examMy,
         formData.sem,
         formData.room,

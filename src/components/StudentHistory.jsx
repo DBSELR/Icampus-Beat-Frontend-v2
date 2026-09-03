@@ -206,10 +206,32 @@ const StudentHistory = () => {
   // Identify ashId column key in history rows
   const getAshId = (row) => row.ASHID ?? row.ashId ?? row.ASH_ID ?? row.ash_id ?? row.id ?? '';
 
-  // Columns to show in the history table (exclude ASHID)
-  const visibleHistoryColumns = historyColumns.filter(
-    (c) => !['ASHID', 'ashId', 'ASH_ID', 'ash_id'].includes(c)
-  );
+  // Desired columns to display in specific order (others commented out for future use)
+  const desiredColumns = [
+    'SEM',
+    'PCODE',
+    'PNAME',
+    'CR',
+    'SMARKS',
+    'MRK_FIN',
+    'MARKS',
+    'GR',
+    'GRPTS',
+    'EXAMMY'
+    /* 
+    'TMARKS',
+    'MMARKS',
+    'RVMARKS',
+    'V3',
+    'PMARKS',
+    // ... uncomment or add other columns here
+    */
+  ];
+
+  // Map desired columns to their exact case from the API (if present) and filter out missing ones
+  const visibleHistoryColumns = desiredColumns
+    .map(dc => historyColumns.find(hc => hc.toUpperCase() === dc))
+    .filter(Boolean);
 
   return (
     <div className={globalStyles.container}>
@@ -272,28 +294,33 @@ const StudentHistory = () => {
                 )}
 
                 {/* SGPA/CGPA Table */}
-                {sgpaCgpaData.length > 0 && (
-                  <div className={styles.sgpaTableContainer}>
-                    <table className={styles.sgpaTable}>
-                      <thead>
-                        <tr>
-                          {sgpaColumns.map((col) => (
-                            <th key={col}>{col}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sgpaCgpaData.map((row, i) => (
-                          <tr key={i}>
-                            {sgpaColumns.map((col) => (
-                              <td key={col} className={styles.centerText}>{row[col] ?? ''}</td>
+                {sgpaCgpaData.length > 0 && (() => {
+                  const visibleSgpaColumns = sgpaColumns.filter(
+                    col => !['REGNO', 'RNO'].includes(col.toUpperCase())
+                  );
+                  return (
+                    <div className={styles.sgpaTableContainer}>
+                      <table className={styles.sgpaTable}>
+                        <thead>
+                          <tr>
+                            {visibleSgpaColumns.map((col) => (
+                              <th key={col}>{col}</th>
                             ))}
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
+                        </thead>
+                        <tbody>
+                          {sgpaCgpaData.map((row, i) => (
+                            <tr key={i}>
+                              {visibleSgpaColumns.map((col) => (
+                                <td key={col} className={styles.centerText}>{row[col] ?? ''}</td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           </div>
@@ -324,8 +351,8 @@ const StudentHistory = () => {
               {loading ? (
                 <div className={globalStyles.noDataMessage}>Loading...</div>
               ) : subjectDetails.length > 0 ? (
-                <div className={globalStyles.tableWrapper}>
-                  <table className={globalStyles.dataTable}>
+                <div className={globalStyles.tableContainer}>
+                  <table className={`${globalStyles.dataTable} ${styles.compactTable}`}>
                     <thead>
                       <tr>
                         {visibleHistoryColumns.map((col) => (
@@ -335,32 +362,61 @@ const StudentHistory = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {subjectDetails.map((row, i) => (
-                        <tr key={i}>
-                          {visibleHistoryColumns.map((col) => (
-                            <td key={col} className={styles.centerText}>
-                              {/* Make course name clickable for edit */}
-                              {['PNAME', 'courseName', 'pName', 'paperName', 'COURSE_NAME'].includes(col) ? (
-                                <button className={styles.courseNameBtn} onClick={() => handleEdit(row)} style={{ color: 'var(--theme-color)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>
-                                  {row[col] ?? ''}
+                      {(() => {
+                        let currentSem = null;
+                        const toRoman = (sem) => {
+                          const map = { '1': 'I', '2': 'II', '3': 'III', '4': 'IV', '5': 'V', '6': 'VI', '7': 'VII', '8': 'VIII', '9': 'IX', '10': 'X' };
+                          return map[String(sem).trim()] || sem;
+                        };
+
+                        return subjectDetails.map((row, i) => {
+                          const semKey = Object.keys(row).find(k => k.toUpperCase() === 'SEM');
+                          const semValue = semKey ? row[semKey] : null;
+
+                          const renderRow = (
+                            <tr key={i}>
+                              {visibleHistoryColumns.map((col) => (
+                                <td key={col} className={styles.centerText}>
+                                  {/* Make course name clickable for edit */}
+                                  {['PNAME', 'courseName', 'pName', 'paperName', 'COURSE_NAME'].includes(col) ? (
+                                    <button className={styles.courseNameBtn} onClick={() => handleEdit(row)} style={{ color: 'var(--theme-color)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>
+                                      {row[col] ?? ''}
+                                    </button>
+                                  ) : (
+                                    row[col] ?? ''
+                                  )}
+                                </td>
+                              ))}
+                              <td className={styles.centerText}>
+                                <button
+                                  onClick={() => handleDelete(row)}
+                                  className={`${globalStyles.btn} ${globalStyles.deleteBtn}`}
+                                  style={{ padding: '4px 8px', minWidth: '0' }}
+                                  title="Delete"
+                                >
+                                  <FaTrash />
                                 </button>
-                              ) : (
-                                row[col] ?? ''
-                              )}
-                            </td>
-                          ))}
-                          <td className={styles.centerText}>
-                            <button
-                              onClick={() => handleDelete(row)}
-                              className={`${globalStyles.btn} ${globalStyles.deleteBtn}`}
-                              style={{ padding: '4px 8px', minWidth: '0' }}
-                              title="Delete"
-                            >
-                              <FaTrash />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                              </td>
+                            </tr>
+                          );
+
+                          if (semValue && semValue !== currentSem) {
+                            currentSem = semValue;
+                            return (
+                              <React.Fragment key={`group-${i}`}>
+                                <tr>
+                                  <td colSpan={visibleHistoryColumns.length + 1} style={{ textAlign: 'left', fontWeight: 'bold', background: '#e2e8f0', color: '#1e293b', padding: '8px 12px', fontSize: '13px' }}>
+                                    Semester - {toRoman(semValue)}
+                                  </td>
+                                </tr>
+                                {renderRow}
+                              </React.Fragment>
+                            );
+                          }
+
+                          return renderRow;
+                        });
+                      })()}
                     </tbody>
                   </table>
                 </div>

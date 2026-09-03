@@ -61,7 +61,7 @@ const AbsenteesEntry = () => {
       const options = [{ value: '', label: 'Select Paper' }];
       data.forEach(item => {
         const pcode = item.PCODE || item.pcode;
-        const pname = item.PName || item.PNAME || item.pname;
+        const pname = item.pName || item.pname || item.PName || item.PNAME || item.name || item.text || item.PaperName || item.paperName;
         if (pcode) options.push({ value: pcode, label: pname ? `${pcode} - ${pname}` : pcode });
       });
       setPapersOptions(options);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaIdCard, FaChevronUp, FaFileExport, FaSearch } from 'react-icons/fa';
-import { getAppData, getRegNoMarksStudent, saveRegNoMarks } from '../utils/api';
+import { getAppData, getRegNoMarksStudent, saveRegNoMarks, getStudentHistoryDetails } from '../utils/api';
 import styles from './RegNoWiseMarksEntry.module.css';
 
 const RegNoWiseMarksEntry = () => {
@@ -14,6 +14,32 @@ const RegNoWiseMarksEntry = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleRegNoBlur = async (e) => {
+    const regNo = (e.target.value || '').trim().toUpperCase();
+    if (!regNo) return;
+    try {
+      const res = await getStudentHistoryDetails(regNo);
+      
+      let student = null;
+      if (Array.isArray(res) && res.length > 0) {
+        student = res[0];
+      } else if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+        student = res.data[0];
+      } else if (res && !Array.isArray(res) && !res.success) {
+        student = res; // flat object
+      }
+
+      if (student) {
+        const name = student.name || student.Name || student.NAME || student.SName || student.StudentName || student.studentName || '';
+        if (name) {
+          setFormData(prev => ({ ...prev, name }));
+        }
+      }
+    } catch (err) {
+      console.warn('Could not auto-fetch name for regNo:', err);
+    }
   };
 
   const loadStudentData = async () => {
@@ -112,7 +138,7 @@ const RegNoWiseMarksEntry = () => {
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Registration No.</label>
-                  <input type="text" name="regNo" value={formData.regNo} onChange={handleInputChange} className={styles.input} placeholder="Registration No." style={{ fontWeight: '600', color: '#b91c1c', textTransform: 'uppercase' }} />
+                  <input type="text" name="regNo" value={formData.regNo} onChange={handleInputChange} onBlur={handleRegNoBlur} className={styles.input} placeholder="Registration No." style={{ fontWeight: '600', color: '#b91c1c', textTransform: 'uppercase' }} />
                 </div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Student Name</label>

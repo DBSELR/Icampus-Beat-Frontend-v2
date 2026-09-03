@@ -76,8 +76,8 @@ const InternalMarksEntry = () => {
             const smarks = s.smarks ?? s.SMARKS ?? s.marks ?? s.Marks ?? s.sessionMarks ?? '';
             const smax = (s.smax ?? s.SMAX ?? s.maxMarks ?? s.MaxMarks ?? formData.maxMarks) || '100';
             return {
-              id: s.ashid ?? s.ASHID ?? s.id ?? idx,
-              ashid: s.ashid ?? s.ASHID ?? s.id ?? idx,
+              id: s.ashid ?? s.ASHID ?? s.Ashid ?? s.ASH_ID ?? s.id ?? s.Id ?? s.ID ?? idx,
+              ashid: s.ashid ?? s.ASHID ?? s.Ashid ?? s.ASH_ID ?? s.id ?? s.Id ?? s.ID ?? idx,
               regNo: s.regNo ?? s.RegNo ?? s.REGNO ?? s.htno ?? '',
               branch: formData.branch,
               courseCode: pCode,
@@ -161,10 +161,40 @@ const InternalMarksEntry = () => {
     }
   };
 
-  const handleDownloadFormat = () => alert('Download Marks Format functionality will be implemented here');
+  const handleDownloadFormat = () => {
+    const csvContent = "data:text/csv;charset=utf-8,Reg No.,Session Marks\n";
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "Marks_Format.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   const handleUploadToICampus = () => alert('Upload to iCampus functionality will be implemented here');
-  const handleExport = () => alert('Export functionality will be implemented here');
-  const handleDownloadInternalData = () => alert('Download Internal Data From ERP functionality will be implemented here');
+  
+  const handleExport = () => {
+    if (tableData.length === 0) {
+      alert('No data to export.');
+      return;
+    }
+    let csvContent = "data:text/csv;charset=utf-8,Reg No.,Branch,Course Code,Session Marks\n";
+    tableData.forEach(row => {
+      csvContent += `${row.regNo},${row.branch},${row.courseCode},${row.sessionMarks}\n`;
+    });
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "Internal_Marks_Export.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  const handleDownloadInternalData = () => {
+    handleExport(); // For now, just alias to Export since we have the data
+  };
 
   return (
     <div className={styles.container}>

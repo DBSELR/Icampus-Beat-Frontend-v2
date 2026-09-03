@@ -295,11 +295,14 @@ const RevaluationRegistration = () => {
         fetchedOpted = [];
       }
 
-      if (statusResponse.success && statusResponse.data) {
+      let isRegistrationClosed = false;
+      if (statusResponse && statusResponse.success && statusResponse.data) {
         setRevaluationStatus(statusResponse.data);
         // Logic to handle status (e.g., disable if closed) can be added here
         if (statusResponse.data.length > 0 && statusResponse.data[0].RVCDATE === 0) {
-          // Example: alert("Revaluation date might be closed");
+          alert("Revaluation registration date is closed.");
+          isRegistrationClosed = true;
+          fetchedAvailable = []; // Clear available papers to prevent new registration
         }
       }
 
@@ -603,6 +606,13 @@ const RevaluationRegistration = () => {
         return selectedValues.includes(paperValue);
       });
 
+      // Remove from available papers
+      const newAvailablePapers = availablePapers.filter(paper => {
+        const paperValue = paper.PCODE || paper.code || paper;
+        return !selectedValues.includes(paperValue);
+      });
+      setAvailablePapers(newAvailablePapers);
+
       // Add to opted papers (avoid duplicates)
       const newOptedPapers = [...optedPapers];
       papersToAdd.forEach(paper => {
@@ -619,6 +629,52 @@ const RevaluationRegistration = () => {
       }, 0);
 
       // Calculate total amount based on opted papers
+      calculateTotalAmount(newOptedPapers, feePerPaper);
+    }
+  };
+
+  const handleOptedPaperSelection = (e) => {
+    const selectedOptions = Array.from(e.target.selectedOptions);
+    const selectedValues = selectedOptions.map(option => option.value);
+
+    if (selectedValues.length > 0) {
+      // Get the full paper objects for selected values
+      const papersToRemove = optedPapers.filter(paper => {
+        const paperValue = paper.PCODE || paper.code || paper;
+        return selectedValues.includes(paperValue);
+      });
+
+      // Check if any of them are old (already registered)
+      const hasOldPapers = papersToRemove.some(paper => paper.isOld);
+      if (hasOldPapers) {
+        alert("Cannot remove papers that are already registered.");
+        setTimeout(() => {
+          e.target.selectedIndex = -1;
+        }, 0);
+        return;
+      }
+
+      // Remove from opted papers
+      const newOptedPapers = optedPapers.filter(paper => {
+        const paperValue = paper.PCODE || paper.code || paper;
+        return !selectedValues.includes(paperValue);
+      });
+      setOptedPapers(newOptedPapers);
+
+      // Add back to available papers
+      const newAvailablePapers = [...availablePapers];
+      papersToRemove.forEach(paper => {
+        const paperValue = paper.PCODE || paper.code || paper;
+        if (!newAvailablePapers.some(avail => (avail.PCODE || avail.code || avail) === paperValue)) {
+          newAvailablePapers.push(paper);
+        }
+      });
+      setAvailablePapers(newAvailablePapers);
+
+      setTimeout(() => {
+        e.target.selectedIndex = -1;
+      }, 0);
+
       calculateTotalAmount(newOptedPapers, feePerPaper);
     }
   };
@@ -1008,7 +1064,7 @@ const RevaluationRegistration = () => {
                                 multiple
                                 className={styles.optedPapersListBox}
                                 size="10"
-                                readOnly
+                                onChange={handleOptedPaperSelection}
                               >
                                 {optedPapers.length === 0 ? (
                                   <option disabled>No opted papers</option>

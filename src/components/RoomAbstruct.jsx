@@ -145,7 +145,7 @@ const RoomAbstruct = () => {
   useEffect(() => {
     const fetchExamDates = async () => {
       if (!filters.session || !filters.semester || !filters.examType || 
-          !appData?.course || !appData?.examMY || !appData?.regulation) {
+          !appData?.course || !appData?.examMY) {
         setEdateOptions([]);
         setFilters(prev => ({ ...prev, edate: '' }));
         return;
@@ -338,13 +338,47 @@ const RoomAbstruct = () => {
     if (!roomAbstractData || roomAbstractData.length === 0) return {};
     
     const grouped = roomAbstractData.reduce((acc, row) => {
-      const room = getVal(row, ['ROOM', 'ROOMNO', 'ROOMNAME']) || 'UNKNOWN';
-      const branch = getVal(row, ['GRP', 'BRANCH', 'DEPT', 'SPECIALIZATION']) || 'UNKNOWN';
-      const regNo = getVal(row, ['REGNO', 'HTNO', 'ROLLNO']);
+      const room = getVal(row, ['ROOM', 'ROOMNO', 'ROOMNAME', 'ROOM_NO', 'M1ROOM']) || 'UNKNOWN';
+      const branch = getVal(row, ['GRP', 'BRANCH', 'DEPT', 'SPECIALIZATION', 'BRANCHCODE', 'COURSE', 'PROGRAM', 'PROGRAMME', 'CODE']) || 'UNKNOWN';
+      
+      let regNoStr = '';
+      const minReg = getVal(row, ['MINREGNO']);
+      const maxReg = getVal(row, ['MAXREGNO']);
+      const leMinReg = getVal(row, ['LEMINREGNO']);
+      const leMaxReg = getVal(row, ['LEMAXREGNO']);
+      const count = getVal(row, ['COUNT', 'TOTAL']);
+
+      if (minReg && maxReg && minReg !== '0' && maxReg !== '0') {
+        regNoStr += `${minReg} To ${maxReg}`;
+      } else if (minReg && minReg !== '0') {
+        regNoStr += minReg;
+      }
+      
+      if (leMinReg && leMaxReg && leMinReg !== '0' && leMaxReg !== '0') {
+        if (regNoStr) regNoStr += ',\n';
+        regNoStr += `LE: ${leMinReg} To ${leMaxReg}`;
+      } else if (leMinReg && leMinReg !== '0') {
+        if (regNoStr) regNoStr += ',\n';
+        regNoStr += `LE: ${leMinReg}`;
+      }
+      
+      if (count && count !== '0') {
+        if (regNoStr) regNoStr += ` (${count})`;
+        else regNoStr = `Total: ${count}`;
+      }
+
+      if (!regNoStr) {
+        regNoStr = getVal(row, ['REGNO', 'HTNO', 'ROLLNO', 'REG_NO', 'HT_NO', 'ROLL_NO', 'STUDENTID', 'ID']);
+      }
+      
+      // Fallback: If absolutely no identifiable student info is found, just print the row count so it doesn't vanish
+      if (!regNoStr) {
+        regNoStr = 'Data Present (No Reg/Count)';
+      }
       
       if (!acc[room]) acc[room] = {};
       if (!acc[room][branch]) acc[room][branch] = [];
-      if (regNo) acc[room][branch].push(regNo);
+      if (regNoStr) acc[room][branch].push(regNoStr);
       return acc;
     }, {});
     
@@ -588,7 +622,7 @@ const RoomAbstruct = () => {
                       )}
                       <td className={styles.seqCell}>{rIdx + 1}</td>
                       {row.map((regNo, cIdx) => (
-                        <td key={cIdx}>{regNo}</td>
+                        <td key={cIdx} style={{ whiteSpace: 'pre-line' }}>{regNo}</td>
                       ))}
                     </tr>
                   ))}
